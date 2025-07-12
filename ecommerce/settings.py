@@ -1,5 +1,3 @@
-
-
 from pathlib import Path
 import os
 
@@ -13,7 +11,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,8 +53,6 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
 # Database
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -68,18 +63,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'ecom_service',
-#         'USER': 'ecom_user',
-#         'PASSWORD': 'ecom_pass',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-
 
 
 # Password validation
@@ -115,8 +98,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-#STATIC_URL = 'static/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

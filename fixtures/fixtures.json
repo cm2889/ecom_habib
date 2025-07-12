@@ -3,10 +3,10 @@
         "model": "ecomapp.menulist",
         "pk": 1,
         "fields": {
-            "module_name": "Ecommerce",
-            "menu_name": "Ecom Dashboard",
+            "module_name": "Dashboard",
+            "menu_name": "Dashboard",
             "menu_url": "/backend/dashboard/",
-            "menu_icon": "fa fa-users icon",
+            "menu_icon": "fa fa-dashboard icon",
             "parent_id": 0,
             "is_main_menu": true,
             "is_sub_menu": false,
@@ -23,9 +23,9 @@
         "model": "ecomapp.menulist",
         "pk": 2,
         "fields": {
-            "module_name": "Setting",
-            "menu_name": "City List",
-            "menu_url": "/backend/cities/",
+            "module_name": "Users",
+            "menu_name": "Users",
+            "menu_url": "/backend/users/",
             "menu_icon": "fa fa-users icon",
             "parent_id": 0,
             "is_main_menu": true,
@@ -43,13 +43,13 @@
         "model": "ecomapp.menulist",
         "pk": 3,
         "fields": {
-            "module_name": "Setting",
-            "menu_name": "Company Settings",
-            "menu_url": "/backend/company-setting/",
-            "menu_icon": "fa fa-users icon",
+            "module_name": "Inventory",
+            "menu_name": "Inventory",
+            "menu_url": "/backend/inventory/",
+            "menu_icon": "fa fa-cubes icon",
             "parent_id": 0,
-            "is_main_menu": false,
-            "is_sub_menu": true,
+            "is_main_menu": true,
+            "is_sub_menu": false,
             "is_sub_child_menu": false,
             "created_at": "2025-05-07T15:01:14.353Z",
             "updated_at": "2025-05-07T15:01:14.353Z",
@@ -63,10 +63,10 @@
         "model": "ecomapp.menulist",
         "pk": 4,
         "fields": {
-            "module_name": "Inventory",
-            "menu_name": "Inventory Dashboard",
-            "menu_url": "/backend/inventory-dashboard/",
-            "menu_icon": "fa fa-users icon",
+            "module_name": "Sales",
+            "menu_name": "Sales",
+            "menu_url": "/backend/sales/",
+            "menu_icon": "fa fa-shopping-cart icon",
             "parent_id": 0,
             "is_main_menu": true,
             "is_sub_menu": false,
@@ -83,13 +83,13 @@
         "model": "ecomapp.menulist",
         "pk": 5,
         "fields": {
-            "module_name": "Inventory",
-            "menu_name": "Product Main Category",
-            "menu_url": "/backend/product-main-category-list/",
-            "menu_icon": "fa fa-users icon",
-            "parent_id":4,
-            "is_main_menu": false,
-            "is_sub_menu": true,
+            "module_name": "Marketing",
+            "menu_name": "Marketing",
+            "menu_url": "/backend/marketing/",
+            "menu_icon": "fa fa-bullhorn icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
             "is_sub_child_menu": false,
             "created_at": "2025-05-07T15:01:14.353Z",
             "updated_at": "2025-05-07T15:01:14.353Z",
@@ -103,11 +103,91 @@
         "model": "ecomapp.menulist",
         "pk": 6,
         "fields": {
+            "module_name": "Reports",
+            "menu_name": "Reports",
+            "menu_url": "/backend/reports/",
+            "menu_icon": "fa fa-bar-chart icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 7,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Settings",
+            "menu_url": "/backend/settings/",
+            "menu_icon": "fa fa-cog icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 8,
+        "fields": {
+            "module_name": "FAQ",
+            "menu_name": "FAQ",
+            "menu_url": "/backend/faq/",
+            "menu_icon": "fa fa-question-circle icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 9,
+        "fields": {
+            "module_name": "Contact Us",
+            "menu_name": "Contact Us",
+            "menu_url": "/backend/contact-us/",
+            "menu_icon": "fa fa-envelope icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 10,
+        "fields": {
             "module_name": "Inventory",
-            "menu_name": "Product Sub Category",
-            "menu_url": "/backend/product-sub-category-list/",
-            "menu_icon": "fa fa-users icon",
-            "parent_id":4,
+            "menu_name": "Item and Pricing",
+            "menu_url": "/backend/item-and-pricing/",
+            "menu_icon": "fa fa-tags icon",
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
@@ -119,16 +199,15 @@
             "deleted": false
         }
     },
-
     {
         "model": "ecomapp.menulist",
-        "pk": 7,
+        "pk": 11,
         "fields": {
             "module_name": "Inventory",
-            "menu_name": "Product Child Category",
-            "menu_url": "/backend/product-child-category-list/",
-            "menu_icon": "fa fa-users icon",
-            "parent_id":4,
+            "menu_name": "Inventory Settings",
+            "menu_url": "/backend/inventory-settings/",
+            "menu_icon": "fa fa-cog icon",
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
@@ -139,7 +218,585 @@
             "is_active": true,
             "deleted": false
         }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 12,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Category",
+            "menu_url": "/backend/category/",
+            "menu_icon": "fa fa-list icon",
+            "parent_id": 3,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 13,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Attributes",
+            "menu_url": "/backend/attributes/",
+            "menu_icon": "fa fa-list-alt icon",
+            "parent_id": 3,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 14,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Inventory Info",
+            "menu_url": "/backend/inventory-info/",
+            "menu_icon": "fa fa-info-circle icon",
+            "parent_id": 3,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 15,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Products",
+            "menu_url": "/backend/products/",
+            "menu_icon": "fa fa-cube icon",
+            "parent_id": 10,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 16,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Product Discount",
+            "menu_url": "/backend/product-discount/",
+            "menu_icon": "fa fa-percent icon",
+            "parent_id": 10,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 17,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Brand",
+            "menu_url": "/backend/brand/",
+            "menu_icon": "fa fa-trademark icon",
+            "parent_id": 11,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 18,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Sub Category",
+            "menu_url": "/backend/sub-category/",
+            "menu_icon": "fa fa-list-ol icon",
+            "parent_id": 12,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 19,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Reviews",
+            "menu_url": "/backend/reviews/",
+            "menu_icon": "fa fa-star icon",
+            "parent_id": 14,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 20,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Questions",
+            "menu_url": "/backend/questions/",
+            "menu_icon": "fa fa-question icon",
+            "parent_id": 19,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 21,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Customer",
+            "menu_url": "/backend/customer/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 22,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Orders",
+            "menu_url": "/backend/orders/",
+            "menu_icon": "fa fa-shopping-bag icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 23,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Payments",
+            "menu_url": "/backend/payments/",
+            "menu_icon": "fa fa-credit-card icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 24,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Coupon",
+            "menu_url": "/backend/coupon/",
+            "menu_icon": "fa fa-ticket icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 25,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Settings",
+            "menu_url": "/backend/sales-settings/",
+            "menu_icon": "fa fa-cog icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 26,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Shipping Area",
+            "menu_url": "/backend/shipping-area/",
+            "menu_icon": "fa fa-truck icon",
+            "parent_id": 25,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 27,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Order Status",
+            "menu_url": "/backend/order-status/",
+            "menu_icon": "fa fa-list-alt icon",
+            "parent_id": 25,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 28,
+        "fields": {
+            "module_name": "Marketing",
+            "menu_name": "Newsletter",
+            "menu_url": "/backend/newsletter/",
+            "menu_icon": "fa fa-newspaper-o icon",
+            "parent_id": 5,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 29,
+        "fields": {
+            "module_name": "Reports",
+            "menu_name": "Sales Report",
+            "menu_url": "/backend/sales-report/",
+            "menu_icon": "fa fa-line-chart icon",
+            "parent_id": 6,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 30,
+        "fields": {
+            "module_name": "Reports",
+            "menu_name": "Item wise Report",
+            "menu_url": "/backend/item-wise-report/",
+            "menu_icon": "fa fa-list icon",
+            "parent_id": 6,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 31,
+        "fields": {
+            "module_name": "Reports",
+            "menu_name": "Top Item sales Report",
+            "menu_url": "/backend/top-item-sales-report/",
+            "menu_icon": "fa fa-star icon",
+            "parent_id": 6,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 32,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Website Setting",
+            "menu_url": "/backend/website-setting/",
+            "menu_icon": "fa fa-globe icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 33,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Email Configuration",
+            "menu_url": "/backend/email-configuration/",
+            "menu_icon": "fa fa-envelope icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 34,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "SMS Configuration",
+            "menu_url": "/backend/sms-configuration/",
+            "menu_icon": "fa fa-mobile icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 35,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Payment Settings",
+            "menu_url": "/backend/payment-settings/",
+            "menu_icon": "fa fa-credit-card icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 36,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Email Templates",
+            "menu_url": "/backend/email-templates/",
+            "menu_icon": "fa fa-envelope-o icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 37,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "SMS Templates",
+            "menu_url": "/backend/sms-templates/",
+            "menu_icon": "fa fa-comment-o icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 38,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "SEO",
+            "menu_url": "/backend/seo/",
+            "menu_icon": "fa fa-search icon",
+            "parent_id": 7,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 39,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Website SEO",
+            "menu_url": "/backend/website-seo/",
+            "menu_icon": "fa fa-globe icon",
+            "parent_id": 38,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 40,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Page wise SEO",
+            "menu_url": "/backend/page-wise-seo/",
+            "menu_icon": "fa fa-file-text icon",
+            "parent_id": 38,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
     }
-    
-
 ]

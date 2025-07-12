@@ -1,7 +1,5 @@
 from ecomapp.models import UserPermission
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
-from django.contrib import messages
+
 
 def checkUserPermission(request, access_type, menu_url):
     try:
@@ -12,15 +10,16 @@ def checkUserPermission(request, access_type, menu_url):
             "can_delete": "can_delete",
         }
 
-        if request.user.is_superuser: return True
+        if request.user.is_superuser:
+            return True
 
         check_user_permission = UserPermission.objects.filter(
             user_id=request.user.id, is_active=True, **{user_permissions[access_type]: True}, menu__menu_url=menu_url,
         )
- 
-        if check_user_permission: return True
-        else: return False
-    except:
+
+        if check_user_permission:
+            return True
+        else:
+            return False
+    except Exception:
         return False
-
-
