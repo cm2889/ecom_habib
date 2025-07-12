@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %} Company {% endblock %}
+
+{% block content %}
+    <section class="customer-list-section">
+        <div class="container">
+            <div class="content">
+
+                <div class="title-box">
+                    <div class="page-title">
+                        <h3>Add New Company</h3>
+                    </div>
+                    <div class="breadcrumbs">
+                        <ul class="breadcrumbs-list">
+                            <li><a href="/"><span><img src="/static/images/icons/Home.svg" alt="more"></span>Home</a></li>
+                            <li><a href="{% url 'company_setting' %}">Company List</a></li>
+                            <li><a href="#">Add New Company</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+
+                <div class="form-area-content">
+                    <div class="form-inner-content">
+                        
+                        <form method="post">
+                             <!-- Displaying messages (if any) -->
+                                {% if messages %}
+                                    <div class="alert alert-info" role="alert" style="color:red">
+                                        {% for message in messages %}
+                                            <p>{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-field">
+                                    <label for="first_name">First Name*</label>
+                                    <input type="text" name="first_name" id="first_name" required>
+                                </div>
+                                <div class="input-field">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" name="last_name" id="last_name" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-field">
+                                    <label for="email">Email*</label>
+                                    <input type="email" name="email" id="email" required>
+                                </div>
+                                <div class="input-field">
+                                    <label for="contact_number">Contact Number*</label>
+                                    <input type="text" name="contact_number" id="contact_number" required>
+                                </div>
+                                
+                                
+                            </div>
+                             <div class="form-group">
+                                <div class="input-field">
+                                    <label for="doctor">City</label>
+                                    <div class="select2-box">
+                                        <select name="city" id="doctor" class="form-control select2-single" required>
+                                            <option value="">Select City</option>
+                                            {% for city in cities %}
+                                                <option value="{{ city.id }}">{{ city.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="doctor_type">Doctor Types</label>
+                                    <div class="select2-box">
+                                        <select name="doctor_type" id="doctor_type" class="form-control select2-single" required>
+                                            <option value="">Select Doctor Types</option>
+                                            {% for doctor_type in doctor_types %}
+                                                <option value="{{ doctor_type.id }}">{{ doctor_type.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                             <div class="form-group">
+                               
+                                <div class="input-field">
+                                    <label for="date_of_birth">Date of Birth</label>
+                                    <input type="date" name="date_of_birth" id="date_of_birth" required>
+                                </div>
+
+                                <div class="input-field">
+                                    <label for="doctor_id_number">Doctor Id Number</label>
+                                    <input type="text" name="doctor_id_number" id="doctor_id_number" >
+                                </div>
+                                
+                            </div>
+
+                             <div class="form-group">
+                                <div class="input-field">
+                                    <label for="specialization">Specialization</label>
+                                    <input type="text" name="specialization" id="specialization" >
+                                </div>
+                                <div class="input-field">
+                                    <label for="qualification">Qualification</label>
+                                    <input type="text" name="qualification" id="qualification" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                
+                                <div class="input-field">
+                                    <label for="gender">Gender</label>
+                                    <div class="select2-box">
+                                        <select name="gender" id="gender" class="form-control select2-single">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="religion">Religion</label>
+                                    <div class="select2-box">
+                                        <select name="religion" id="religion" class="form-control select2-single">
+                                            <option value="">Select Religion</option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Hindu">Hindu</option>
+                                            <option value="Christian">Christian</option>
+                                            <option value="Buddha">Buddha</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <div class="input-field input-photo">
+                                    <label for="doctor_image">Image</label>
+                                    <input type="file" name="doctor_image" id="doctor_image" >
+                                </div>  
+                                <div class="input-field">
+                                    <label for="years_of_experience">No of Year of Experience</label>
+                                    <input type="text" name="years_of_experience" id="years_of_experience" >
+                                </div>                              
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <div class="form-button">
+                                    <input type="submit" class="button blue-button" value="Save">
+                                    <a href="" class="button primary-button cancle-button">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('.select2-single').select2();
+});
+</script>
+{% endblock %}

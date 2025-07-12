@@ -1,0 +1,342 @@
+[
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 1,
+    "fields": {
+      "main_category": 1,
+      "sub_cat_name": "Smartphones",
+      "sub_cat_slug": "smartphones",
+      "sub_cat_image": "ecommerce/sub_category_images/smartphones.jpg",
+      "description": "All types of smartphones and mobile phones",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T10:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 2,
+    "fields": {
+      "main_category": 1,
+      "sub_cat_name": "Laptops",
+      "sub_cat_slug": "laptops",
+      "sub_cat_image": "ecommerce/sub_category_images/laptops.jpg",
+      "description": "All types of laptops and notebooks",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T10:15:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 3,
+    "fields": {
+      "main_category": 2,
+      "sub_cat_name": "T-Shirts",
+      "sub_cat_slug": "t-shirts",
+      "sub_cat_image": "ecommerce/sub_category_images/t-shirts.jpg",
+      "description": "Men's and women's t-shirts",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T11:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 4,
+    "fields": {
+      "main_category": 3,
+      "sub_cat_name": "Kitchen Appliances",
+      "sub_cat_slug": "kitchen-appliances",
+      "sub_cat_image": "ecommerce/sub_category_images/kitchen-appliances.jpg",
+      "description": "Modern kitchen appliances and tools",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T12:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 5,
+    "fields": {
+      "main_category": 3,
+      "sub_cat_name": "Furniture",
+      "sub_cat_slug": "furniture",
+      "sub_cat_image": "ecommerce/sub_category_images/furniture.jpg",
+      "description": "Home and office furniture",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T12:30:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 6,
+    "fields": {
+      "main_category": 4,
+      "sub_cat_name": "Skincare",
+      "sub_cat_slug": "skincare",
+      "sub_cat_image": "ecommerce/sub_category_images/skincare.jpg",
+      "description": "Creams, lotions, and skincare kits",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T13:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 7,
+    "fields": {
+      "main_category": 4,
+      "sub_cat_name": "Hair Care",
+      "sub_cat_slug": "hair-care",
+      "sub_cat_image": "ecommerce/sub_category_images/hair-care.jpg",
+      "description": "Shampoos, conditioners and oils",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T13:20:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 8,
+    "fields": {
+      "main_category": 5,
+      "sub_cat_name": "Fiction",
+      "sub_cat_slug": "fiction",
+      "sub_cat_image": "ecommerce/sub_category_images/fiction.jpg",
+      "description": "Novels and literary fiction",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T13:40:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 9,
+    "fields": {
+      "main_category": 5,
+      "sub_cat_name": "Academic Books",
+      "sub_cat_slug": "academic-books",
+      "sub_cat_image": "ecommerce/sub_category_images/academic-books.jpg",
+      "description": "Books for students and professionals",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T14:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 10,
+    "fields": {
+      "main_category": 6,
+      "sub_cat_name": "Board Games",
+      "sub_cat_slug": "board-games",
+      "sub_cat_image": "ecommerce/sub_category_images/board-games.jpg",
+      "description": "Indoor and tabletop games",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T14:20:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 11,
+    "fields": {
+      "main_category": 6,
+      "sub_cat_name": "Action Figures",
+      "sub_cat_slug": "action-figures",
+      "sub_cat_image": "ecommerce/sub_category_images/action-figures.jpg",
+      "description": "Collectibles and kids' action toys",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T14:40:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 12,
+    "fields": {
+      "main_category": 7,
+      "sub_cat_name": "Camping Gear",
+      "sub_cat_slug": "camping-gear",
+      "sub_cat_image": "ecommerce/sub_category_images/camping-gear.jpg",
+      "description": "Tents, sleeping bags, and more",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T15:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 13,
+    "fields": {
+      "main_category": 7,
+      "sub_cat_name": "Fitness Equipment",
+      "sub_cat_slug": "fitness-equipment",
+      "sub_cat_image": "ecommerce/sub_category_images/fitness-equipment.jpg",
+      "description": "Workout and gym accessories",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T15:20:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 14,
+    "fields": {
+      "main_category": 8,
+      "sub_cat_name": "Car Accessories",
+      "sub_cat_slug": "car-accessories",
+      "sub_cat_image": "ecommerce/sub_category_images/car-accessories.jpg",
+      "description": "Interior and exterior accessories",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T15:40:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 15,
+    "fields": {
+      "main_category": 9,
+      "sub_cat_name": "Pet Food",
+      "sub_cat_slug": "pet-food",
+      "sub_cat_image": "ecommerce/sub_category_images/pet-food.jpg",
+      "description": "Dog and cat food",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T16:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 16,
+    "fields": {
+      "main_category": 9,
+      "sub_cat_name": "Pet Accessories",
+      "sub_cat_slug": "pet-accessories",
+      "sub_cat_image": "ecommerce/sub_category_images/pet-accessories.jpg",
+      "description": "Collars, beds, and toys",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T16:20:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 17,
+    "fields": {
+      "main_category": 10,
+      "sub_cat_name": "Vegetables",
+      "sub_cat_slug": "vegetables",
+      "sub_cat_image": "ecommerce/sub_category_images/vegetables.jpg",
+      "description": "Fresh organic vegetables",
+      "sub_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-05T16:40:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 18,
+    "fields": {
+      "main_category": 10,
+      "sub_cat_name": "Beverages",
+      "sub_cat_slug": "beverages",
+      "sub_cat_image": "ecommerce/sub_category_images/beverages.jpg",
+      "description": "Juices, soft drinks, and water",
+      "sub_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-05T17:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 19,
+    "fields": {
+      "main_category": 2,
+      "sub_cat_name": "Jeans",
+      "sub_cat_slug": "jeans",
+      "sub_cat_image": "ecommerce/sub_category_images/jeans.jpg",
+      "description": "Denim and casual jeans",
+      "sub_cat_ordering": 3,
+      "created_by": 1,
+      "created_at": "2025-07-05T17:15:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productsubcategory",
+    "pk": 20,
+    "fields": {
+      "main_category": 1,
+      "sub_cat_name": "Mobile Accessories",
+      "sub_cat_slug": "mobile-accessories",
+      "sub_cat_image": "ecommerce/sub_category_images/mobile-accessories.jpg",
+      "description": "Chargers, cases, and gadgets",
+      "sub_cat_ordering": 3,
+      "created_by": 1,
+      "created_at": "2025-07-05T17:30:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  }
+]

@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+<span> {% block title %}Sub category Details | Ecommerce{% endblock %} </span>
+<div>
+  {% block content %}
+  <section class="customer-list-section">
+    <div class="container">
+      <div class="content">
+        <div class="title-box">
+          <div class="page-title">
+            <h3>Sub Category Details</h3>
+          </div>
+          <div class="breadcrumbs">
+            <ul class="breadcrumbs-list">
+              <li>
+                <a href="/backend/dashboard/">
+                  <span
+                    ><img
+                      src="/static/images/icons/Home.svg"
+                      alt="home" /></span
+                  >Home
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'product_sub_category_list' %}"
+                  >Sub Category List</a
+                >
+              </li>
+              <li><a href="#">Category Details</a></li>
+            </ul>
+          </div>
+          <div class="top-button">
+            <div class="button-box">
+              <a
+                class="button primary-button"
+                href="{% url 'add_product_sub_category' %}"
+              >
+                <span
+                  ><img src="/static/images/icons/add.svg" alt="add"
+                /></span>
+                Add New
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Details Box -->
+        <div class="view_box">
+          <div class="details-content">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="details-info">
+                  <h4>{{ sub_category_details.main_cat_name }}</h4>
+
+                  <div class="info-row">
+                    <div class="info-label">Description:</div>
+                    <div class="info-value">
+                      {% if sub_category_details.description %}
+                      <span> {{ sub_category_details.description }} </span>
+                      {% else %}
+                      <span class="text-muted">No description available</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="info-row">
+                    <div class="info-label">
+                      {{ sub_category_details.sub_cat_ordering }}
+                    </div>
+                  </div>
+
+                  <div class="info-row">
+                    <div class="info-label">Status:</div>
+                    <div class="info-value">
+                      {% if sub_category_details.is_active %}
+                      <span class="active"
+                        ><img
+                          src="/static/images/icons/ellipse-active.svg"
+                          alt="active"
+                        />
+                        Active</span
+                      >
+                      {% else %}
+                      <span class="inactive"
+                        ><img
+                          src="/static/images/icons/ellipse-inactive.svg"
+                          alt="inactive"
+                        />
+                        Inactive</span
+                      >
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="info-row">
+                    <div class="info-label">Created By:</div>
+                    <div class="info-value">
+                      {{ sub_category_details.created_by }}
+                    </div>
+                  </div>
+
+                  <div class="info-row">
+                    <div class="info-label">Created At:</div>
+                    <div class="info-value">
+                      {{ sub_category_details.created_at|date:"d-M-Y H:i" }}
+                    </div>
+                  </div>
+
+                  {% if sub_category_details.updated_by %}
+                  <div class="info-row">
+                    <div class="info-label">Updated By:</div>
+                    <div class="info-value">
+                      {{ sub_category_details.updated_by }}
+                    </div>
+                  </div>
+                  {% endif %} {% if sub_category_details.updated_at %}
+                  <div class="info-row">
+                    <div class="info-label">Updated At:</div>
+                    <div class="info-value">
+                      {{ sub_category_details.updated_at|date:"d-M-Y H:i" }}
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="category-image">
+                  {% if sub_category_details.sub_cat_image %}
+                  <img
+                    src="{{ sub_category_details.sub_cat_image.url }}"
+                    alt="{{ sub_category_details.main_cat_name }}"
+                    class="img-fluid"
+                  />
+                  {% else %}
+                  <div class="no-image">No image available</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .info-row {
+      margin-bottom: 15px;
+      display: flex;
+    }
+
+    .info-label {
+      font-weight: bold;
+      width: 150px;
+      color: #555;
+      font-family: "MontserratMedium";
+    }
+
+    .info-value {
+      flex: 1;
+    }
+
+    .category-image {
+      border: 1px solid #eee;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .category-image img {
+      max-height: 200px;
+      object-fit: contain;
+    }
+
+    .no-image {
+      height: 200px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .red-button {
+      background: #dc3545;
+      color: #fff;
+      border: 1px solid #dc3545;
+    }
+
+    .details-info h4 {
+      margin-bottom: 20px;
+      font-family: "MontserratSemiBold";
+    }
+  </style>
+  {% endblock %}
+</div>

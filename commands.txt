@@ -1,0 +1,11 @@
+python manage.py dumpdata hr.MenuList > fixtures.json
+
+python manage.py loaddata fixtures.json
+
+python3 manage.py loaddata fixtures.json
+
+"""
+python manage.py loaddata product_categories.json
+
+
+""" 

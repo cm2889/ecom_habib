@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">403 Forbidden</h1>
+          <p class="card-text">You do not have permission to access this resource.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.container {
+  padding-top: 60px;
+}
+.card {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.card-title {
+  font-size: 2.5rem;
+}
+.card-text {
+  font-size: 1.2rem;
+}
+@media screen and (max-width: 767px) {
+  .card-title {
+    font-size: 2rem;
+  }
+  .card-text {
+    font-size: 1rem;
+  }
+}
+</style>
+{% endblock %}

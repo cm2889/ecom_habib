@@ -1,0 +1,282 @@
+[
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 1,
+    "fields": {
+      "main_cat_name": "Electronics",
+      "cat_slug": "electronics",
+      "cat_image": "ecommerce/category_images/electronics.jpg",
+      "description": "All electronic devices and gadgets",
+      "cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-01T10:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 2,
+    "fields": {
+      "main_cat_name": "Clothing",
+      "cat_slug": "clothing",
+      "cat_image": "ecommerce/category_images/clothing.jpg",
+      "description": "Fashion items and apparel",
+      "cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-01T10:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 3,
+    "fields": {
+      "main_cat_name": "Home & Kitchen",
+      "cat_slug": "home-kitchen",
+      "cat_image": "ecommerce/category_images/home-kitchen.jpg",
+      "description": "Household items and kitchen appliances",
+      "cat_ordering": 3,
+      "created_by": 1,
+      "created_at": "2025-07-01T11:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 4,
+    "fields": {
+      "main_cat_name": "Beauty & Health",
+      "cat_slug": "beauty-health",
+      "cat_image": "ecommerce/category_images/beauty-health.jpg",
+      "description": "Beauty products and health care items",
+      "cat_ordering": 4,
+      "created_by": 1,
+      "created_at": "2025-07-01T11:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 5,
+    "fields": {
+      "main_cat_name": "Books",
+      "cat_slug": "books",
+      "cat_image": "ecommerce/category_images/books.jpg",
+      "description": "Books across various genres",
+      "cat_ordering": 5,
+      "created_by": 1,
+      "created_at": "2025-07-01T12:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 6,
+    "fields": {
+      "main_cat_name": "Toys & Games",
+      "cat_slug": "toys-games",
+      "cat_image": "ecommerce/category_images/toys-games.jpg",
+      "description": "Toys, games, and fun items for kids",
+      "cat_ordering": 6,
+      "created_by": 1,
+      "created_at": "2025-07-01T12:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 7,
+    "fields": {
+      "main_cat_name": "Sports & Outdoors",
+      "cat_slug": "sports-outdoors",
+      "cat_image": "ecommerce/category_images/sports-outdoors.jpg",
+      "description": "Sports gear and outdoor equipment",
+      "cat_ordering": 7,
+      "created_by": 1,
+      "created_at": "2025-07-01T13:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 8,
+    "fields": {
+      "main_cat_name": "Automotive",
+      "cat_slug": "automotive",
+      "cat_image": "ecommerce/category_images/automotive.jpg",
+      "description": "Car parts and accessories",
+      "cat_ordering": 8,
+      "created_by": 1,
+      "created_at": "2025-07-01T13:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 9,
+    "fields": {
+      "main_cat_name": "Pet Supplies",
+      "cat_slug": "pet-supplies",
+      "cat_image": "ecommerce/category_images/pet-supplies.jpg",
+      "description": "Pet food and accessories",
+      "cat_ordering": 9,
+      "created_by": 1,
+      "created_at": "2025-07-01T14:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 10,
+    "fields": {
+      "main_cat_name": "Groceries",
+      "cat_slug": "groceries",
+      "cat_image": "ecommerce/category_images/groceries.jpg",
+      "description": "Daily groceries and essentials",
+      "cat_ordering": 10,
+      "created_by": 1,
+      "created_at": "2025-07-01T14:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 11,
+    "fields": {
+      "main_cat_name": "Furniture",
+      "cat_slug": "furniture",
+      "cat_image": "ecommerce/category_images/furniture.jpg",
+      "description": "Home and office furniture",
+      "cat_ordering": 11,
+      "created_by": 1,
+      "created_at": "2025-07-01T15:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 12,
+    "fields": {
+      "main_cat_name": "Baby Products",
+      "cat_slug": "baby-products",
+      "cat_image": "ecommerce/category_images/baby-products.jpg",
+      "description": "Baby care essentials and toys",
+      "cat_ordering": 12,
+      "created_by": 1,
+      "created_at": "2025-07-01T15:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 13,
+    "fields": {
+      "main_cat_name": "Mobile Phones",
+      "cat_slug": "mobile-phones",
+      "cat_image": "ecommerce/category_images/mobile-phones.jpg",
+      "description": "Smartphones and accessories",
+      "cat_ordering": 13,
+      "created_by": 1,
+      "created_at": "2025-07-01T16:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 14,
+    "fields": {
+      "main_cat_name": "Computers",
+      "cat_slug": "computers",
+      "cat_image": "ecommerce/category_images/computers.jpg",
+      "description": "Laptops, desktops, and components",
+      "cat_ordering": 14,
+      "created_by": 1,
+      "created_at": "2025-07-01T16:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 15,
+    "fields": {
+      "main_cat_name": "Watches",
+      "cat_slug": "watches",
+      "cat_image": "ecommerce/category_images/watches.jpg",
+      "description": "Wristwatches and smartwatches",
+      "cat_ordering": 15,
+      "created_by": 1,
+      "created_at": "2025-07-01T17:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 16,
+    "fields": {
+      "main_cat_name": "Shoes",
+      "cat_slug": "shoes",
+      "cat_image": "ecommerce/category_images/shoes.jpg",
+      "description": "Footwear for men, women, and kids",
+      "cat_ordering": 16,
+      "created_by": 1,
+      "created_at": "2025-07-01T17:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 17,
+    "fields": {
+      "main_cat_name": "Accessories",
+      "cat_slug": "accessories",
+      "cat_image": "ecommerce/category_images/accessories.jpg",
+      "description": "Fashion and tech accessories",
+      "cat_ordering": 17,
+      "created_by": 1,
+      "created_at": "2025-07-01T18:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 18,
+    "fields": {
+      "main_cat_name": "Stationery",
+      "cat_slug": "stationery",
+      "cat_image": "ecommerce/category_images/stationery.jpg",
+      "description": "Office and school supplies",
+      "cat_ordering": 18,
+      "created_by": 1,
+      "created_at": "2025-07-01T18:30:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 19,
+    "fields": {
+      "main_cat_name": "Gaming",
+      "cat_slug": "gaming",
+      "cat_image": "ecommerce/category_images/gaming.jpg",
+      "description": "Gaming consoles and accessories",
+      "cat_ordering": 19,
+      "created_by": 1,
+      "created_at": "2025-07-01T19:00:00Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productmaincategory",
+    "pk": 20,
+    "fields": {
+      "main_cat_name": "Musical Instruments",
+      "cat_slug": "musical-instruments",
+      "cat_image": "ecommerce/category_images/musical-instruments.jpg",
+      "description": "Guitars, keyboards, and more",
+      "cat_ordering": 20,
+      "created_by": 1,
+      "created_at": "2025-07-01T19:30:00Z",
+      "is_active": true
+    }
+  }
+]

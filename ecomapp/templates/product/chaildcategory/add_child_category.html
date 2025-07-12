@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Add Category | Ecommerce{% endblock %}
+{% block content %}
+<section class="customer-list-section">
+    <div class="container">
+      <div class="content">
+        <div class="title-box">
+          <div class="page-title">
+            <h3>Add New Child Category</h3>
+          </div>
+          <div class="breadcrumbs">
+            <ul class="breadcrumbs-list">
+              <li>
+                <a href="/backend/dashboard/">
+                  <span
+                    ><img
+                      src="/static/images/icons/Home.svg"
+                      alt="home" /></span
+                  >Home
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'product_child_category_list' %}"
+                  >Child Category List</a
+                >
+              </li>
+              <li><a href="#">Add New Child Category</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-area-content">
+          <div class="form-inner-content">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %} {% if messages %}
+              <div class="alert alert-info" role="alert" style="color: red">
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+              
+              <!-- Sub Category Selection --> 
+              <div class="form-group">
+                <div class="input-field">
+                  <label for="sub_cate_name">Sub Category*</label>
+                  <select name="sub_cate_name" id="sub_cate_name" required>
+                      <option value="">Select Sub Category</option>
+                      {% for cat in opt_sub_category %}
+                          <option value="{{ cat.id }}">{{ cat.sub_cat_name }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+                
+                <!-- Child Category Name -->
+                <div class="input-field">
+                  <label for="id_child_cat_name">Child Category Name*</label>
+                  <input type="text" name="child_cat_name" id="id_child_cat_name" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-field-full">
+                  <label for="id_cat_slug">Category Slug</label>
+                  {{ form.cat_slug }}
+                  <small class="form-text text-muted">Leave empty to auto-generate from name</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-field-full input-photo">
+                  <label for="id_cat_image">Image</label>
+                  <div class="file-upload">
+                    {{ form.cat_image }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-field-full">
+                  <label for="id_description">Description</label>
+                  {{ form.description }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-field status-box">
+                  <label for="id_is_active">Status</label>
+                  {{ form.is_active }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-button">
+                  <button type="submit" class="button blue-button">Save</button>
+                  <a href="{% url 'product_main_category_list' %}" class="button primary-button cancle-button" >Cancel</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+

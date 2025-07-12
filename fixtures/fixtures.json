@@ -1,0 +1,145 @@
+[
+    {
+        "model": "ecomapp.menulist",
+        "pk": 1,
+        "fields": {
+            "module_name": "Ecommerce",
+            "menu_name": "Ecom Dashboard",
+            "menu_url": "/backend/dashboard/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 2,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "City List",
+            "menu_url": "/backend/cities/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 3,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "Company Settings",
+            "menu_url": "/backend/company-setting/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 0,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 4,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Inventory Dashboard",
+            "menu_url": "/backend/inventory-dashboard/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 5,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Product Main Category",
+            "menu_url": "/backend/product-main-category-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id":4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "ecomapp.menulist",
+        "pk": 6,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Product Sub Category",
+            "menu_url": "/backend/product-sub-category-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id":4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+
+    {
+        "model": "ecomapp.menulist",
+        "pk": 7,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Product Child Category",
+            "menu_url": "/backend/product-child-category-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id":4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    }
+    
+
+]

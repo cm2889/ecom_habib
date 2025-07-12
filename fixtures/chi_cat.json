@@ -1,0 +1,172 @@
+[
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 1,
+    "fields": {
+      "sub_category": 1,
+      "child_cat_name": "Android Phones",
+      "child_cat_slug": "android-phones",
+      "child_cat_image": "ecommerce/child_category_images/android-phones.jpg",
+      "description": "Smartphones running Android OS",
+      "child_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-06T10:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 2,
+    "fields": {
+      "sub_category": 1,
+      "child_cat_name": "iPhones",
+      "child_cat_slug": "iphones",
+      "child_cat_image": "ecommerce/child_category_images/iphones.jpg",
+      "description": "Apple smartphones",
+      "child_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-06T10:15:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 3,
+    "fields": {
+      "sub_category": 2,
+      "child_cat_name": "Gaming Laptops",
+      "child_cat_slug": "gaming-laptops",
+      "child_cat_image": "ecommerce/child_category_images/gaming-laptops.jpg",
+      "description": "High-performance laptops for gaming",
+      "child_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-06T10:30:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 4,
+    "fields": {
+      "sub_category": 2,
+      "child_cat_name": "Ultrabooks",
+      "child_cat_slug": "ultrabooks",
+      "child_cat_image": "ecommerce/child_category_images/ultrabooks.jpg",
+      "description": "Lightweight and powerful laptops",
+      "child_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-06T10:45:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 5,
+    "fields": {
+      "sub_category": 3,
+      "child_cat_name": "Men's T-Shirts",
+      "child_cat_slug": "mens-t-shirts",
+      "child_cat_image": "ecommerce/child_category_images/mens-t-shirts.jpg",
+      "description": "Casual and formal t-shirts for men",
+      "child_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-06T11:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 6,
+    "fields": {
+      "sub_category": 3,
+      "child_cat_name": "Women's T-Shirts",
+      "child_cat_slug": "womens-t-shirts",
+      "child_cat_image": "ecommerce/child_category_images/womens-t-shirts.jpg",
+      "description": "Trendy t-shirts for women",
+      "child_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-06T11:15:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 7,
+    "fields": {
+      "sub_category": 4,
+      "child_cat_name": "Microwaves",
+      "child_cat_slug": "microwaves",
+      "child_cat_image": "ecommerce/child_category_images/microwaves.jpg",
+      "description": "Microwave ovens and related appliances",
+      "child_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-06T11:30:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 8,
+    "fields": {
+      "sub_category": 4,
+      "child_cat_name": "Blenders",
+      "child_cat_slug": "blenders",
+      "child_cat_image": "ecommerce/child_category_images/blenders.jpg",
+      "description": "Blenders and juicers for kitchen use",
+      "child_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-06T11:45:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 9,
+    "fields": {
+      "sub_category": 5,
+      "child_cat_name": "Sofas",
+      "child_cat_slug": "sofas",
+      "child_cat_image": "ecommerce/child_category_images/sofas.jpg",
+      "description": "Living room sofas and couches",
+      "child_cat_ordering": 1,
+      "created_by": 1,
+      "created_at": "2025-07-06T12:00:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "ecomapp.productchildcategory",
+    "pk": 10,
+    "fields": {
+      "sub_category": 5,
+      "child_cat_name": "Office Desks",
+      "child_cat_slug": "office-desks",
+      "child_cat_image": "ecommerce/child_category_images/office-desks.jpg",
+      "description": "Desks and workstations for office use",
+      "child_cat_ordering": 2,
+      "created_by": 1,
+      "created_at": "2025-07-06T12:15:00Z",
+      "updated_by": null,
+      "updated_at": null,
+      "is_active": true
+    }
+  }
+]
