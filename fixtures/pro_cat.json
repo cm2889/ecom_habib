@@ -1,6 +1,6 @@
 [
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 1,
     "fields": {
       "main_cat_name": "Electronics",
@@ -14,7 +14,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 2,
     "fields": {
       "main_cat_name": "Clothing",
@@ -28,7 +28,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 3,
     "fields": {
       "main_cat_name": "Home & Kitchen",
@@ -42,7 +42,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 4,
     "fields": {
       "main_cat_name": "Beauty & Health",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 5,
     "fields": {
       "main_cat_name": "Books",
@@ -70,7 +70,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 6,
     "fields": {
       "main_cat_name": "Toys & Games",
@@ -84,7 +84,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 7,
     "fields": {
       "main_cat_name": "Sports & Outdoors",
@@ -98,7 +98,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 8,
     "fields": {
       "main_cat_name": "Automotive",
@@ -112,7 +112,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 9,
     "fields": {
       "main_cat_name": "Pet Supplies",
@@ -126,7 +126,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 10,
     "fields": {
       "main_cat_name": "Groceries",
@@ -140,7 +140,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 11,
     "fields": {
       "main_cat_name": "Furniture",
@@ -154,7 +154,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 12,
     "fields": {
       "main_cat_name": "Baby Products",
@@ -168,7 +168,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 13,
     "fields": {
       "main_cat_name": "Mobile Phones",
@@ -182,7 +182,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 14,
     "fields": {
       "main_cat_name": "Computers",
@@ -196,7 +196,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 15,
     "fields": {
       "main_cat_name": "Watches",
@@ -210,7 +210,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 16,
     "fields": {
       "main_cat_name": "Shoes",
@@ -224,7 +224,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 17,
     "fields": {
       "main_cat_name": "Accessories",
@@ -238,7 +238,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 18,
     "fields": {
       "main_cat_name": "Stationery",
@@ -252,7 +252,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 19,
     "fields": {
       "main_cat_name": "Gaming",
@@ -266,7 +266,7 @@
     }
   },
   {
-    "model": "ecomapp.productmaincategory",
+    "model": "backend.productmaincategory",
     "pk": 20,
     "fields": {
       "main_cat_name": "Musical Instruments",

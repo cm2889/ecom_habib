@@ -1,4 +1,4 @@
-from ecomapp.models import UserPermission
+from backend.models import UserPermission
 
 
 def menu_items(request):

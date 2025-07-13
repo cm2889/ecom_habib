@@ -1,6 +1,6 @@
 [
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 1,
     "fields": {
       "main_category": 1,
@@ -17,7 +17,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 2,
     "fields": {
       "main_category": 1,
@@ -34,7 +34,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 3,
     "fields": {
       "main_category": 2,
@@ -51,7 +51,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 4,
     "fields": {
       "main_category": 3,
@@ -68,7 +68,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 5,
     "fields": {
       "main_category": 3,
@@ -85,7 +85,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 6,
     "fields": {
       "main_category": 4,
@@ -102,7 +102,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 7,
     "fields": {
       "main_category": 4,
@@ -119,7 +119,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 8,
     "fields": {
       "main_category": 5,
@@ -136,7 +136,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 9,
     "fields": {
       "main_category": 5,
@@ -153,7 +153,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 10,
     "fields": {
       "main_category": 6,
@@ -170,7 +170,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 11,
     "fields": {
       "main_category": 6,
@@ -187,7 +187,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 12,
     "fields": {
       "main_category": 7,
@@ -204,7 +204,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 13,
     "fields": {
       "main_category": 7,
@@ -221,7 +221,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 14,
     "fields": {
       "main_category": 8,
@@ -238,7 +238,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 15,
     "fields": {
       "main_category": 9,
@@ -255,7 +255,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 16,
     "fields": {
       "main_category": 9,
@@ -272,7 +272,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 17,
     "fields": {
       "main_category": 10,
@@ -289,7 +289,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 18,
     "fields": {
       "main_category": 10,
@@ -306,7 +306,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 19,
     "fields": {
       "main_category": 2,
@@ -323,7 +323,7 @@
     }
   },
   {
-    "model": "ecomapp.productsubcategory",
+    "model": "backend.productsubcategory",
     "pk": 20,
     "fields": {
       "main_category": 1,

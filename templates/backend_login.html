@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme=light>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/css/login/style.css">
+    <link rel="stylesheet" href="/static/css/login/login.css">
+    <link rel="shortcut icon" href="/static/assets/images/favicon.png" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        <nav class="navbar col-lg-12 col-12 p-2 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <a class="navbar-brand brand-logo me-5" href="#">Admin</a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end"></div>
+        </nav>
+
+        <div class="login-box">
+            <div class="login-container">
+                <h2>Admin Login</h2>
+
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors|striptags }}
+                    </div>
+                {% endif %}
+                
+                <form id="adminLoginForm" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <small class="text-danger">{{ form.username.errors.as_text }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <small class="text-danger">{{ form.password.errors.as_text }}</small>
+                        {% endif %}
+                    </div>
+                    {% comment %} <div class="form-group">
+                        <p class="keepme-message">
+                            <input type="checkbox" id="keepme" name="keepme">
+                            <label for="keepme">Keep me signed in</label>
+                        </p>
+                    </div> {% endcomment %}
+                    <div class="form-group text-center mb-0">
+                        <button class="button button-blue btn-rounded btn-fw" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
