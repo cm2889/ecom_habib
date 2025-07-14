@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # from .models import (
-#     LoginLog, City, MenuList, UserPermission, UserGroup, GroupWiseMenu, EmployeeType, Employee, Company, ProductMainCategory,
+#     LoginLog, City, BackendMenu, UserMenuPermission, UserGroup, GroupWiseMenu, EmployeeType, Employee, Company, ProductMainCategory,
 #     ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
 # )
 
@@ -27,8 +27,8 @@ from django.contrib import admin
 #     ordering = ('created_at',)
 
 
-# @admin.register(MenuList)
-# class MenuListAdmin(admin.ModelAdmin):
+# @admin.register(BackendMenu)
+# class BackendMenuAdmin(admin.ModelAdmin):
 #     list_display = ('module_name', 'menu_name', 'menu_url', 'menu_icon', 'parent_id', 'created_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active', 'is_main_menu', 'is_sub_menu')
 #     search_fields = ('module_name', 'menu_name', 'menu_url')
@@ -51,8 +51,8 @@ from django.contrib import admin
 #     ordering = ('created_at',)
 
 
-# @admin.register(UserPermission)
-# class UserPermissionAdmin(admin.ModelAdmin):
+# @admin.register(UserMenuPermission)
+# class UserMenuPermissionAdmin(admin.ModelAdmin):
 #     list_display = ('user', 'menu', 'can_view',  'can_add', 'can_update', 'can_delete', 'created_at', 'updated_at', 'is_active', 'deleted')
 #     list_filter = ('is_active', 'deleted')
 #     ordering = ('created_at',)

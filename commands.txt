@@ -1,4 +1,4 @@
-python manage.py dumpdata hr.MenuList > fixtures.json
+python manage.py dumpdata hr.BackendMenu > fixtures.json
 
 python manage.py loaddata fixtures.json
 

@@ -101,7 +101,7 @@ def backend_logout(request):
 
 # @login_required
 # def setting_dashboard(request):
-#     get_setting_menu = MenuList.objects.filter(module_name='Setting', is_active=True)
+#     get_setting_menu = BackendMenu.objects.filter(module_name='Setting', is_active=True)
    
 #     context = {
 #         "get_setting_menu": get_setting_menu,
@@ -115,7 +115,7 @@ def backend_logout(request):
 
 # @login_required
 # def inventory_dashboard(request):
-#     get_inventory_menu = MenuList.objects.filter(module_name='Inventory', is_active=True)
+#     get_inventory_menu = BackendMenu.objects.filter(module_name='Inventory', is_active=True)
    
 #     context = {
 #         "get_inventory_menu": get_inventory_menu,

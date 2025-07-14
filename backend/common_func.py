@@ -1,4 +1,4 @@
-from backend.models import UserPermission
+from backend.models import UserMenuPermission
 
 
 def checkUserPermission(request, access_type, menu_url):
@@ -13,7 +13,7 @@ def checkUserPermission(request, access_type, menu_url):
         if request.user.is_superuser:
             return True
 
-        check_user_permission = UserPermission.objects.filter(
+        check_user_permission = UserMenuPermission.objects.filter(
             user_id=request.user.id, is_active=True, **{user_permissions[access_type]: True}, menu__menu_url=menu_url,
         )
 

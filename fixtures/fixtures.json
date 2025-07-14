@@ -1,27 +1,7 @@
 [
     {
-        "model": "backend.menulist",
+        "model": "backend.backendmenu",
         "pk": 1,
-        "fields": {
-            "module_name": "Dashboard",
-            "menu_name": "Dashboard",
-            "menu_url": "/backend/dashboard/",
-            "menu_icon": "fa fa-dashboard icon",
-            "parent_id": 0,
-            "is_main_menu": true,
-            "is_sub_menu": false,
-            "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
-        }
-    },
-    {
-        "model": "backend.menulist",
-        "pk": 2,
         "fields": {
             "module_name": "Users",
             "menu_name": "Users",
@@ -31,17 +11,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 3,
+        "model": "backend.backendmenu",
+        "pk": 2,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Inventory",
@@ -51,17 +26,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 4,
+        "model": "backend.backendmenu",
+        "pk": 3,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Sales",
@@ -71,17 +41,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 5,
+        "model": "backend.backendmenu",
+        "pk": 4,
         "fields": {
             "module_name": "Marketing",
             "menu_name": "Marketing",
@@ -91,17 +56,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 6,
+        "model": "backend.backendmenu",
+        "pk": 5,
         "fields": {
             "module_name": "Reports",
             "menu_name": "Reports",
@@ -111,17 +71,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 7,
+        "model": "backend.backendmenu",
+        "pk": 6,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Settings",
@@ -131,17 +86,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 8,
+        "model": "backend.backendmenu",
+        "pk": 7,
         "fields": {
             "module_name": "FAQ",
             "menu_name": "FAQ",
@@ -151,17 +101,12 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 9,
+        "model": "backend.backendmenu",
+        "pk": 8,
         "fields": {
             "module_name": "Contact Us",
             "menu_name": "Contact Us",
@@ -171,632 +116,577 @@
             "is_main_menu": true,
             "is_sub_menu": false,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 10,
+        "model": "backend.backendmenu",
+        "pk": 9,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Item and Pricing",
             "menu_url": "/backend/item-and-pricing/",
             "menu_icon": "fa fa-tags icon",
-            "parent_id": 3,
+            "parent_id": 2,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 11,
+        "model": "backend.backendmenu",
+        "pk": 10,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Inventory Settings",
             "menu_url": "/backend/inventory-settings/",
             "menu_icon": "fa fa-cog icon",
-            "parent_id": 3,
+            "parent_id": 2,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 12,
-        "fields": {
-            "module_name": "Inventory",
-            "menu_name": "Category",
-            "menu_url": "/backend/category/",
-            "menu_icon": "fa fa-list icon",
-            "parent_id": 3,
-            "is_main_menu": false,
-            "is_sub_menu": true,
-            "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
-        }
-    },
-    {
-        "model": "backend.menulist",
-        "pk": 13,
-        "fields": {
-            "module_name": "Inventory",
-            "menu_name": "Attributes",
-            "menu_url": "/backend/attributes/",
-            "menu_icon": "fa fa-list-alt icon",
-            "parent_id": 3,
-            "is_main_menu": false,
-            "is_sub_menu": true,
-            "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
-        }
-    },
-    {
-        "model": "backend.menulist",
-        "pk": 14,
-        "fields": {
-            "module_name": "Inventory",
-            "menu_name": "Inventory Info",
-            "menu_url": "/backend/inventory-info/",
-            "menu_icon": "fa fa-info-circle icon",
-            "parent_id": 3,
-            "is_main_menu": false,
-            "is_sub_menu": true,
-            "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
-        }
-    },
-    {
-        "model": "backend.menulist",
-        "pk": 15,
+        "model": "backend.backendmenu",
+        "pk": 11,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Products",
             "menu_url": "/backend/products/",
             "menu_icon": "fa fa-cube icon",
-            "parent_id": 10,
+            "parent_id": 9,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 16,
+        "model": "backend.backendmenu",
+        "pk": 12,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Combo Products",
+            "menu_url": "/backend/combo-products/",
+            "menu_icon": "fa fa-cube icon",
+            "parent_id": 9,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 13,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Product Discount",
             "menu_url": "/backend/product-discount/",
             "menu_icon": "fa fa-percent icon",
-            "parent_id": 10,
+            "parent_id": 9,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 17,
+        "model": "backend.backendmenu",
+        "pk": 14,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Product Comparison",
+            "menu_url": "/backend/product-comparison/",
+            "menu_icon": "fa fa-percent icon",
+            "parent_id": 9,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 15,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Brand",
             "menu_url": "/backend/brand/",
             "menu_icon": "fa fa-trademark icon",
-            "parent_id": 11,
+            "parent_id": 10,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 18,
+        "model": "backend.backendmenu",
+        "pk": 16,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Category",
+            "menu_url": "/backend/category/",
+            "menu_icon": "fa fa-list icon",
+            "parent_id": 10,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 17,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Sub Category",
             "menu_url": "/backend/sub-category/",
             "menu_icon": "fa fa-list-ol icon",
-            "parent_id": 12,
+            "parent_id": 10,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
+        "model": "backend.backendmenu",
+        "pk": 18,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Child Category",
+            "menu_url": "/backend/child-category/",
+            "menu_icon": "fa fa-list-ol icon",
+            "parent_id": 10,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
         "pk": 19,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Attributes",
+            "menu_url": "/backend/attributes/",
+            "menu_icon": "fa fa-list-alt icon",
+            "parent_id": 10,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 20,
+        "fields": {
+            "module_name": "Inventory",
+            "menu_name": "Item Inventory",
+            "menu_url": "/backend/item-inventory/",
+            "menu_icon": "fa fa-info-circle icon",
+            "parent_id": 3,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 21,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Reviews",
             "menu_url": "/backend/reviews/",
             "menu_icon": "fa fa-star icon",
-            "parent_id": 14,
+            "parent_id": 2,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 20,
+        "model": "backend.backendmenu",
+        "pk": 22,
         "fields": {
             "module_name": "Inventory",
             "menu_name": "Questions",
             "menu_url": "/backend/questions/",
             "menu_icon": "fa fa-question icon",
-            "parent_id": 19,
+            "parent_id": 2,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 21,
+        "model": "backend.backendmenu",
+        "pk": 23,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Customer",
             "menu_url": "/backend/customer/",
             "menu_icon": "fa fa-users icon",
-            "parent_id": 4,
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 22,
+        "model": "backend.backendmenu",
+        "pk": 24,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Orders",
             "menu_url": "/backend/orders/",
             "menu_icon": "fa fa-shopping-bag icon",
-            "parent_id": 4,
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 23,
+        "model": "backend.backendmenu",
+        "pk": 25,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Payments",
             "menu_url": "/backend/payments/",
             "menu_icon": "fa fa-credit-card icon",
-            "parent_id": 4,
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 24,
+        "model": "backend.backendmenu",
+        "pk": 26,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Coupon",
             "menu_url": "/backend/coupon/",
             "menu_icon": "fa fa-ticket icon",
-            "parent_id": 4,
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 25,
+        "model": "backend.backendmenu",
+        "pk": 27,
         "fields": {
             "module_name": "Sales",
-            "menu_name": "Settings",
-            "menu_url": "/backend/sales-settings/",
-            "menu_icon": "fa fa-cog icon",
-            "parent_id": 4,
+            "menu_name": "Wishlists",
+            "menu_url": "/backend/wishlists/",
+            "menu_icon": "fa fa-ticket icon",
+            "parent_id": 3,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 26,
+        "model": "backend.backendmenu",
+        "pk": 28,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Sales Settings",
+            "menu_url": "/backend/sales-settings/",
+            "menu_icon": "fa fa-cog icon",
+            "parent_id": 3,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 29,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Shipping Area",
             "menu_url": "/backend/shipping-area/",
             "menu_icon": "fa fa-truck icon",
-            "parent_id": 25,
+            "parent_id": 28,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 27,
+        "model": "backend.backendmenu",
+        "pk": 30,
+        "fields": {
+            "module_name": "Sales",
+            "menu_name": "Courier Setting",
+            "menu_url": "/backend/courier-setting/",
+            "menu_icon": "fa fa-plane icon",
+            "parent_id": 28,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 31,
         "fields": {
             "module_name": "Sales",
             "menu_name": "Order Status",
             "menu_url": "/backend/order-status/",
             "menu_icon": "fa fa-list-alt icon",
-            "parent_id": 25,
+            "parent_id": 28,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 28,
+        "model": "backend.backendmenu",
+        "pk": 32,
         "fields": {
             "module_name": "Marketing",
             "menu_name": "Newsletter",
             "menu_url": "/backend/newsletter/",
             "menu_icon": "fa fa-newspaper-o icon",
-            "parent_id": 5,
+            "parent_id": 4,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 29,
+        "model": "backend.backendmenu",
+        "pk": 33,
+        "fields": {
+            "module_name": "Marketing",
+            "menu_name": "Facebook Pixel / Google Analytics",
+            "menu_url": "/backend/facebook-pixel-google-analytics/",
+            "menu_icon": "fa fa-pixel icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 34,
+        "fields": {
+            "module_name": "Marketing",
+            "menu_name": "Live Chat",
+            "menu_url": "/backend/live-chat/",
+            "menu_icon": "fa fa-newspaper-o icon",
+            "parent_id": 4,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 35,
         "fields": {
             "module_name": "Reports",
             "menu_name": "Sales Report",
             "menu_url": "/backend/sales-report/",
             "menu_icon": "fa fa-line-chart icon",
-            "parent_id": 6,
+            "parent_id": 5,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 30,
+        "model": "backend.backendmenu",
+        "pk": 36,
         "fields": {
             "module_name": "Reports",
             "menu_name": "Item wise Report",
             "menu_url": "/backend/item-wise-report/",
             "menu_icon": "fa fa-list icon",
-            "parent_id": 6,
+            "parent_id": 5,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 31,
+        "model": "backend.backendmenu",
+        "pk": 37,
         "fields": {
             "module_name": "Reports",
             "menu_name": "Top Item sales Report",
             "menu_url": "/backend/top-item-sales-report/",
             "menu_icon": "fa fa-star icon",
-            "parent_id": 6,
+            "parent_id": 5,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 32,
+        "model": "backend.backendmenu",
+        "pk": 38,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Website Setting",
             "menu_url": "/backend/website-setting/",
             "menu_icon": "fa fa-globe icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 33,
+        "model": "backend.backendmenu",
+        "pk": 39,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Email Configuration",
             "menu_url": "/backend/email-configuration/",
             "menu_icon": "fa fa-envelope icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 34,
+        "model": "backend.backendmenu",
+        "pk": 40,
         "fields": {
             "module_name": "Settings",
             "menu_name": "SMS Configuration",
             "menu_url": "/backend/sms-configuration/",
             "menu_icon": "fa fa-mobile icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 35,
+        "model": "backend.backendmenu",
+        "pk": 41,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Payment Settings",
             "menu_url": "/backend/payment-settings/",
             "menu_icon": "fa fa-credit-card icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 36,
+        "model": "backend.backendmenu",
+        "pk": 42,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Email Templates",
             "menu_url": "/backend/email-templates/",
             "menu_icon": "fa fa-envelope-o icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 37,
+        "model": "backend.backendmenu",
+        "pk": 43,
         "fields": {
             "module_name": "Settings",
             "menu_name": "SMS Templates",
             "menu_url": "/backend/sms-templates/",
             "menu_icon": "fa fa-comment-o icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 38,
+        "model": "backend.backendmenu",
+        "pk": 44,
         "fields": {
             "module_name": "Settings",
             "menu_name": "SEO",
             "menu_url": "/backend/seo/",
             "menu_icon": "fa fa-search icon",
-            "parent_id": 7,
+            "parent_id": 6,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 39,
+        "model": "backend.backendmenu",
+        "pk": 45,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Website SEO",
             "menu_url": "/backend/website-seo/",
             "menu_icon": "fa fa-globe icon",
-            "parent_id": 38,
+            "parent_id": 44,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     },
     {
-        "model": "backend.menulist",
-        "pk": 40,
+        "model": "backend.backendmenu",
+        "pk": 46,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Page wise SEO",
             "menu_url": "/backend/page-wise-seo/",
             "menu_icon": "fa fa-file-text icon",
-            "parent_id": 38,
+            "parent_id": 44,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
-            "created_at": "2025-05-07T15:01:14.353Z",
-            "updated_at": "2025-05-07T15:01:14.353Z",
-            "deleted_at": "2025-05-07T15:01:14.353Z",
-            "created_by": 1,
-            "is_active": true,
-            "deleted": false
+            "is_active": true
         }
     }
 ]

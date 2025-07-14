@@ -49,7 +49,7 @@ class LoginLog(models.Model):
         return self.username
 
 
-class MenuList(models.Model):
+class BackendMenu(models.Model):
     module_name = models.CharField(max_length=100, db_index=True)
     menu_name = models.CharField(max_length=100, unique=True, db_index=True)
     menu_url = models.CharField(max_length=250, unique=True)
@@ -58,23 +58,18 @@ class MenuList(models.Model):
     is_main_menu = models.BooleanField(default=False)
     is_sub_menu = models.BooleanField(default=False)
     is_sub_child_menu = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(blank=True, null=True)
-    deleted_at = models.DateTimeField(blank=True, null=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
-    deleted = models.BooleanField(default=False)
 
     class Meta:
-        db_table = "menu_list"
+        db_table = "backend_menu"
 
     def __str__(self) -> str:
         return self.menu_name
 
 
-class UserPermission(models.Model):
+class UserMenuPermission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_permission")
-    menu = models.ForeignKey(MenuList, on_delete=models.CASCADE, related_name="user_permission")
+    menu = models.ForeignKey(BackendMenu, on_delete=models.CASCADE, related_name="user_permission")
     can_view = models.BooleanField(default=False)
     can_add = models.BooleanField(default=False)
     can_update = models.BooleanField(default=False)
@@ -113,7 +108,7 @@ class UserPermission(models.Model):
         
 # class GroupWiseMenu(models.Model):
 #     user_group  = models.ForeignKey(UserGroup, on_delete=models.CASCADE, related_name='group_permissions')
-#     menu        = models.ForeignKey(MenuList, on_delete=models.CASCADE, related_name='group_permissions')
+#     menu        = models.ForeignKey(BackendMenu, on_delete=models.CASCADE, related_name='group_permissions')
 #     can_view    = models.BooleanField(default=False)
 #     can_add     = models.BooleanField(default=False)
 #     can_update  = models.BooleanField(default=False)
@@ -497,5 +492,5 @@ class UserPermission(models.Model):
 
 auditlog.register(AdminUser)
 auditlog.register(LoginLog)
-auditlog.register(MenuList)
-auditlog.register(UserPermission)
+auditlog.register(BackendMenu)
+auditlog.register(UserMenuPermission)
