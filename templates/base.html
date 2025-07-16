@@ -23,6 +23,12 @@
                         <div class="input-group search-menu-list">
                             <div class="search-menu-box">
                                 <input type="text" class="form-control searchBoxBg" id="input" autocomplete="off" placeholder="Search">
+                                {% comment %} <div id="suggestions"></div>
+                                <div id="list">
+                                    {% for data in search_menu_list %}
+                                        <a href="{{ data.menu.menu_url }}">{{ data.menu.menu_name }}</a>
+                                    {% endfor %}
+                                </div> {% endcomment %}
                             </div>
                         </div>
                         <!-- search box  -->
@@ -48,12 +54,10 @@
     </header>
     <nav class="sidebar">
         <ul>
-            
-            <li class="active"><a href="/backend/dashboard/"> Dashboard</a></li>
-            <li><a href="/backend/setting-dashboard/"> Setting</a></li>
-            <li><a href="/backend/inventory-dashboard/"> Inventory</a></li>
-            
-        
+            <li class="active"><a href="/backend/"> Dashboard</a></li>
+            {% for data in main_menu_list %}
+                <li><a href="{{ data.menu.menu_url }}">{{ data.menu.menu_name }}</a></li>
+            {% endfor %}
         </ul>
     </nav>
     <main class="main">

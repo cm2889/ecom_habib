@@ -1,18 +1,24 @@
+from django.apps import apps
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm, AdminPasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
+
+from datetime import datetime
+
 from backend.common_func import checkUserPermission
 from backend.decorators import admin_required
 from backend.models import (
-    LoginLog, AdminUser
+    LoginLog, AdminUser, BackendMenu, UserMenuPermission
 )
 from backend.forms import (
-    CustomUserLoginForm,
+    CustomUserLoginForm, UserCreateForm
 )
+
 
 # from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList 
 
@@ -94,6 +100,220 @@ def backend_logout(request):
     )
     logout(request)
     return redirect('backend_login')
+
+
+# Management Start
+@admin_required
+def user_list(request):
+    user_list = AdminUser.objects.all()
+    context = {
+        'user_list': user_list
+    }
+    return render(request, 'user/list.html', context)
+
+
+@admin_required
+def user_add(request):
+    if request.method == 'POST':
+        form = UserCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.email
+            user.set_password('12345678')
+            user.save()
+            messages.success(request, 'New user has been added successfully!')
+            return redirect('user_list')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = UserCreateForm()
+
+    return render(request, 'user/add.html', {'form': form})
+
+
+@admin_required
+def user_update(request, data_id):
+    # management = Area.objects.filter(unique_id=data_id).first()
+
+    # if request.method == 'POST':
+    #     select_country = request.POST.get('select_country')
+    #     select_district = request.POST.get('select_district')
+    #     select_sub_district = request.POST.get('select_sub_district')
+    #     management_name = request.POST.get('management_name')
+
+    #     if not select_country:
+    #         messages.error(request, 'Please select country')
+    #         return redirect('admin_app:management_update')
+
+    #     country = Country.objects.filter(unique_id=select_country).first()
+    #     if not country:
+    #         messages.error(request, 'Country not found')
+    #         return redirect('admin_app:management_update')
+
+    #     if not select_district:
+    #         messages.error(request, 'Please select district')
+    #         return redirect('admin_app:management_update')
+
+    #     district = District.objects.filter(unique_id=select_district, country=country).first()
+    #     if not district:
+    #         messages.error(request, 'District not found')
+    #         return redirect('admin_app:management_update')
+
+    #     if not select_sub_district:
+    #         messages.error(request, 'Please select sub district')
+    #         return redirect('admin_app:management_update')
+
+    #     sub_district = SubDistrict.objects.filter(unique_id=select_sub_district, district=district).first()
+    #     if not sub_district:
+    #         messages.error(request, 'Sub district not found')
+    #         return redirect('admin_app:management_update')
+
+    #     if not management_name:
+    #         messages.error(request, 'Please enter district name')
+    #         return redirect('admin_app:management_update')
+
+    #     if not management_name:
+    #         messages.error(request, 'Please enter management name')
+    #         return redirect('admin_app:management_update')
+
+    #     if len(management_name) < 3:
+    #         messages.warning(request, 'Area name must be at least 3 characters')
+    #         return redirect('admin_app:management_update')
+
+    #     if Area.objects.filter(name=management_name, sub_district=sub_district).exclude(id=management.id).exists():
+    #         messages.warning(request, 'Area already exists')
+    #         return redirect('admin_app:management_update')
+    #     else:
+    #         management.name = management_name
+    #         management.sub_district_id = sub_district.id
+    #         management.updated_by = request.user
+    #         management.save()
+
+    #         messages.success(request, 'Area added successfully')
+    #         return redirect('admin_app:management_list')
+
+    context = {
+        # "management": management
+    }
+    return render(request, 'user/management_update.html', context)
+
+
+@admin_required
+def reset_password(request, data_id):
+    user = get_object_or_404(AdminUser, id=data_id)
+    if request.method == 'POST':
+        form = AdminPasswordChangeForm(user=user.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your password has been updated successfully.')
+            return redirect('backend_dashboard')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = AdminPasswordChangeForm(user=user.user)
+
+    context = {
+        'form': form,
+        'user': user
+    }
+    return render(request, 'user/reset_password.html', context)
+
+
+@login_required
+def user_permission(request, user_id):
+    # if not checkUserPermission(request, "can_update", "/hr/users/"):
+    #     return render(request, "403.html")
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        user_status = request.POST.get("user_status")
+        selected_menus = request.POST.getlist("selected_menus")
+        can_view = request.POST.getlist("can_view")
+        can_add = request.POST.getlist("can_add")
+        can_update = request.POST.getlist("can_update")
+        can_delete = request.POST.getlist("can_delete")
+
+        try:
+            user = User.objects.get(pk=user_id)
+            user.is_active = user_status
+            user.save()
+        except Exception:
+            pass
+
+        exist_all_permission = UserMenuPermission.objects.filter(user_id=user_id)
+        for exist_permission in exist_all_permission:
+            if exist_permission.id not in selected_menus:
+                exist_permission.can_view = False
+                exist_permission.can_add = False
+                exist_permission.can_update = False
+                exist_permission.can_delete = False
+                exist_permission.is_active = False
+                exist_permission.updated_at = datetime.now()
+                exist_permission.deleted_by_id = request.user.id
+                exist_permission.save()
+
+        if user_id and username and selected_menus:
+            for menu_id in selected_menus:
+                if menu_id in can_view:
+                    user_view_access = True
+                else:
+                    user_view_access = False
+
+                if menu_id in can_add:
+                    user_add_access = True
+                else:
+                    user_add_access = False
+
+                if menu_id in can_update:
+                    user_update_access = True
+                else:
+                    user_update_access = False
+
+                if menu_id in can_delete:
+                    user_delete_access = True
+                else:
+                    user_delete_access = False
+
+                exist_permission = UserMenuPermission.objects.filter(user_id=user_id, menu_id=menu_id)
+                if exist_permission:
+                    exist_permission.update(
+                        updated_by_id=request.user.id, can_view=user_view_access, can_add=user_add_access,
+                        can_update=user_update_access, can_delete=user_delete_access, updated_at=datetime.now(), is_active=True,
+                    )
+                else:
+                    UserMenuPermission.objects.create(
+                        user_id=user_id, menu_id=menu_id, can_view=user_view_access, can_add=user_add_access,
+                        can_update=user_update_access, can_delete=user_delete_access, created_by_id=request.user.id
+                    )
+            messages.success(request, "User permission has been assigned!")
+        else:
+            messages.warning(request, "No permission has been assigned!")
+
+        return redirect('user_permission', user_id=user_id)
+
+    user = User.objects.get(pk=user_id)
+    menu_list = BackendMenu.objects.filter(is_active=True).order_by("module_name")
+
+    for data in menu_list:
+        try:
+            user_access_perm = UserMenuPermission.objects.get(user_id=user_id, menu_id=data.id, is_active=True)
+
+            data.user_menu_id = user_access_perm.menu_id
+            data.can_view = user_access_perm.can_view
+            data.can_add = user_access_perm.can_add
+            data.can_update = user_access_perm.can_update
+            data.can_delete = user_access_perm.can_delete
+        except Exception:
+            pass
+
+    context = {
+        "user": user,
+        "menu_list": menu_list,
+    }
+    return render(request, 'user/user_permission.html', context)
+# Management User End
 
 
 

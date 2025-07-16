@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title%}User{% endblock %}
+
+{% block content %}
+<section class="customer-list-section">
+    <div class="container">
+        <div class="content">
+            <div class="title-box">
+                <div class="page-title">
+                    <h3>User List</h3>
+                </div>
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="/backend/"><span><img src="/static/images/icons/Home.svg" alt="more" /></span>Home</a>
+                        </li>
+                        <li><a href="#"> User List </a></li>
+                    </ul>
+                </div>
+                <div class="top-button">
+                    <div class="button-box">
+                        <a class="button primary-button" href="{% url 'user_add' %}"><span><img src="/static/images/icons/add.svg" alt="more" /></span> Add New User</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="listing-box">
+                <div class="table table-border-bottom">
+                    <table>
+                        <tr>
+                            <th class="text-center">Image</th>
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Username</th>
+                            <th class="text-left">Email</th>
+                            <th class="text-left">Phone</th>
+                            <th class="text-center">Joined Date</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+
+                        {% for data in user_list %}
+                            <tr>
+                                <td class="text-center"><img src="{{ data.get_profile_photo_url }}" alt="..." class="avatar-img rounded-circle"></td>
+                                <td class="text-left">{{ data.user.first_name|default:"" }}</td>
+                                <td class="text-left">{{ data.user.username|default:"" }}</td>
+                                <td class="text-left">{{ data.user.email|default:"" }}</td>
+                                <td class="text-left">{{ data.phone|default:"" }}</td>
+                                <td class="text-center">{{ data.user.date_joined|date:"d-M-Y" }}</td>
+                                {% comment %} <td class="text-center">
+                                    <span class="more">
+                                        <a href="#"><i class="fas fa-edit font-weight500"></i></a>
+                                    </span>
+                                </td> {% endcomment %}
+                                <td class="text-center">
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="{% url 'user_permission' data.user.id %}">User Permission</a>
+                                        <a class="dropdown-item" href="{% url 'reset_password' data.id %}">Reset Password</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">No Data found.</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <!-- pagination -->
+                <div class="pagination">
+                    {% if last_page_number != 1 %}
+                    <div class="col-md-12 text-end">
+                        <nav aria-label="navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if product_main_categories.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?page={{ product_main_categories.previous_page_number }}{% if params %}&{{ params }}{% endif %}"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                {% endif %} {% if first_page_number not in paginator_list %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?page={{ first_page_number }}{% if params %}&{{ params }}{% endif %}">{{
+                                        first_page_number }}</a>
+                                </li>
+                                {% endif %} {% for i in paginator_list %}
+                                <li class="page-item {% if product_main_categories.number == i %}active{% endif %}">
+                                    <a class="page-link"
+                                        href="?page={{ i }}{% if params %}&{{ params }}{% endif %}">{{ i }}</a>
+                                </li>
+                                {% endfor %} {% if last_page_number not in paginator_list %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?page={{ last_page_number }}{% if params %}&{{ params }}{% endif %}">{{
+                                        last_page_number }}</a>
+                                </li>
+                                {% endif %} {% if product_main_categories.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?page={{ product_main_categories.next_page_number }}{% if params %}&{{ params }}{% endif %}"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

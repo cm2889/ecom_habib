@@ -5,7 +5,7 @@
         "fields": {
             "module_name": "Users",
             "menu_name": "Users",
-            "menu_url": "/backend/users/",
+            "menu_url": "/backend/user/",
             "menu_icon": "fa fa-users icon",
             "parent_id": 0,
             "is_main_menu": true,

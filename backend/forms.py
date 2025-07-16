@@ -1,4 +1,7 @@
 from django import forms
+from django.contrib.auth.models import User
+
+from .models import AdminUser
 
 # from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList
 
@@ -24,6 +27,57 @@ class CustomUserLoginForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data.get('password')
         return password
+
+
+# class ProfileEditForm(forms.ModelForm):
+#     class Meta:
+#         model = AdminUser
+#         fields = ['first_name', 'last_name', 'email', 'phone', 'gender', 'date_of_birth', 'profile_photo']
+
+#     def clean_email(self):
+#         email = self.cleaned_data.get('email')
+#         if AdminUser.objects.exclude(id=self.instance.id).filter(email=email).exists():
+#             raise forms.ValidationError("This email is already taken.")
+#         return email
+
+
+class UserCreateForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    date_of_birth = forms.DateField(required=False)
+
+    class Meta:
+        model = AdminUser
+        fields = ['phone', 'gender', 'profile_image']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        user_id = self.instance.user.pk if self.instance and self.instance.user else None
+        if User.objects.exclude(pk=user_id).filter(email=email).exists():
+            raise forms.ValidationError("This email is already taken.")
+        return email
+
+    def save(self, commit=True):
+        admin_user = super().save(commit=False)
+
+        if self.instance and self.instance.user:
+            user = self.instance.user
+        else:
+            user = User()
+
+        user.first_name = self.cleaned_data.get('first_name')
+        user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
+
+        if hasattr(user, 'date_of_birth'):
+            user.date_of_birth = self.cleaned_data.get('date_of_birth')
+
+        if commit:
+            user.save()
+            admin_user.user = user
+            admin_user.save()
+
+        return admin_user
 
 
 # class ProductMainCategoryForm(forms.ModelForm):

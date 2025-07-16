@@ -6,6 +6,14 @@ urlpatterns = [
     path('', views.backend_dashboard, name='backend_dashboard'),
     path('login/', views.backend_login, name='backend_login'),
     path('logout/', views.backend_logout, name='backend_logout'),
+
+    # User Mannagement
+    path('user/', views.user_list, name='user_list'),
+    path('user/add/', views.user_add, name='user_add'),
+    path('user/update/<str:data_id>/', views.user_update, name='user_update'),
+    path('user/password/reset/<str:data_id>/', views.reset_password, name='reset_password'),
+    path('user/permission/<int:user_id>/', views.user_permission, name='user_permission'),
+
     # path('setting-dashboard/', views.setting_dashboard, name='setting_dashboard'),
     # path('inventory-dashboard/', views.inventory_dashboard, name='inventory_dashboard'),
     # path('cities/', views.cities, name='cities'),
