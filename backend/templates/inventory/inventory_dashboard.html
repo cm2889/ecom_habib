@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory Dashboard{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/dashbord_menu.css">
+{% endblock %}
+
+{% block content %}
+    <div class="menu_box">
+        <div class="main_content ">  
+            {% for data in menu_list %}
+                <div class="col-md-4"> 
+                    <div class="main_module_box">
+                        <a href="{{ data.menu.menu_url }}"><i class="{{ data.menu.menu_icon }}"></i>{{ data.menu.menu_name }}</a> 
+                        <ul>
+                            {% for data2 in data.sub_menu %}
+                                <li><a href="{{ data2.menu.menu_url }}"><i class="{{ data2.menu.menu_icon }}"></i>{{ data2.menu.menu_name }}</a></li> 
+                            {% endfor %} 
+                        </ul>
+                    </div> 
+                </div>
+            {% endfor %}
+        </div>
+    </div>  
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        if (window.innerWidth >= 768) { 
+            // Get all list items
+            const listItems = document.querySelectorAll(".menu_list ul li a.dropdown_item");
+            var menuList = document.getElementById("menu_list");
+            var rawMaterial = document.getElementById("sub-menu-height");
+            listItems.forEach(item => {
+                item.addEventListener("click", function(event) {
+                    if(this.classList.contains('material') && offsetHeight > 580){
+                        menuList.style.minHeight = menu_height;
+                    }else{
+                        menuList.style.minHeight = "540px";
+                    }
+                    
+                    listItems.forEach(li => {
+                    li.classList.remove("active");
+                    li.parentElement.classList.remove("active");
+                    });
+                    this.classList.add("active");
+                    this.parentElement.classList.add("active");            
+                });
+            });
+            
+            const listItemBox = document.querySelectorAll(".dropdown_item_list ul li a.list_item");
+            listItemBox.forEach(itemBox => {
+            itemBox.addEventListener("click", function(event) {
+                listItemBox.forEach(li => {
+                    li.classList.remove("active");
+                    li.parentElement.classList.remove("active");
+                });
+                this.classList.add("active");
+                this.parentElement.classList.add("active");
+            });
+            });
+            
+            $('.menu_list ul li a.dropdown_item').click(function() {
+                if ($('.menu_list ul li a.dropdown_item').hasClass('active')){
+                    $('.divider').addClass('active');  
+                } else {
+                    $('.divider').addClass('active');
+                }
+            });
+
+            $('.divider').remveClass('active');  
+        }
+    </script>
+{% endblock %}

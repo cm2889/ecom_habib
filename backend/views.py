@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, AdminPasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 
@@ -103,24 +105,57 @@ def backend_logout(request):
 
 
 # Management Start
-@admin_required
-def user_list(request):
-    user_list = AdminUser.objects.all()
-    context = {
-        'user_list': user_list
-    }
-    return render(request, 'user/list.html', context)
+@method_decorator(admin_required, name='dispatch')
+class UserListView(ListView):
+    model = AdminUser
+    template_name = 'user/list.html'
+    context_object_name = 'user_list'
+    ordering = ['created_at']
+    paginate_by = 10
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "/backend/user/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset().select_related('user')
+        full_name = self.request.GET.get('full_name', '')
+        email = self.request.GET.get('email', '')
+        phone = self.request.GET.get('phone', '')
+
+        if full_name:
+            queryset = queryset.filter(user__first_name__icontains=full_name)
+        if email:
+            queryset = queryset.filter(user__email__icontains=email)
+        if phone:
+            queryset = queryset.filter(phone__icontains=phone)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['full_name'] = self.request.GET.get('full_name', '')
+        context['email'] = self.request.GET.get('email', '')
+        context['phone'] = self.request.GET.get('phone', '')
+
+        get_params = self.request.GET.copy()
+        if 'page' in get_params:
+            get_params.pop('page')
+        context['query_params'] = get_params.urlencode()
+
+        return context
 
 
 @admin_required
 def user_add(request):
+    if not checkUserPermission(request, "can_add", "/backend/user/"):
+        return render(request, "403.html")
+
     if request.method == 'POST':
         form = UserCreateForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.email
-            user.set_password('12345678')
-            user.save()
+            form.save()
             messages.success(request, 'New user has been added successfully!')
             return redirect('user_list')
         else:
@@ -135,6 +170,9 @@ def user_add(request):
 
 @admin_required
 def user_update(request, data_id):
+    if not checkUserPermission(request, "can_update", "/backend/user/"):
+        return render(request, "403.html")
+
     # management = Area.objects.filter(unique_id=data_id).first()
 
     # if request.method == 'POST':
@@ -202,6 +240,9 @@ def user_update(request, data_id):
 
 @admin_required
 def reset_password(request, data_id):
+    if not checkUserPermission(request, "can_update", "/backend/user/"):
+        return render(request, "403.html")
+
     user = get_object_or_404(AdminUser, id=data_id)
     if request.method == 'POST':
         form = AdminPasswordChangeForm(user=user.user, data=request.POST)
@@ -221,10 +262,10 @@ def reset_password(request, data_id):
     return render(request, 'user/reset_password.html', context)
 
 
-@login_required
+@admin_required
 def user_permission(request, user_id):
-    # if not checkUserPermission(request, "can_update", "/hr/users/"):
-    #     return render(request, "403.html")
+    if not checkUserPermission(request, "can_update", "/backend/user-permission/"):
+        return render(request, "403.html")
 
     if request.method == "POST":
         username = request.POST.get("username")
@@ -316,6 +357,25 @@ def user_permission(request, user_id):
 # Management User End
 
 
+# Inventory
+@admin_required
+def inventory_dashboard(request):
+    if not checkUserPermission(request, "can_view", "/backend/inventory/"):
+        return render(request, "403.html")
+
+    menu_list = UserMenuPermission.objects.filter(user_id=request.user.id, menu__parent_id=2, menu__is_sub_menu=True, can_view=True, menu__is_active=True, is_active=True, deleted=False).order_by('menu__id')
+
+    for data in menu_list:
+        sub_menu = UserMenuPermission.objects.filter(user_id=request.user.id, menu__parent_id=data.menu.id, menu__is_sub_child_menu=True, can_view=True, menu__is_active=True, is_active=True, deleted=False).order_by('menu__id')
+        data.sub_menu = sub_menu
+
+    context = {
+        "menu_list": menu_list,
+    }
+    return render(request, 'inventory/inventory_dashboard.html', context)
+# Inventory
+
+
 
 
 
@@ -328,20 +388,6 @@ def user_permission(request, user_id):
         
 #     }
 #     return render(request, 'home/setting_dashboard.html', context)
-
-
-
-
-
-# @login_required
-# def inventory_dashboard(request):
-#     get_inventory_menu = BackendMenu.objects.filter(module_name='Inventory', is_active=True)
-   
-#     context = {
-#         "get_inventory_menu": get_inventory_menu,
-        
-#     }
-#     return render(request, 'home/inventory_dashboard.html', context)
 
 
 

@@ -8,14 +8,16 @@ urlpatterns = [
     path('logout/', views.backend_logout, name='backend_logout'),
 
     # User Mannagement
-    path('user/', views.user_list, name='user_list'),
+    path('user/', views.UserListView.as_view(), name='user_list'),
     path('user/add/', views.user_add, name='user_add'),
     path('user/update/<str:data_id>/', views.user_update, name='user_update'),
     path('user/password/reset/<str:data_id>/', views.reset_password, name='reset_password'),
     path('user/permission/<int:user_id>/', views.user_permission, name='user_permission'),
 
+    # Inventory Management
+    path('inventory/', views.inventory_dashboard, name='inventory_dashboard'),
+
     # path('setting-dashboard/', views.setting_dashboard, name='setting_dashboard'),
-    # path('inventory-dashboard/', views.inventory_dashboard, name='inventory_dashboard'),
     # path('cities/', views.cities, name='cities'),
     # path('company-setting/', views.company_setting, name='company_setting'),
     # path('add-new-company/', views.add_new_company, name='add_new_company'),

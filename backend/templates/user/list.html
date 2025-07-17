@@ -26,6 +26,24 @@
             </div>
 
             <div class="listing-box">
+                <div class="">
+                    <form method="get" class="row mb-3">
+                        <div class="col-md-3">
+                            <input type="text" name="full_name" class="form-control" placeholder="Name" value="{{ full_name }}">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="email" class="form-control" placeholder="Email" value="{{ email }}">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{ phone }}">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+                            <a href="{% url 'user_list' %}" class="btn btn-sm btn-secondary">Reset</a>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="table table-border-bottom">
                     <table>
                         <tr>
@@ -71,51 +89,59 @@
 
                 <!-- pagination -->
                 <div class="pagination">
-                    {% if last_page_number != 1 %}
-                    <div class="col-md-12 text-end">
-                        <nav aria-label="navigation">
-                            <ul class="pagination justify-content-center">
-                                {% if product_main_categories.has_previous %}
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="?page={{ product_main_categories.previous_page_number }}{% if params %}&{{ params }}{% endif %}"
-                                        aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                {% endif %} {% if first_page_number not in paginator_list %}
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="?page={{ first_page_number }}{% if params %}&{{ params }}{% endif %}">{{
-                                        first_page_number }}</a>
-                                </li>
-                                {% endif %} {% for i in paginator_list %}
-                                <li class="page-item {% if product_main_categories.number == i %}active{% endif %}">
-                                    <a class="page-link"
-                                        href="?page={{ i }}{% if params %}&{{ params }}{% endif %}">{{ i }}</a>
-                                </li>
-                                {% endfor %} {% if last_page_number not in paginator_list %}
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="?page={{ last_page_number }}{% if params %}&{{ params }}{% endif %}">{{
-                                        last_page_number }}</a>
-                                </li>
-                                {% endif %} {% if product_main_categories.has_next %}
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="?page={{ product_main_categories.next_page_number }}{% if params %}&{{ params }}{% endif %}"
-                                        aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
-                    </div>
+                    {% if is_paginated %}
+                        <div class="col-md-12 text-end">
+                            <nav aria-label="navigation">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&{{ query_params }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% with show_left_dots=False show_right_dots=False %}
+                                        {% for num in paginator.page_range %}
+                                            {% if num <= 2 or num > paginator.num_pages|add:'-2' or num >= page_obj.number|add:'-1' and num <= page_obj.number|add:'1' %}
+                                                {% if num == page_obj.number %}
+                                                    <li class="page-item active">
+                                                        <a class="page-link" href="#">{{ num }}</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page={{ num }}&{{ query_params }}">{{ num }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% comment %} {% elif num == 3 and not show_left_dots %}
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                                {% with True as show_left_dots %}
+                                                {% endwith %}
+                                            {% elif num == paginator.num_pages|add:'-2' and not show_right_dots %}
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                                {% with True as show_right_dots %}
+                                                {% endwith %} {% endcomment %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&{{ query_params }}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
                     {% endif %}
                 </div>
+
+
+
             </div>
         </div>
     </div>

@@ -43,6 +43,7 @@ class CustomUserLoginForm(forms.Form):
 
 class UserCreateForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100, required=False)
     email = forms.EmailField()
     date_of_birth = forms.DateField(required=False)
 
@@ -52,7 +53,7 @@ class UserCreateForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        user_id = self.instance.user.pk if self.instance and self.instance.user else None
+        user_id = self.instance.user.pk if self.instance and hasattr(self.instance, 'user') else None
         if User.objects.exclude(pk=user_id).filter(email=email).exists():
             raise forms.ValidationError("This email is already taken.")
         return email
@@ -60,17 +61,17 @@ class UserCreateForm(forms.ModelForm):
     def save(self, commit=True):
         admin_user = super().save(commit=False)
 
-        if self.instance and self.instance.user:
+        if self.instance and hasattr(self.instance, 'user'):
             user = self.instance.user
         else:
             user = User()
 
         user.first_name = self.cleaned_data.get('first_name')
-        user.last_name = self.cleaned_data.get('last_name')
+        user.last_name = self.cleaned_data.get('last_name', '')
         user.email = self.cleaned_data.get('email')
+        user.username = user.email
 
-        if hasattr(user, 'date_of_birth'):
-            user.date_of_birth = self.cleaned_data.get('date_of_birth')
+        user.set_password('12345678')
 
         if commit:
             user.save()

@@ -688,5 +688,20 @@
             "is_sub_child_menu": true,
             "is_active": true
         }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 47,
+        "fields": {
+            "module_name": "Users",
+            "menu_name": "User Permission",
+            "menu_url": "/backend/user-permission/",
+            "menu_icon": "fa fa-lock icon",
+            "parent_id": 1,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
     }
 ]
