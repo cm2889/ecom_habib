@@ -45,36 +45,34 @@
         </div> {% endcomment %}
 
         <div class="filter-box">
-            <div class="filter-inner">
-                <div class="filter-input-field">
-                    <label for="full_name">Full Name</label>
-                    <select id="full_name" class="add_select2" name="full_name" class="form-control">
-                        <option value="1" {% if user.is_active %} selected {% endif %}>Monirul Islam</option> 
-                        <option value="0" {% if user.is_active == False %} selected {% endif %}>Monirul Islam</option> 
-                    </select>
-                </div>
-                <div class="filter-input-field">
-                    <label for="username">Email</label>
-                    <select id="Email" class="add_select2" name="Email" class="form-control">
-                        <option value="1" {% if user.is_active %} selected {% endif %}>monirul@gmail.com</option> 
-                        <option value="0" {% if user.is_active == False %} selected {% endif %}>monirul@gmail.com</option> 
-                    </select>
-                </div>
-                <div class="filter-input-field">
-                    <label for="phone">Phone</label>
-                    <select id="phone" class="add_select2" name="phone" class="form-control">
-                        <option value="1" {% if user.is_active %} selected {% endif %}>01841297322</option> 
-                        <option value="0" {% if user.is_active == False %} selected {% endif %}>Inactive</option> 
-                    </select>
-                </div>
-                <div class="filter-input-field">
-                    <label for="filter-button"></label>
-                    <div class="filter-button" id="filter-button">
-                        <button type="submit" class="button blue-button">Filter</button>
-                        <a class="button primary-button" href="#">Clear</a>
+            <form method="get" class="row mb-3">
+                <div class="filter-inner">
+                    <div class="filter-input-field">
+                        <label for="username">Full Name</label>
+                        <select id="username" class="add_select2" name="username" class="form-control">
+                            <option value=""></option>
+                            {% for fuser in filter_user %}
+                                <option value="{{ fuser.user.username }}" {% if request.GET.username and fuser.user.username == request.GET.username %} selected {% endif %}>{{ fuser.get_name }} ({{ fuser.user.username }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-input-field">
+                        <label for="is_active">Status</label>
+                        <select id="is_active" class="add_select2" name="is_active" class="form-control">
+                            <option value="" selected></option> 
+                            <option value="1" {% if request.GET.is_active == '1' %} selected {% endif %}>Active</option> 
+                            <option value="0" {% if request.GET.is_active == '0' %} selected {% endif %}>Inactive</option> 
+                        </select>
+                    </div>
+                    <div class="filter-input-field">
+                        <label for="filter-button"></label>
+                        <div class="filter-button" id="filter-button">
+                            <button type="submit" class="button blue-button">Filter</button>
+                            <a class="button primary-button" href="{% url 'user_list' %}">Clear</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="listing-box group-permission-box">
@@ -173,9 +171,6 @@
                     </div>
                 {% endif %}
             </div>
-
-
-
         </div>
     </div>
 </section>

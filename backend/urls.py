@@ -17,7 +17,9 @@ urlpatterns = [
     # Inventory Management
     path('inventory/', views.inventory_dashboard, name='inventory_dashboard'),
 
-    # path('setting-dashboard/', views.setting_dashboard, name='setting_dashboard'),
+    # Setting
+    path('settings/', views.setting_dashboard, name='setting_dashboard'),
+
     # path('cities/', views.cities, name='cities'),
     # path('company-setting/', views.company_setting, name='company_setting'),
     # path('add-new-company/', views.add_new_company, name='add_new_company'),

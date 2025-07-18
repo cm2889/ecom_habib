@@ -120,29 +120,27 @@ class UserListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().select_related('user')
-        full_name = self.request.GET.get('full_name', '')
-        email = self.request.GET.get('email', '')
-        phone = self.request.GET.get('phone', '')
+        username = self.request.GET.get('username', '')
+        is_active = self.request.GET.get('is_active', '')
 
-        if full_name:
-            queryset = queryset.filter(user__first_name__icontains=full_name)
-        if email:
-            queryset = queryset.filter(user__email__icontains=email)
-        if phone:
-            queryset = queryset.filter(phone__icontains=phone)
+        if username:
+            queryset = queryset.filter(user__username__icontains=username)
+        if is_active:
+            queryset = queryset.filter(user__is_active=is_active)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['full_name'] = self.request.GET.get('full_name', '')
-        context['email'] = self.request.GET.get('email', '')
-        context['phone'] = self.request.GET.get('phone', '')
+        context['username'] = self.request.GET.get('username', '')
+        context['is_active'] = self.request.GET.get('is_active', '')
 
         get_params = self.request.GET.copy()
         if 'page' in get_params:
             get_params.pop('page')
         context['query_params'] = get_params.urlencode()
+
+        context['filter_user'] = AdminUser.objects.all()
 
         return context
 
@@ -374,23 +372,6 @@ def inventory_dashboard(request):
     }
     return render(request, 'inventory/inventory_dashboard.html', context)
 # Inventory
-
-
-
-
-
-# @login_required
-# def setting_dashboard(request):
-#     get_setting_menu = BackendMenu.objects.filter(module_name='Setting', is_active=True)
-   
-#     context = {
-#         "get_setting_menu": get_setting_menu,
-        
-#     }
-#     return render(request, 'home/setting_dashboard.html', context)
-
-
-
 
 
 # @login_required
@@ -1229,3 +1210,22 @@ def inventory_dashboard(request):
     
 #     context['attribute_value'] = attribute_value
 #     return render(request, 'product/', context)
+
+
+# Settings
+@admin_required
+def setting_dashboard(request):
+    if not checkUserPermission(request, "can_view", "/backend/settings/"):
+        return render(request, "403.html")
+
+    menu_list = UserMenuPermission.objects.filter(user_id=request.user.id, menu__parent_id=6, menu__is_sub_menu=True, can_view=True, menu__is_active=True, is_active=True, deleted=False).order_by('menu__id')
+
+    for data in menu_list:
+        sub_menu = UserMenuPermission.objects.filter(user_id=request.user.id, menu__parent_id=data.menu.id, menu__is_sub_child_menu=True, can_view=True, menu__is_active=True, is_active=True, deleted=False).order_by('menu__id')
+        data.sub_menu = sub_menu
+
+    context = {
+        "menu_list": menu_list,
+    }
+    return render(request, 'setting/setting_dashboard.html', context)
+# Settings
