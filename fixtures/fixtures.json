@@ -279,8 +279,8 @@
             "menu_icon": "fa fa-list-alt icon",
             "parent_id": 10,
             "is_main_menu": false,
-            "is_sub_menu": true,
-            "is_sub_child_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
             "is_active": true
         }
     },
@@ -292,7 +292,7 @@
             "menu_name": "Item Inventory",
             "menu_url": "/backend/item-inventory/",
             "menu_icon": "fa fa-info-circle icon",
-            "parent_id": 3,
+            "parent_id": 2,
             "is_main_menu": false,
             "is_sub_menu": true,
             "is_sub_child_menu": false,
@@ -309,8 +309,8 @@
             "menu_icon": "fa fa-star icon",
             "parent_id": 2,
             "is_main_menu": false,
-            "is_sub_menu": false,
-            "is_sub_child_menu": true,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
             "is_active": true
         }
     },
@@ -324,8 +324,8 @@
             "menu_icon": "fa fa-question icon",
             "parent_id": 2,
             "is_main_menu": false,
-            "is_sub_menu": false,
-            "is_sub_child_menu": true,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
             "is_active": true
         }
     },
