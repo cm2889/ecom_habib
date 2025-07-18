@@ -886,3 +886,65 @@ hr {
     display: flex;
     margin-bottom: 0 !important;
 }
+
+
+/* filter */
+.filter-box {
+    background-color: white;
+    border-radius: 24px;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+}
+.filter-inner {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0;
+}
+.filter-input-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'MontserratMedium';
+    height: 13px;
+    padding-left: 15px;
+}
+.filter-input-field {
+    max-width: 210px;
+    width: 100%;
+    padding-right: 10px;
+}
+.filter-input-field input {
+    width: calc(100% - 2px);
+    border: 0;
+    height: 42px;
+    border-radius: 24px;
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+}
+.filter-inner .button {
+    border: 1px solid #A1A1A1;
+    padding: 12px 20px;
+    border-radius: 24px;
+    margin: 0 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+/* filter */
+
+.page-title h4 {
+    font-size: 18px;
+    font-family: 'MontserratMedium';
+    margin-bottom: 10px;
+}
+.group-permission-box{
+    padding: 0;
+}
+.group-permission-box table th {
+    font-family: 'MontserratMedium';
+}
+.group-permission-box table tr input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+    margin-right: 4px;
+}
