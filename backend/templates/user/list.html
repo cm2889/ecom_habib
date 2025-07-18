@@ -4,146 +4,188 @@
 
 {% block content %}
 <section class="customer-list-section">
-    <div class="container">
-        <div class="content">
-            <div class="title-box">
-                <div class="page-title">
-                    <h3>User List</h3>
+    <div class="content">
+        <div class="title-box">
+            <div class="page-title">
+                <h3>User List</h3>
+            </div>
+            <div class="breadcrumbs">
+                <ul class="breadcrumbs-list">
+                    <li>
+                        <a href="/backend/"><span><img src="/static/images/icons/Home.svg" alt="more" /></span>Home</a>
+                    </li>
+                    <li><a href="#"> User List </a></li>
+                </ul>
+            </div>
+            <div class="top-button">
+                <div class="button-box">
+                    <a class="button primary-button" href="{% url 'user_add' %}"><span><img src="/static/images/icons/add.svg" alt="more" /></span> Add New User</a>
                 </div>
-                <div class="breadcrumbs">
-                    <ul class="breadcrumbs-list">
-                        <li>
-                            <a href="/backend/"><span><img src="/static/images/icons/Home.svg" alt="more" /></span>Home</a>
-                        </li>
-                        <li><a href="#"> User List </a></li>
-                    </ul>
+            </div>
+        </div>
+
+        {% comment %} <div class="listing-box">
+            <div class="">
+                <form method="get" class="row mb-3">
+                    <div class="col-md-3">
+                        <input type="text" name="full_name" class="form-control" placeholder="Name" value="{{ full_name }}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="email" class="form-control" placeholder="Email" value="{{ email }}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{ phone }}">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+                        <a href="{% url 'user_list' %}" class="btn btn-sm btn-secondary">Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div> {% endcomment %}
+
+        <div class="filter-box">
+            <div class="filter-inner">
+                <div class="filter-input-field">
+                    <label for="full_name">Full Name</label>
+                    <select id="full_name" class="add_select2" name="full_name" class="form-control">
+                        <option value="1" {% if user.is_active %} selected {% endif %}>Monirul Islam</option> 
+                        <option value="0" {% if user.is_active == False %} selected {% endif %}>Monirul Islam</option> 
+                    </select>
                 </div>
-                <div class="top-button">
-                    <div class="button-box">
-                        <a class="button primary-button" href="{% url 'user_add' %}"><span><img src="/static/images/icons/add.svg" alt="more" /></span> Add New User</a>
+                <div class="filter-input-field">
+                    <label for="username">Email</label>
+                    <select id="Email" class="add_select2" name="Email" class="form-control">
+                        <option value="1" {% if user.is_active %} selected {% endif %}>monirul@gmail.com</option> 
+                        <option value="0" {% if user.is_active == False %} selected {% endif %}>monirul@gmail.com</option> 
+                    </select>
+                </div>
+                <div class="filter-input-field">
+                    <label for="phone">Phone</label>
+                    <select id="phone" class="add_select2" name="phone" class="form-control">
+                        <option value="1" {% if user.is_active %} selected {% endif %}>01841297322</option> 
+                        <option value="0" {% if user.is_active == False %} selected {% endif %}>Inactive</option> 
+                    </select>
+                </div>
+                <div class="filter-input-field">
+                    <label for="filter-button"></label>
+                    <div class="filter-button" id="filter-button">
+                        <button type="submit" class="button blue-button">Filter</button>
+                        <a class="button primary-button" href="#">Clear</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="listing-box">
-                <div class="">
-                    <form method="get" class="row mb-3">
-                        <div class="col-md-3">
-                            <input type="text" name="full_name" class="form-control" placeholder="Name" value="{{ full_name }}">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="email" class="form-control" placeholder="Email" value="{{ email }}">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{ phone }}">
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-sm btn-primary">Filter</button>
-                            <a href="{% url 'user_list' %}" class="btn btn-sm btn-secondary">Reset</a>
-                        </div>
-                    </form>
-                </div>
+        <div class="listing-box group-permission-box">
+            <div class="table table-border-bottom">
+                <table>
+                    <tr>
+                        <th class="text-center">Image</th>
+                        <th class="text-left">Name</th>
+                        <th class="text-left">Username</th>
+                        <th class="text-left">Email</th>
+                        <th class="text-left">Phone</th>
+                        <th class="text-center">Joined Date</th>
+                        <th class="text-center">Action</th>
+                    </tr>
 
-                <div class="table table-border-bottom">
-                    <table>
+                    {% for data in user_list %}
                         <tr>
-                            <th class="text-center">Image</th>
-                            <th class="text-left">Name</th>
-                            <th class="text-left">Username</th>
-                            <th class="text-left">Email</th>
-                            <th class="text-left">Phone</th>
-                            <th class="text-center">Joined Date</th>
-                            <th class="text-center">Action</th>
+                            <td class="text-center"><img src="{{ data.get_profile_photo_url }}" alt="..." class="avatar-img rounded-circle"></td>
+                            <td class="text-left">{{ data.user.first_name|default:"" }}</td>
+                            <td class="text-left">{{ data.user.username|default:"" }}</td>
+                            <td class="text-left">{{ data.user.email|default:"" }}</td>
+                            <td class="text-left">{{ data.phone|default:"" }}</td>
+                            <td class="text-center">{{ data.user.date_joined|date:"d-M-Y" }}</td>
+                            {% comment %} <td class="text-center">
+                                <span class="more">
+                                    <a href="#"><i class="fas fa-edit font-weight500"></i></a>
+                                </span>
+                            </td> {% endcomment %}
+                            <td class="text-center">
+                                <button class="btn btn-sm dropdown-toggle" type="button">
+                                    <span class="text-muted sr-only">Action</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="{% url 'user_permission' data.user.id %}">User Permission</a>
+                                    <a class="dropdown-item" href="{% url 'reset_password' data.id %}">Reset Password</a>
+                                </div>
+                            </td>
                         </tr>
-
-                        {% for data in user_list %}
-                            <tr>
-                                <td class="text-center"><img src="{{ data.get_profile_photo_url }}" alt="..." class="avatar-img rounded-circle"></td>
-                                <td class="text-left">{{ data.user.first_name|default:"" }}</td>
-                                <td class="text-left">{{ data.user.username|default:"" }}</td>
-                                <td class="text-left">{{ data.user.email|default:"" }}</td>
-                                <td class="text-left">{{ data.phone|default:"" }}</td>
-                                <td class="text-center">{{ data.user.date_joined|date:"d-M-Y" }}</td>
-                                {% comment %} <td class="text-center">
-                                    <span class="more">
-                                        <a href="#"><i class="fas fa-edit font-weight500"></i></a>
-                                    </span>
-                                </td> {% endcomment %}
-                                <td class="text-center">
-                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="text-muted sr-only">Action</span>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{% url 'user_permission' data.user.id %}">User Permission</a>
-                                        <a class="dropdown-item" href="{% url 'reset_password' data.id %}">Reset Password</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="8" class="text-center">No Data found.</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-                <!-- pagination -->
-                <div class="pagination">
-                    {% if is_paginated %}
-                        <div class="col-md-12 text-end">
-                            <nav aria-label="navigation">
-                                <ul class="pagination justify-content-center">
-                                    {% if page_obj.has_previous %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&{{ query_params }}" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                        </li>
-                                    {% endif %}
-
-                                    {% with show_left_dots=False show_right_dots=False %}
-                                        {% for num in paginator.page_range %}
-                                            {% if num <= 2 or num > paginator.num_pages|add:'-2' or num >= page_obj.number|add:'-1' and num <= page_obj.number|add:'1' %}
-                                                {% if num == page_obj.number %}
-                                                    <li class="page-item active">
-                                                        <a class="page-link" href="#">{{ num }}</a>
-                                                    </li>
-                                                {% else %}
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page={{ num }}&{{ query_params }}">{{ num }}</a>
-                                                    </li>
-                                                {% endif %}
-                                            {% comment %} {% elif num == 3 and not show_left_dots %}
-                                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                                {% with True as show_left_dots %}
-                                                {% endwith %}
-                                            {% elif num == paginator.num_pages|add:'-2' and not show_right_dots %}
-                                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                                {% with True as show_right_dots %}
-                                                {% endwith %} {% endcomment %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endwith %}
-
-                                    {% if page_obj.has_next %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&{{ query_params }}" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                </ul>
-                            </nav>
-                        </div>
-                    {% endif %}
-                </div>
-
-
-
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">No Data found.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
+
+            <!-- pagination -->
+            <div class="pagination">
+                {% if is_paginated %}
+                    <div class="col-md-12 text-end">
+                        <nav aria-label="navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&{{ query_params }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% with show_left_dots=False show_right_dots=False %}
+                                    {% for num in paginator.page_range %}
+                                        {% if num <= 2 or num > paginator.num_pages|add:'-2' or num >= page_obj.number|add:'-1' and num <= page_obj.number|add:'1' %}
+                                            {% if num == page_obj.number %}
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="#">{{ num }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{ num }}&{{ query_params }}">{{ num }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% comment %} {% elif num == 3 and not show_left_dots %}
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                            {% with True as show_left_dots %}
+                                            {% endwith %}
+                                        {% elif num == paginator.num_pages|add:'-2' and not show_right_dots %}
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                            {% with True as show_right_dots %}
+                                            {% endwith %} {% endcomment %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}&{{ query_params }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                {% endif %}
+            </div>
+
+
+
         </div>
     </div>
 </section>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
+
+<script>
+    $(".add_select2").select2();
+</script>
+
 {% endblock %}
