@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block page_name %} Email Configuration {% endblock %}
+{% block content %}
+
+<div class="customer-type-content new-common">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="list_page_default_header_with_border">
+                    <h4><i class="fas fa-cog"></i> Email Configuration </h4>
+                    <div class="list_top_filter">
+                        {% comment %} <a class="btn btn-primary" href="{{ list_url }}"><i class="fa-solid fa-list"></i> Email Configuration List</a> {% endcomment %}
+                        {% if not read_only %}
+                            <button type="submit"> Save </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="breadcrumbs_box">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="{% url 'backend_dashboard' %}"><i class="fa-solid fa-home" style="margin-right: 4px;font-size: 16px;"></i>Home</a></li>
+                    <li><a href="#">Configure Email</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="box_table_area">
+            <div class="box_table">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.email_host.id_for_label }}">Email HOST<span class="text-danger">*</span></label>
+                                {{ form.email_host }}
+                                {% if form.email_host.errors %}
+                                    <small class="text-danger">{{ form.email_host.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.email_host_user.id_for_label }}">Configuration Type <span class="text-danger">*</span></label>
+                                {{ form.email_host_user }}
+                                {% if form.email_host_user.errors %}
+                                    <small class="text-danger">{{ form.email_host_user.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.email_host_user.id_for_label }}">Email HOST <span class="text-danger">*</span></label>
+                                {{ form.email_host_user }}
+                                {% if form.email_host_user.errors %}
+                                    <small class="text-danger">{{ form.email_host_user.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.email_host_password.id_for_label }}">Email HOST <span class="text-danger">*</span></label>
+                                {{ form.email_host_password }}
+                                {% if form.email_host_password.errors %}
+                                    <small class="text-danger">{{ form.email_host_password.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.use_tls.id_for_label }}">Use TLS</label>
+                                {{ form.use_tls }}
+                                {% if form.use_tls.errors %}
+                                    <small class="text-danger">{{ form.use_tls.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" id="use_ssl" {% if form.sms_type != "password" %}style="display:none"{% endif %}>
+                                <label for="use_ssl">Use SSL</label>
+                                {{ form.use_ssl }}
+                                {% if form.use_ssl.errors %}
+                                    <small class="text-danger">{{ form.use_ssl.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let select = document.getElementById('id_email_host_user');
+        function toggleFields() {
+            if (select.value === "api_token") {
+                document.getElementById('api_url_group').style.display = "";
+                document.getElementById('api_token_group').style.display = "";
+                document.getElementById('username_group').style.display = "none";
+                document.getElementById('password_group').style.display = "none";
+            } else {
+                document.getElementById('api_url_group').style.display = "none";
+                document.getElementById('api_token_group').style.display = "none";
+                document.getElementById('username_group').style.display = "";
+                document.getElementById('password_group').style.display = "";
+            }
+        }
+        $('#id_email_host_user').on('change', function() {
+            toggleFields();
+        });
+        toggleFields();
+    });
+</script>
+
+{% endblock %}
+
+{% block scriptBlock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        select2_reload();
+        function select2_reload() {
+            $(".select2_items").select2();
+        }
+    </script>
+{% endblock %}

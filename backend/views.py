@@ -6,25 +6,21 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, AdminPasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 
 from datetime import datetime
+from urllib.parse import urlencode
 
 from backend.common_func import checkUserPermission
 from backend.decorators import admin_required
 from backend.models import (
-    LoginLog, AdminUser, BackendMenu, UserMenuPermission
+    LoginLog, AdminUser, BackendMenu, UserMenuPermission, FrontendSettings, EmailConfiguration, SMSLog, SMSConfiguration
 )
 from backend.forms import (
-    CustomUserLoginForm, UserCreateForm
+    CustomUserLoginForm, UserCreateForm, FrontendSettingsForm, EmailConfigurationForm, SMSConfigurationForm
 )
-
-
-# from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList 
-
-# from .forms import ProductMainCategoryForm, ProductSubCategoryForm, ProductChildCategoryForm, AttributeListForm, AttributeValueListForm
 
 
 def paginate_data(request, page_num, data_list):
@@ -1228,4 +1224,193 @@ def setting_dashboard(request):
         "menu_list": menu_list,
     }
     return render(request, 'setting/setting_dashboard.html', context)
+
+
+@admin_required
+def website_setting(request):
+    if not checkUserPermission(request, "can_view", "/backend/website-setting/"):
+        return render(request, "403.html")
+
+    instance = FrontendSettings.objects.first()
+
+    if request.method == 'POST':
+        form = FrontendSettingsForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            settings = form.save(commit=False)
+            if not instance:
+                settings.created_by = request.user
+            else:
+                settings.updated_by = request.user
+                settings.updated_at = datetime.now()
+            settings.save()
+            return redirect('website_setting')
+    else:
+        form = FrontendSettingsForm(instance=instance)
+
+    return render(request, 'setting/website_setting.html', {'form': form})
+
+
+class EmailConfigurationCreateUpdateView(CreateView):
+    template_name = 'setting/email_configuration.html'
+
+    def get_object(self):
+        return EmailConfiguration.objects.filter(is_active=True).first()
+
+    def get(self, request):
+        obj = self.get_object()
+        can_add = checkUserPermission(request, "can_add", "/backend/email-configuration/")
+        can_update = checkUserPermission(request, "can_update", "/backend/email-configuration/")
+        read_only = not (can_add or can_update)
+        form = EmailConfigurationForm(instance=obj, read_only=read_only)
+
+        if read_only:
+            messages.error(request, "You do not have permission to edit this configuration.")
+
+        context = {
+            "form": form,
+            "read_only": read_only,
+            "object": obj,
+            "can_add": can_add,
+            "can_update": can_update,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        obj = self.get_object()
+        can_add = checkUserPermission(request, "can_add", "/hr/email-configuration/")
+        can_update = checkUserPermission(request, "can_update", "/hr/email-configuration/")
+        read_only = not (can_add or can_update)
+
+        if read_only:
+            messages.error(request, "You do not have permission to edit this configuration.")
+            return redirect(reverse("email_configuration_create_update"))
+
+        if obj:
+            form = EmailConfigurationForm(request.POST, instance=obj)
+        else:
+            form = EmailConfigurationForm(request.POST)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if obj:
+                instance.updated_by = request.user
+                instance.updated_at = datetime.now()
+            else:
+                instance.created_by = request.user
+            instance.status = True
+            instance.save()
+            messages.success(request, "Email Configuration saved successfully.")
+            return redirect(reverse("email_configuration_create_update"))
+
+        context = {
+            "form": form,
+            "read_only": False,
+            "object": obj,
+            "can_add": can_add,
+            "can_update": can_update,
+        }
+        return render(request, self.template_name, context)
+
+
+class SMSConfigurationCreateUpdateView(CreateView):
+    template_name = 'setting/sms_configuration.html'
+
+    def get_object(self):
+        return SMSConfiguration.objects.filter(status=True).first()
+
+    def get(self, request):
+        obj = self.get_object()
+        can_add = checkUserPermission(request, "can_add", "/backend/sms-configuration/")
+        can_update = checkUserPermission(request, "can_update", "/backend/sms-configuration/")
+        read_only = not (can_add or can_update)
+        form = SMSConfigurationForm(instance=obj, read_only=read_only)
+
+        if read_only:
+            messages.error(request, "You do not have permission to edit this configuration.")
+
+        context = {
+            "form": form,
+            "read_only": read_only,
+            "object": obj,
+            "can_add": can_add,
+            "can_update": can_update,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        obj = self.get_object()
+        can_add = checkUserPermission(request, "can_add", "/backend/sms-configuration/")
+        can_update = checkUserPermission(request, "can_update", "/backend/sms-configuration/")
+        read_only = not (can_add or can_update)
+
+        if read_only:
+            messages.error(request, "You do not have permission to edit this configuration.")
+            return redirect(reverse("sms_configuration_create_update"))
+
+        if obj:
+            form = SMSConfigurationForm(request.POST, instance=obj)
+        else:
+            form = SMSConfigurationForm(request.POST)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if obj:
+                instance.updated_by = request.user
+                instance.updated_at = datetime.now()
+            else:
+                instance.created_by = request.user
+            instance.status = True
+            instance.save()
+            messages.success(request, "SMS Configuration saved successfully.")
+            return redirect(reverse("sms_configuration_create_update"))
+
+        context = {
+            "form": form,
+            "read_only": False,
+            "object": obj,
+            "can_add": can_add,
+            "can_update": can_update,
+        }
+        return render(request, self.template_name, context)
+
+
+@login_required
+def sent_sms_list(request):
+    if not checkUserPermission(request, "can_view", "/hr/sent-sms-list/"):
+        return render(request, "403.html")
+
+    all_params = dict(list(request.GET.items())[1:])
+    query_string = urlencode(all_params)
+    all_params["deleted"] = False
+    page = request.GET.get("page", "")
+
+    sent_sms_log_list = SMSLog.objects.filter(**all_params).order_by("-id")
+    paginator = Paginator(sent_sms_log_list, 20)
+    last_page_number = paginator.num_pages
+
+    try:
+        sent_sms_log_list = paginator.page(page)
+    except PageNotAnInteger:
+        sent_sms_log_list = paginator.page(1)
+    except EmptyPage:
+        sent_sms_log_list = paginator.page(paginator.num_pages)
+
+    max_pages = 10
+    current_page = sent_sms_log_list.number
+    start_page = max(current_page - int(max_pages / 2), 1)
+    end_page = start_page + max_pages
+    if end_page > last_page_number:
+        end_page = last_page_number + 1
+        start_page = max(end_page - max_pages, 1)
+    paginator_list = range(start_page, end_page)
+
+    context = {
+        "sent_sms_log_list": sent_sms_log_list,
+        "last_page_number": last_page_number,
+        "first_page_number": 1,
+        "params": query_string,
+        "all_params": all_params,
+        "paginator_list": paginator_list,
+    }
+    return render(request, "crm/sent_sms_list.html", context)
 # Settings

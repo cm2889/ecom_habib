@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block page_name %} SMS Configuration {% endblock %}
+{% block content %}
+
+<div class="customer-type-content new-common">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="list_page_default_header_with_border">
+                    <h4><i class="fas fa-cog"></i> SMS Configuration </h4>
+                    <div class="list_top_filter">
+                        {% comment %} <a class="btn btn-primary" href="{{ list_url }}"><i class="fa-solid fa-list"></i> SMS Configuration List</a> {% endcomment %}
+                        {% if not read_only %}
+                            <button type="submit"> Save </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="breadcrumbs_box">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="{% url 'backend_dashboard' %}"><i class="fa-solid fa-home" style="margin-right: 4px;font-size: 16px;"></i>Home</a></li>
+                    <li><a href="#">Configure SMS</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="box_table_area">
+            <div class="box_table">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.sms_provider.id_for_label }}">SMS Provider<span class="text-danger">*</span></label>
+                                {{ form.sms_provider }}
+                                {% if form.sms_provider.errors %}
+                                    <small class="text-danger">{{ form.sms_provider.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.sms_configuration_type.id_for_label }}">Configuration Type <span class="text-danger">*</span></label>
+                                {{ form.sms_configuration_type }}
+                                {% if form.sms_configuration_type.errors %}
+                                    <small class="text-danger">{{ form.sms_configuration_type.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.sms_id.id_for_label }}">SMS ID</label>
+                                {{ form.sms_id }}
+                                {% if form.sms_id.errors %}
+                                    <small class="text-danger">{{ form.sms_id.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" id="api_url_group" {% if form.sms_type != "api_token" %}style="display:none"{% endif %}>
+                                <label for="{{ form.api_url.id_for_label }}">API URL</label>
+                                {{ form.api_url }}
+                                {% if form.api_url.errors %}
+                                    <small class="text-danger">{{ form.api_url.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" id="api_token_group" {% if form.sms_type != "api_token" %}style="display:none"{% endif %}>
+                                <label for="id_api_token">API Token</label>
+                                {{ form.api_token }}
+                                {% if form.api_token.errors %}
+                                    <small class="text-danger">{{ form.api_token.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" id="username_group" {% if form.sms_type != "password" %}style="display:none"{% endif %}>
+                                <label for="id_username">Username</label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <small class="text-danger">{{ form.username.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" id="password_group" {% if form.sms_type != "password" %}style="display:none"{% endif %}>
+                                <label for="id_password">Password</label>
+                                {{ form.password }}
+                                {% if form.password.errors %}
+                                    <small class="text-danger">{{ form.password.errors.as_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let select = document.getElementById('id_sms_configuration_type');
+        function toggleFields() {
+            if (select.value === "api_token") {
+                document.getElementById('api_url_group').style.display = "";
+                document.getElementById('api_token_group').style.display = "";
+                document.getElementById('username_group').style.display = "none";
+                document.getElementById('password_group').style.display = "none";
+            } else {
+                document.getElementById('api_url_group').style.display = "none";
+                document.getElementById('api_token_group').style.display = "none";
+                document.getElementById('username_group').style.display = "";
+                document.getElementById('password_group').style.display = "";
+            }
+        }
+        $('#id_sms_configuration_type').on('change', function() {
+            toggleFields();
+        });
+        toggleFields();
+    });
+</script>
+
+{% endblock %}
+
+{% block scriptBlock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        select2_reload();
+        function select2_reload() {
+            $(".select2_items").select2();
+        }
+    </script>
+{% endblock %}

@@ -89,6 +89,104 @@ class UserMenuPermission(models.Model):
         return str(self.menu)
 
 
+# Frontend
+class FrontendSettings(models.Model):
+    site_title = models.CharField(max_length=255, default="My Website")
+    logo = models.ImageField(upload_to='settings/logo/', blank=True, null=True)
+    favicon = models.ImageField(upload_to='settings/favicon/', blank=True, null=True)
+
+    contact_email = models.EmailField(blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+
+    facebook_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
+
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='frontend_settings_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='frontend_settings_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = 'frontend_settings'
+        verbose_name_plural = 'Frontend Settings'
+        ordering = ['-is_active']
+
+    def __str__(self):
+        return self.site_title if self.site_title else "Frontend Settings"
+
+
+class EmailConfiguration(models.Model):
+    email_host = models.CharField(max_length=255)
+    email_port = models.IntegerField()
+    email_host_user = models.EmailField()
+    email_host_password = models.CharField(max_length=255)
+    use_tls = models.BooleanField(default=True)
+    use_ssl = models.BooleanField(default=False)
+    email_from_name = models.CharField(max_length=255, default="")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_config_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_config_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = 'email_configuration'
+
+    def __str__(self):
+        return self.email_host_user
+
+
+class SMSConfiguration(models.Model):
+    sms_provider_choices = (('ssl', 'SSL'),)
+    sms_configuration_type_choices = (('api_token', 'API Token'), ('password', 'Password'),)
+
+    sms_provider = models.CharField(max_length=50, choices=sms_provider_choices, default='ssl', db_index=True)
+    sms_configuration_type = models.CharField(max_length=100, choices=sms_configuration_type_choices, default='api_token', db_index=True)
+    api_url = models.URLField(max_length=255, blank=True, null=True)
+    sms_id = models.CharField(max_length=100, blank=True, null=True)
+    api_token = models.TextField(blank=True, null=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
+    password = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_created_by_user")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_updated_by_user", blank=True, null=True)
+    deleted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_deleted_by_user", blank=True, null=True)
+    status = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "sms_configurations"
+
+    def __str__(self):
+        return f"{self.get_sms_provider_display()} - {self.get_sms_configuration_type_display()} ({self.sms_id})"
+
+
+class SMSLog(models.Model):
+    mobile_number = models.CharField(max_length=15, db_index=True)
+    message_text = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=15, blank=True, null=True)
+    ip_address = models.CharField(max_length=50, blank=True, null=True)
+    sms_configuration = models.ForeignKey(SMSConfiguration, on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name="sms_sent_created_by_user",
+        blank=True, null=True
+    )
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "sms_log"
+
+    def __str__(self):
+        return str(self.mobile_number)
+
+
+# Frontend
+
+
 # Inventory
 class ProductBrand(models.Model):
     name = models.CharField(max_length=100, unique=True)

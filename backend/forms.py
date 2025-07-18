@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import AdminUser
+from .models import AdminUser, FrontendSettings, EmailConfiguration, SMSConfiguration
 
 # from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList
 
@@ -29,16 +29,71 @@ class CustomUserLoginForm(forms.Form):
         return password
 
 
-# class ProfileEditForm(forms.ModelForm):
-#     class Meta:
-#         model = AdminUser
-#         fields = ['first_name', 'last_name', 'email', 'phone', 'gender', 'date_of_birth', 'profile_photo']
+class FrontendSettingsForm(forms.ModelForm):
+    class Meta:
+        model = FrontendSettings
+        exclude = ['created_by', 'updated_by', 'created_at', 'updated_at', 'is_active']
 
-#     def clean_email(self):
-#         email = self.cleaned_data.get('email')
-#         if AdminUser.objects.exclude(id=self.instance.id).filter(email=email).exists():
-#             raise forms.ValidationError("This email is already taken.")
-#         return email
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field.widget, forms.FileInput):
+                field.widget.attrs.update({'class': 'custom-file-input'})
+            else:
+                field.widget.attrs.update({'class': 'form-control'})
+
+
+class EmailConfigurationForm(forms.ModelForm):
+    class Meta:
+        model = EmailConfiguration
+        fields = [
+            'email_host', 'email_port', 'email_host_user', 'email_host_password', 'use_tls', 'use_ssl',
+        ]
+        widgets = {
+            'email_host': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'email_port': forms.NumberInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'email_host_user': forms.EmailInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'email_host_password': forms.PasswordInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'use_tls': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'use_ssl': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        read_only = kwargs.pop('read_only', False)
+        super().__init__(*args, **kwargs)
+        if read_only:
+            for field in self.fields.values():
+                field.widget.attrs['readonly'] = True
+                field.widget.attrs['disabled'] = True
+        else:
+            self.fields['email_host'].empty_label = ""
+
+
+class SMSConfigurationForm(forms.ModelForm):
+    class Meta:
+        model = SMSConfiguration
+        fields = [
+            'sms_provider', 'sms_configuration_type', 'api_url', 'sms_id', 'api_token', 'username', 'password',
+        ]
+        widgets = {
+            'sms_provider': forms.Select(attrs={'class': 'form-control select2_items', 'required': 'required'}),
+            'sms_configuration_type': forms.Select(attrs={'class': 'form-control select2_items', 'required': 'required', 'id': 'id_sms_configuration_type'}),
+            'api_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'sms_id': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'api_token': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'password': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        read_only = kwargs.pop('read_only', False)
+        super().__init__(*args, **kwargs)
+        if read_only:
+            for field in self.fields.values():
+                field.widget.attrs['readonly'] = True
+                field.widget.attrs['disabled'] = True
+        else:
+            self.fields['sms_provider'].empty_label = ""
 
 
 class UserCreateForm(forms.ModelForm):

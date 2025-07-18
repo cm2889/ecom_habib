@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Frontend Settings{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row align-items-center my-4">
+            <div class="col">
+                <h2 class="h3 mb-0 page-title">Website Frontend Settings</h2>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="{{ form.site_title.id_for_label }}">Site Title</label>
+                            {{ form.site_title }}
+                            {{ form.site_title.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.logo.id_for_label }}">Logo</label>
+                            <div class="custom-file">
+                                {{ form.logo }}
+                                <label class="custom-file-label" for="{{ form.logo.id_for_label }}">Choose logo</label>
+                            </div>
+                            {% if form.instance.logo %}
+                                <small class="d-block mt-2">Current: <a href="{{ form.instance.logo.url }}" target="_blank">View Logo</a></small>
+                            {% endif %}
+                            {{ form.logo.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.favicon.id_for_label }}">Favicon</label>
+                            <div class="custom-file">
+                                {{ form.favicon }}
+                                <label class="custom-file-label" for="{{ form.favicon.id_for_label }}">Choose favicon</label>
+                            </div>
+                            {% if form.instance.favicon %}
+                                <small class="d-block mt-2">Current: <a href="{{ form.instance.favicon.url }}" target="_blank">View Favicon</a></small>
+                            {% endif %}
+                            {{ form.favicon.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.facebook_url.id_for_label }}">Facebook URL</label>
+                            {{ form.facebook_url }}
+                            {{ form.facebook_url.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.instagram_url.id_for_label }}">Instagram URL</label>
+                            {{ form.instagram_url }}
+                            {{ form.instagram_url.errors }}
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="{{ form.contact_email.id_for_label }}">Contact Email</label>
+                            {{ form.contact_email }}
+                            {{ form.contact_email.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.contact_phone.id_for_label }}">Contact Phone</label>
+                            {{ form.contact_phone }}
+                            {{ form.contact_phone.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.address.id_for_label }}">Address</label>
+                            {{ form.address }}
+                            {{ form.address.errors }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

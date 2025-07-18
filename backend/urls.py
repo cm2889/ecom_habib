@@ -19,6 +19,9 @@ urlpatterns = [
 
     # Setting
     path('settings/', views.setting_dashboard, name='setting_dashboard'),
+    path('website-setting/', views.website_setting, name='website_setting'),
+    path('email-configuration/', views.EmailConfigurationCreateUpdateView.as_view(), name='email_configuration'),
+    path('sms-configuration/', views.SMSConfigurationCreateUpdateView.as_view(), name='sms_configuration'),
 
     # path('cities/', views.cities, name='cities'),
     # path('company-setting/', views.company_setting, name='company_setting'),
