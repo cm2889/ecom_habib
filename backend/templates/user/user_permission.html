@@ -12,8 +12,8 @@
                 </div>
                 <div class="breadcrumbs">
                     <ul class="breadcrumbs-list">
-                        <li><a href="{% url 'backend_dashboard' %}"><span><img src="/static/images/icons/Home.svg" alt="more" /></span>Home</a></li>
-                        <li><a href="{% url 'user_list' %}"> User List</a></li>
+                        <li><a href="{% url 'backend:backend_dashboard' %}"><span><img src="/static/images/icons/Home.svg" alt="more" /></span>Home</a></li>
+                        <li><a href="{% url 'backend:user_list' %}"> User List</a></li>
                         <li><a href="#"> User Permission </a></li>
                     </ul>
                 </div>
@@ -26,35 +26,22 @@
                 <div class="filter-inner">
                     <div class="filter-input-field">
                         <label for="full_name">Full Name</label>
-                        <select id="full_name" class="user_status" name="full_name" class="form-control">
-                            <option value="1" {% if user.get_name %} selected {% endif %}>{{ user.get_name }}</option> 
-                        </select>
+                        <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user.admin.get_full_name }}" readonly>
                     </div>
                     <div class="filter-input-field">
                         <label for="username">Username</label>
-                        <select id="username" class="user_status" name="username" class="form-control">
-                            <option value="1">monirul</option> 
-                        </select>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
                     </div>
                     <div class="filter-input-field">
                         <label for="email">User Email</label>
-                        <select id="email" class="user_status" name="email" class="form-control">
-                            <option value="1" {% if user.email %} selected {% endif %}>{{ user.email }}</option> 
-                        </select>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly>
                     </div>
                     <div class="filter-input-field">
                         <label for="user_status">User Status</label>
                         <select id="user_status" class="user_status" name="user_status" class="form-control">
-                            <option value="1" {% if user.is_active %} selected {% endif %}>Active</option> 
+                            <option value="1" {% if user.is_active == True %} selected {% endif %}>Active</option> 
                             <option value="0" {% if user.is_active == False %} selected {% endif %}>Inactive</option> 
                         </select>
-                    </div>
-                    <div class="filter-input-field">
-                        <label for="filter-button"></label>
-                        <div class="filter-button" id="filter-button">
-                            <button type="submit" class="button blue-button">Filter</button>
-                            <a class="button primary-button" href="#">Clear</a>
-                        </div>
                     </div>
                 </div>
             </div>

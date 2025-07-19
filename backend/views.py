@@ -58,7 +58,7 @@ def backend_dashboard(request):
 
 def backend_login(request):
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        return redirect('backend:dashboard')
 
     form = CustomUserLoginForm(request.POST or None)
 
@@ -80,7 +80,7 @@ def backend_login(request):
                 login(request, authenticated_user)
                 LoginLog.objects.create(user_id=user.id, username=username, login_ip=user_ip, login_status=True)
 
-                next_url = request.GET.get('next', reverse('backend_dashboard'))
+                next_url = request.GET.get('next', reverse('backend:backend_dashboard'))
                 return redirect(next_url)
 
         LoginLog.objects.create(username=username, login_ip=user_ip, login_status=False)
@@ -100,7 +100,7 @@ def backend_logout(request):
         login_status=False
     )
     logout(request)
-    return redirect('backend_login')
+    return redirect('backend:backend_login')
 
 
 # Management Start
@@ -154,7 +154,7 @@ def user_add(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'New user has been added successfully!')
-            return redirect('user_list')
+            return redirect('backend:user_list')
         else:
             for field, errors in form.errors.items():
                 for error in errors:
@@ -246,7 +246,7 @@ def reset_password(request, data_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your password has been updated successfully.')
-            return redirect('backend_dashboard')
+            return redirect('backend:backend_dashboard')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -329,7 +329,7 @@ def user_permission(request, user_id):
         else:
             messages.warning(request, "No permission has been assigned!")
 
-        return redirect('user_permission', user_id=user_id)
+        return redirect('backend:user_permission', user_id=user_id)
 
     user = User.objects.get(pk=user_id)
     menu_list = BackendMenu.objects.filter(is_active=True).order_by("module_name")
@@ -1877,7 +1877,7 @@ def website_setting(request):
                 settings.updated_by = request.user
                 settings.updated_at = datetime.now()
             settings.save()
-            return redirect('website_setting')
+            return redirect('backend:website_setting')
     else:
         form = FrontendSettingsForm(instance=instance)
 
@@ -1917,7 +1917,7 @@ class EmailConfigurationCreateUpdateView(CreateView):
 
         if read_only:
             messages.error(request, "You do not have permission to edit this configuration.")
-            return redirect(reverse("email_configuration_create_update"))
+            return redirect(reverse("backend:email_configuration_create_update"))
 
         if obj:
             form = EmailConfigurationForm(request.POST, instance=obj)
@@ -1934,7 +1934,7 @@ class EmailConfigurationCreateUpdateView(CreateView):
             instance.status = True
             instance.save()
             messages.success(request, "Email Configuration saved successfully.")
-            return redirect(reverse("email_configuration_create_update"))
+            return redirect(reverse("backend:email_configuration_create_update"))
 
         context = {
             "form": form,
@@ -1979,7 +1979,7 @@ class SMSConfigurationCreateUpdateView(CreateView):
 
         if read_only:
             messages.error(request, "You do not have permission to edit this configuration.")
-            return redirect(reverse("sms_configuration_create_update"))
+            return redirect(reverse("backend:sms_configuration_create_update"))
 
         if obj:
             form = SMSConfigurationForm(request.POST, instance=obj)
@@ -1996,7 +1996,7 @@ class SMSConfigurationCreateUpdateView(CreateView):
             instance.status = True
             instance.save()
             messages.success(request, "SMS Configuration saved successfully.")
-            return redirect(reverse("sms_configuration_create_update"))
+            return redirect(reverse("backend:sms_configuration_create_update"))
 
         context = {
             "form": form,
