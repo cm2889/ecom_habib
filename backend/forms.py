@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 
 from .models import AdminUser, FrontendSettings, EmailConfiguration, SMSConfiguration
 
-from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory , AttributeList, AttributeValueList, ProductList, ProductAttribute
+from .models import (
+    ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
+)
 
 
 class CustomUserLoginForm(forms.Form):
@@ -143,13 +145,11 @@ class ProductMainCategoryForm(forms.ModelForm):
         fields = ['main_cat_name', 'cat_image', 'description', 'cat_ordering']
 
         widgets = {
-            'main_cat_name' : forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'cat_image' : forms.ClearableFileInput(attrs={'class': 'form-control'}),
-            'description' : forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'cat_ordering' : forms.NumberInput(attrs={'class': 'form-control'})
+            'main_cat_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
-
-    
 
 
 class ProductSubCategoryForm(forms.ModelForm):
@@ -167,7 +167,6 @@ class ProductSubCategoryForm(forms.ModelForm):
 
 
 class ProductChildCategoryForm(forms.ModelForm):
-
     class Meta:
         model = ProductChildCategory
         fields = ['sub_category', 'child_cat_name', 'child_cat_image', 'description', 'child_cat_ordering']
@@ -178,11 +177,10 @@ class ProductChildCategoryForm(forms.ModelForm):
             'child_cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'child_cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
-        } 
+        }
 
 
 class AttributeListForm(forms.ModelForm):
-
     class Meta:
         model = AttributeList
         fields = ['attribute_name', 'attribute_ordering']
@@ -190,11 +188,10 @@ class AttributeListForm(forms.ModelForm):
         widgets = {
             'attribute_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'attribute_ordering': forms.NumberInput(attrs={'class': 'form-control'})
-        } 
+        }
 
 
 class AttributeValueListForm(forms.ModelForm):
-
     class Meta:
         model = AttributeValueList
         fields = ['attribute', 'attribute_value', 'attribute_value_ordering']
@@ -204,7 +201,6 @@ class AttributeValueListForm(forms.ModelForm):
             'attribute_value': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'attribute_value_ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
-
 
 
 class ProductListForm(forms.ModelForm):
