@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Category {% endblock %}
+{% block title %} Add Subcategory {% endblock %}
 
 {% block content %}
     <section class="customer-list-section">
@@ -9,13 +9,13 @@
 
                 <div class="title-box">
                     <div class="page-title">
-                        <h3>Add New  Main Category</h3>
+                        <h3>Add New Subcategory</h3>
                     </div>
                     <div class="breadcrumbs">
                         <ul class="breadcrumbs-list">
                             <li><a href="/"><span><img src="/static/images/icons/Home.svg" alt="more"></span>Home</a></li>
-                            <li><a href="{% url 'product_main_category_list' %}">Category List</a></li>
-                            <li><a href="#">Add New Category</a></li>
+                            <li><a href="{% url 'backend:product_sub_category_list' %}">Subcategory List</a></li>
+                            <li><a href="#">Add New Subcategory</a></li>
                         </ul>
                     </div>
                     
@@ -35,34 +35,38 @@
                                 {% endif %}
                             {% csrf_token %}
                             <div class="form-group">
+                              
                                 <div class="input-field">
-                                    <label for="main_cat_name"> Name*</label>
-                                    <input type="text" name="main_cat_name" id="main_cat_name" required>
+                                    <label for="id_main_category">Main Category*</label>
+                                    {{ form.main_category }}
                                 </div>
 
                                 <div class="input-field">
-                                    <label for="main_cat_name"> Category Ordering*</label>
-                                    <input type="text" name="main_cat_name" id="main_cat_name" required>
+                                    <label for="id_sub_cat_name">Name*</label>
+                                    {{ form.sub_cat_name }}
                                 </div>
-                                 
-                                <div class="input-field">
-                                    <label for="cat_image">Category Image</label>
-                                    <input type="file" name="cat_image" id="cat_image" >
-                                </div>
-                             
+                               
                             </div>
-                            <div class="form-group">
-                              <div class="input-field">
-                                    <label for="cat_image">Category Image</label>
-                                    <input type="file" name="cat_image" id="cat_image" >
-                                </div>
-                              </div>
-                           
+                            
                             <div class="form-group">
 
+                                 <div class="input-field">
+                                    <label for="id_sub_cat_ordering">Category Ordering*</label>
+                                    {{ form.sub_cat_ordering }}
+                                </div>
+
+                                 <div class="input-field">
+                                    <label for="id_sub_cat_image">Category Image</label>
+                                    {{ form.sub_cat_image }}
+                                </div>
+
+                            </div> 
+
+                            <div class="form-group">
+                               
                                 <div class="input-field-full">
-                                    <label for="description"> Description </label>
-                                    <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+                                    <label for="id_description">Description</label>
+                                    {{ form.description }}
                                 </div>
                             </div>
                            
@@ -72,7 +76,7 @@
                             <div class="form-group">
                                 <div class="form-button">
                                     <input type="submit" class="button blue-button" value="Save">
-                                    <a href="" class="button primary-button cancle-button">Cancel</a>
+                                    <a href="{% url 'backend:product_sub_category_list' %}" class="button primary-button cancle-button">Cancel</a>
                                 </div>
                             </div>
                         </form>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from .models import AdminUser, FrontendSettings, EmailConfiguration, SMSConfiguration
 
-# from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList
+from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory , AttributeList, AttributeValueList, ProductList, ProductAttribute
 
 
 class CustomUserLoginForm(forms.Form):
@@ -136,70 +136,113 @@ class UserCreateForm(forms.ModelForm):
         return admin_user
 
 
-# class ProductMainCategoryForm(forms.ModelForm):
-#     """
-#     Form for Product Main Category
-#     This form is used to create or update ProductMainCategory instances.
-#     It includes all fields from the ProductMainCategory model.
-#     """
+class ProductMainCategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = ProductMainCategory
+        fields = ['main_cat_name', 'cat_image', 'description', 'cat_ordering']
+
+        widgets = {
+            'main_cat_name' : forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'cat_image' : forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'description' : forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'cat_ordering' : forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
     
-#     created = forms.DateTimeField(required=False, widget=forms.HiddenInput())
-#     updated = forms.DateTimeField(required=False, widget=forms.HiddenInput())
-
-#     class Meta:
-#         model = ProductMainCategory
-#         fields = ['main_cat_name', 'cat_slug', 'cat_image', 'description', 'cat_ordering', 'is_active', 'created', 'updated']
-
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         if not self.instance.pk:
-#             # For new instances, remove created and updated fields
-#             self.fields.pop('created')
-#             self.fields.pop('updated')
 
 
-# class ProductSubCategoryForm(forms.ModelForm):
-#     """   Form for Product Sub Category
-#     This form is used to create or update ProductSubCategory instances
-#     It includes all fields from the ProductSubCategory model.
-#     """
+class ProductSubCategoryForm(forms.ModelForm):
+    class Meta:
+        model = ProductSubCategory
+        fields = ['main_category', 'sub_cat_name', 'sub_cat_image', 'description', 'sub_cat_ordering']
 
-#     class Meta:
-#         model = ProductSubCategory
-#         fields = "__all__"
-
-
-# class ProductChildCategoryForm(forms.ModelForm):
-#     """
-#     Form for Product Child Category
-#     This form is used to create or update ProductChildCategory instances.
-#     It includes all fields from the ProductChildCategory model.
-#     """
-
-#     class Meta:
-#         model = ProductChildCategory
-#         fields = "__all__"
+        widgets = {
+            'main_category': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'sub_cat_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'sub_cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'sub_cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+        }
 
 
-# class AttributeListForm(forms.ModelForm):
-#     """
-#     Form for Attribute List
-#     This form is used to create or update AttributeList instances.
-#     It includes all fields from the AttributeList model.
-#     """
+class ProductChildCategoryForm(forms.ModelForm):
 
-#     class Meta:
-#         model = AttributeList
-#         fields = "__all__"
+    class Meta:
+        model = ProductChildCategory
+        fields = ['sub_category', 'child_cat_name', 'child_cat_image', 'description', 'child_cat_ordering']
+
+        widgets = {
+            'sub_category': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'child_cat_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'child_cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'child_cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+        } 
 
 
-# class AttributeValueListForm(forms.ModelForm):
-#     """
-#     Form for Attribute Value List
-#     This form is used to create or update AttributeValueList instances.
-#     It includes all fields from the AttributeValueList model.
-#     """
+class AttributeListForm(forms.ModelForm):
 
-#     class Meta:
-#         model = AttributeValueList
-#         fields = "__all__"
+    class Meta:
+        model = AttributeList
+        fields = ['attribute_name', 'attribute_ordering']
+
+        widgets = {
+            'attribute_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'attribute_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+        } 
+
+
+class AttributeValueListForm(forms.ModelForm):
+
+    class Meta:
+        model = AttributeValueList
+        fields = ['attribute', 'attribute_value', 'attribute_value_ordering']
+        
+        widgets = {
+            'attribute': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'attribute_value': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'attribute_value_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
+
+
+class ProductListForm(forms.ModelForm):
+    class Meta:
+        model = ProductList
+        exclude = ['product_slug', 'product_sku', 'available_qty', 'new_product', 'created_by', 'updated_by', 'updated_at', 'created_at', 'is_active', 'sold_qty', 'return_qty', 'total_views']
+
+        widgets = {
+            'main_category': forms.Select(attrs={'class': 'form-control select2-single', 'required': True}),
+            'sub_category': forms.Select(attrs={'class': 'form-control select2-single'}),
+            'child_category': forms.Select(attrs={'class': 'form-control select2-single'}),
+            'product_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'product_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'guideline': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'unit_price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'sale_price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'discount_percent': forms.NumberInput(attrs={'class': 'form-control'}),
+            'discount_status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'total_qty': forms.NumberInput(attrs={'class': 'form-control'}),
+            'sold_qty': forms.NumberInput(attrs={'class': 'form-control'}),
+            'return_qty': forms.NumberInput(attrs={'class': 'form-control'}),
+            'stock_status': forms.Select(attrs={'class': 'form-control select2-single'}),
+            'product_ordering': forms.NumberInput(attrs={'class': 'form-control'}),
+            'warranty': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'variant_product': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            # 'template_product': forms.Select(attrs={'class': 'form-control'}),
+            'is_combo_product': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
+class ProductAttributeForm(forms.ModelForm):
+    class Meta:
+        model = ProductAttribute
+        fields = ['product', 'attribute', 'attribute_value']
+
+        widgets = {
+            'product': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'attribute': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'attribute_value': forms.Select(attrs={'class': 'form-control', 'required': True}),
+        }
