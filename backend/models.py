@@ -1,6 +1,7 @@
+import uuid 
 from django.db import models
 from django.contrib.auth.models import User
-# from django.utils.text import slugify
+from django.utils.text import slugify
 
 from auditlog.registry import auditlog
 
@@ -276,218 +277,234 @@ class UserMenuPermission(models.Model):
 
 
 
-# class ProductMainCategory(models.Model):
-#     main_cat_name = models.CharField(max_length=100, unique=True)
-#     cat_slug      = models.SlugField(max_length=150, unique=True, blank=True)
-#     cat_image     = models.ImageField(upload_to='ecommerce/category_images/', blank=True, null=True)
-#     description   = models.TextField(blank=True, null=True)
-#     cat_ordering  = models.IntegerField(default=0)
-#     created_by    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_created_by')
-#     updated_by    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_updated_by', blank=True, null=True)
-#     created_at    = models.DateTimeField(auto_now_add=True)
-#     updated_at    = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     is_active     = models.BooleanField(default=True)
+class ProductMainCategory(models.Model):
+    main_cat_name = models.CharField(max_length=100, unique=True)
+    cat_slug      = models.SlugField(max_length=150, unique=True, blank=True)
+    cat_image     = models.ImageField(upload_to='ecommerce/category_images/', blank=True, null=True)
+    description   = models.TextField(blank=True, null=True)
+    cat_ordering  = models.IntegerField(default=0)
+    created_by    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_created_by')
+    updated_by    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_updated_by', blank=True, null=True)
+    created_at    = models.DateTimeField(auto_now_add=True)
+    updated_at    = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active     = models.BooleanField(default=True)
 
-#     class Meta:
-#         db_table = 'product_category'
-#         verbose_name_plural = 'Product Categories'
-#         ordering = ['-is_active','cat_ordering']
+    class Meta:
+        db_table = 'product_category'
+        verbose_name_plural = 'Product Categories'
+        ordering = ['-is_active','cat_ordering']
 
-#     def __str__(self):
-#         return self.main_cat_name
+    def __str__(self):
+        return self.main_cat_name
 
-#     def save(self, *args, **kwargs):
-#         if not self.cat_slug and self.main_cat_name:
-#             base_slug = slugify(self.main_cat_name)
-#             slug = base_slug
-#             num = 1
-#             while ProductMainCategory.objects.filter(cat_slug=slug).exclude(pk=self.pk).exists():
-#                 slug = f"{base_slug}-{num}"
-#                 num += 1
-#             self.cat_slug = slug
-#         super().save(*args, **kwargs)
-
-
+    def save(self, *args, **kwargs):
+        if not self.cat_slug and self.main_cat_name:
+            base_slug = slugify(self.main_cat_name)
+            slug = base_slug
+            num = 1
+            while ProductMainCategory.objects.filter(cat_slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.cat_slug = slug
+        super().save(*args, **kwargs)
 
 
 
-# class ProductSubCategory(models.Model):
-#     main_category    = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
-#     sub_cat_name     = models.CharField(max_length=150)
-#     sub_cat_slug     = models.SlugField(max_length=150, unique=True)
-#     sub_cat_image    = models.ImageField(upload_to='ecommerce/sub_category_images/', blank=True, null=True)
-#     description      = models.TextField(blank=True, null=True)
-#     sub_cat_ordering = models.IntegerField(default=0)
-#     created_by       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_created_by')
-#     created_at       = models.DateTimeField(auto_now_add=True)
-#     updated_by       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_updated_by', blank=True, null=True)
-#     updated_at       = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     is_active        = models.BooleanField(default=True)
+
+
+class ProductSubCategory(models.Model):
+    main_category    = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
+    sub_cat_name     = models.CharField(max_length=150)
+    sub_cat_slug     = models.SlugField(max_length=150, unique=True)
+    sub_cat_image    = models.ImageField(upload_to='ecommerce/sub_category_images/', blank=True, null=True)
+    description      = models.TextField(blank=True, null=True)
+    sub_cat_ordering = models.IntegerField(default=0)
+    created_by       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_created_by')
+    created_at       = models.DateTimeField(auto_now_add=True)
+    updated_by       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_updated_by', blank=True, null=True)
+    updated_at       = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active        = models.BooleanField(default=True)
     
-#     class Meta:
-#         db_table = 'product_sub_category'
-#         verbose_name_plural = 'Product Sub Categories'
-#         ordering = ['-is_active','sub_cat_ordering']
+    class Meta:
+        db_table = 'product_sub_category'
+        verbose_name_plural = 'Product Sub Categories'
+        ordering = ['-is_active','sub_cat_ordering']
 
-#     def __str__(self):
-#         return self.sub_cat_name
+    def __str__(self):
+        return self.sub_cat_name
     
-#     def save(self, *args, **kwargs):
-#         if not self.sub_cat_slug and self.sub_cat_name:
-#             base_slug = slugify(self.sub_cat_name)
-#             slug = base_slug
-#             num = 1
-#             while ProductSubCategory.objects.filter(sub_cat_slug=slug).exclude(pk=self.pk).exists():
-#                 slug = f"{base_slug}-{num}"
-#                 num += 1
-#             self.sub_cat_slug = slug
-#         super().save(*args, **kwargs)
-    
-
-
-
-    
-# class ProductChildCategory(models.Model):
-#     sub_category = models.ForeignKey(ProductSubCategory, on_delete=models.CASCADE)
-#     child_cat_name = models.CharField(max_length=150)
-#     child_cat_slug = models.SlugField(max_length=150, unique=True)
-#     child_cat_image = models.ImageField(upload_to='ecommerce/child_category_images/', blank=True, null=True)
-#     description = models.TextField(blank=True, null=True)
-#     child_cat_ordering = models.IntegerField(default=0)
-#     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_created_by')
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_updated_by', blank=True, null=True)
-#     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     is_active = models.BooleanField(default=True)
-
-
-#     def save(self, *args, **kwargs):
-#         if not self.child_cat_slug and self.child_cat_name:
-#             base_slug = slugify(self.child_cat_name)
-#             slug = base_slug
-#             num = 1
-#             while ProductChildCategory.objects.filter(child_cat_slug=slug).exclude(pk=self.pk).exists():
-#                 slug = f"{base_slug}-{num}"
-#                 num += 1
-#             self.child_cat_slug = slug
-#         super().save(*args, **kwargs)
-
-#     class Meta:
-#         db_table = 'product_child_category'
-#         verbose_name_plural = 'Product Child Categories' 
-#         ordering = ['-is_active','child_cat_ordering']
-
-#     def __str__(self):
-#         return self.child_cat_name
-
-
-
-
-# class AttributeList(models.Model):
-#     attribute_name = models.CharField(max_length=50, unique=True)
-#     attribute_ordering = models.IntegerField(default=0)
-#     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_created_by')
-#     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_updated_by', blank=True, null=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     is_active = models.BooleanField(default=True)
-    
-#     class Meta:
-#         db_table = 'attribute_list'
-#         verbose_name_plural = 'Attribute List' 
-#         ordering = ['-is_active','attribute_ordering']
-
-#     def __str__(self):
-#         return self.attribute_name
+    def save(self, *args, **kwargs):
+        if not self.sub_cat_slug and self.sub_cat_name:
+            base_slug = slugify(self.sub_cat_name)
+            slug = base_slug
+            num = 1
+            while ProductSubCategory.objects.filter(sub_cat_slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.sub_cat_slug = slug
+        super().save(*args, **kwargs)
     
 
 
 
-# class AttributeValueList(models.Model):
-#     attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
-#     attribute_value = models.CharField(max_length=50, unique=True)
-#     attribute_value_ordering = models.IntegerField(default=0)
-#     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_value_created_by')
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_value_updated_by', blank=True, null=True)
-#     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     is_active = models.BooleanField(default=True)
     
-#     class Meta:
-#         db_table = 'attribute_value_list'
-#         verbose_name_plural = 'Attribute Value List' 
-#         ordering = ['-is_active','attribute_value_ordering']
-
-#     def __str__(self):
-#         return self.attribute_value
+class ProductChildCategory(models.Model):
     
+    sub_category       = models.ForeignKey(ProductSubCategory, on_delete=models.CASCADE)
+    child_cat_name     = models.CharField(max_length=150)
+    child_cat_slug     = models.SlugField(max_length=150, unique=True)
+    child_cat_image    = models.ImageField(upload_to='ecommerce/child_category_images/', blank=True, null=True)
+    description        = models.TextField(blank=True, null=True)
+    child_cat_ordering = models.IntegerField(default=0)
+    created_by         = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_created_by')
+    created_at         = models.DateTimeField(auto_now_add=True)
+    updated_by         = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_updated_by', blank=True, null=True)
+    updated_at         = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active          = models.BooleanField(default=True)
 
 
-# class ProductList(models.Model):
-#     product_name = models.CharField(max_length=150)
-#     product_slug = models.SlugField(max_length=150, unique=True)
-#     product_sku = models.CharField(max_length=50, unique=True)
-#     main_category = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
-#     sub_category = models.ForeignKey(ProductSubCategory, on_delete=models.CASCADE, blank=True, null=True)
-#     child_category = models.ForeignKey(ProductChildCategory, on_delete=models.DO_NOTHING, blank=True, null=True) 
-#     description = models.TextField(blank=True, null=True)
-#     guideline = models.TextField(blank=True, null=True)
-#     product_image = models.ImageField(upload_to='ecommerce/product_images/', blank=True, null=True)
-#     unit_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-#     sale_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00) 
-#     discount_percent = models.IntegerField(default=0)
-#     discount_status = models.BooleanField(default=False)
-#     total_qty = models.IntegerField(default=0)
-#     sold_qty = models.IntegerField(default=0)
-#     return_qty = models.IntegerField(default=0)
-#     available_qty = models.IntegerField(default=0)
-#     STOCK_STATUS_CHOICES = (
-#         ('In Stock', 'In Stock'),
-#         ('Out of Stock', 'Out of Stock'),
-#         ('Upcoming', 'Upcoming'),
-#         ('Discontinue', 'Discontinue'),
-#     )
-#     stock_status = models.CharField(max_length=50, choices=STOCK_STATUS_CHOICES, default='In Stock')
-#     product_ordering = models.IntegerField(default=0)
-#     total_views = models.IntegerField(default=0)
-#     new_product = models.IntegerField(default=0)
-#     warranty = models.BooleanField(default=False)
-#     variant_product = models.BooleanField(default=False)
-#     template_product = models.ForeignKey('self', on_delete=models.CASCADE, related_name='product_template', blank=True, null=True)
-#     is_combo_product = models.BooleanField(default=False)
-#     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_created_by')
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_updated_by', blank=True, null=True)
-#     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     is_active = models.BooleanField(default=True)
+    def save(self, *args, **kwargs):
+        if not self.child_cat_slug and self.child_cat_name:
+            base_slug = slugify(self.child_cat_name)
+            slug = base_slug
+            num = 1
+            while ProductChildCategory.objects.filter(child_cat_slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.child_cat_slug = slug
+        super().save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'product_child_category'
+        verbose_name_plural = 'Product Child Categories' 
+        ordering = ['-is_active','child_cat_ordering']
+
+    def __str__(self):
+        return self.child_cat_name
+
+
+
+
+class AttributeList(models.Model):
+    attribute_name     = models.CharField(max_length=50, unique=True)
+    attribute_ordering = models.IntegerField(default=0)
+    created_by         = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_created_by')
+    updated_by         = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_updated_by', blank=True, null=True)
+    created_at         = models.DateTimeField(auto_now_add=True)
+    updated_at         = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active          = models.BooleanField(default=True)
     
-#     class Meta:
-#         db_table = 'products'
-#         verbose_name_plural = 'Products'
-#         ordering = ['-is_active','product_ordering']
+    class Meta:
+        db_table = 'attribute_list'
+        verbose_name_plural = 'Attribute List' 
+        ordering = ['-is_active','attribute_ordering']
 
-#     def __str__(self):
-#         return self.product_name
+    def __str__(self):
+        return self.attribute_name
     
 
 
-# class ProductAttribute(models.Model):
-#     product         = models.ForeignKey(ProductList, on_delete=models.CASCADE)
-#     attribute       = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
-#     attribute_value = models.ForeignKey(AttributeValueList, on_delete=models.CASCADE)
-#     created_at      = models.DateTimeField(auto_now_add=True)
-#     created_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_created_by')
-#     updated_at      = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     updated_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_updated_by', blank=True, null=True)
-#     is_active       = models.BooleanField(default=True)
-    
-#     class Meta:
-#         db_table = 'product_attribute'
-#         verbose_name_plural = 'Product Attributes'
-#         ordering = ['-is_active','created_at']
 
-#     def __str__(self):
-#         return str(self.product.product_name)
+class AttributeValueList(models.Model):
+    attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
+    attribute_value = models.CharField(max_length=50, unique=True)
+    attribute_value_ordering = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_value_created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_value_updated_by', blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        db_table = 'attribute_value_list'
+        verbose_name_plural = 'Attribute Value List' 
+        ordering = ['-is_active','attribute_value_ordering']
+
+    def __str__(self):
+        return self.attribute_value
+    
+
+
+class ProductList(models.Model):
+    product_name   = models.CharField(max_length=150)
+    product_slug   = models.SlugField(max_length=150, unique=True)
+    product_sku    = models.CharField(max_length=50, unique=True)
+    main_category  = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
+    sub_category   = models.ForeignKey(ProductSubCategory, on_delete=models.CASCADE, blank=True, null=True)
+    child_category = models.ForeignKey(ProductChildCategory, on_delete=models.DO_NOTHING, blank=True, null=True) 
+    description    = models.TextField(blank=True, null=True)
+    guideline      = models.TextField(blank=True, null=True)
+    product_image  = models.ImageField(upload_to='ecommerce/product_images/', blank=True, null=True)
+    unit_price     = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    sale_price     = models.DecimalField(max_digits=10, decimal_places=2, default=0.00) 
+    discount_percent = models.IntegerField(default=0)
+    discount_status = models.BooleanField(default=False)
+    total_qty     = models.IntegerField(default=0)
+    sold_qty      = models.IntegerField(default=0)
+    return_qty    = models.IntegerField(default=0)
+    available_qty = models.IntegerField(default=0)
+    STOCK_STATUS_CHOICES = (
+        ('In Stock', 'In Stock'),
+        ('Out of Stock', 'Out of Stock'),
+        ('Upcoming', 'Upcoming'),
+        ('Discontinue', 'Discontinue'),
+    )
+    stock_status     = models.CharField(max_length=50, choices=STOCK_STATUS_CHOICES, default='In Stock')
+    product_ordering = models.IntegerField(default=0)
+    total_views      = models.IntegerField(default=0)
+    new_product      = models.IntegerField(default=0)
+    warranty         = models.BooleanField(default=False)
+    variant_product  = models.BooleanField(default=False)
+    template_product = models.ForeignKey('self', on_delete=models.CASCADE, related_name='product_template', blank=True, null=True)
+    is_combo_product = models.BooleanField(default=False)
+    created_by       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_created_by')
+    created_at       = models.DateTimeField(auto_now_add=True)
+    updated_by       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_updated_by', blank=True, null=True)
+    updated_at       = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active        = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if not self.product_slug and self.product_name:
+            base_slug = slugify(self.product_name)
+            slug = base_slug
+            num = 1
+            while ProductList.objects.filter(product_slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.product_slug = slug
+
+        if not self.product_sku: 
+            self.product_sku = f"SKU-{uuid.uuid4().hex[:8].upper()}"
+        
+        super().save(*args, **kwargs)
+    
+    class Meta:
+        db_table = 'products'
+        verbose_name_plural = 'Products'
+        ordering = ['-is_active','product_ordering']
+
+    def __str__(self):
+        return self.product_name
+    
+
+
+class ProductAttribute(models.Model):
+    product         = models.ForeignKey(ProductList, on_delete=models.CASCADE)
+    attribute       = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
+    attribute_value = models.ForeignKey(AttributeValueList, on_delete=models.CASCADE)
+    created_at      = models.DateTimeField(auto_now_add=True)
+    created_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_created_by')
+    updated_at      = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    updated_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_updated_by', blank=True, null=True)
+    is_active       = models.BooleanField(default=True)
+    
+    class Meta:
+        db_table = 'product_attribute'
+        verbose_name_plural = 'Product Attributes'
+        ordering = ['-is_active','created_at']
+
+    def __str__(self):
+        return str(self.product.product_name)
 
 
 auditlog.register(AdminUser)

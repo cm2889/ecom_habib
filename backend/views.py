@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, AdminPasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 
@@ -22,9 +23,9 @@ from backend.forms import (
 )
 
 
-# from .models import ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList 
+from .models import ProductMainCategory, ProductSubCategory , ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
 
-# from .forms import ProductMainCategoryForm, ProductSubCategoryForm, ProductChildCategoryForm, AttributeListForm, AttributeValueListForm
+from .forms import ProductMainCategoryForm , ProductSubCategoryForm, ProductChildCategoryForm , AttributeListForm, AttributeValueListForm, ProductListForm, ProductAttributeForm
 
 
 def paginate_data(request, page_num, data_list):
@@ -374,6 +375,746 @@ def inventory_dashboard(request):
     }
     return render(request, 'inventory/inventory_dashboard.html', context)
 # Inventory
+
+
+
+# product main category 
+@method_decorator(login_required, name='dispatch') 
+class ProductMainCategoryListView(ListView):
+    model               = ProductMainCategory
+    template_name       = 'product/maincategories/main_cat_list.html'
+    paginate_by          = None 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/main_cat_list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        return ProductMainCategory.objects.filter(is_active=True).order_by('-id')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'product_main_categories': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context 
+    
+
+@login_required
+def product_main_category_datails_view(request, pk):
+
+    if not checkUserPermission(request, "can_view", "backend/product-main-category-details/"):
+        messages.error(request, "You do not have permission to view this product main category.") 
+        return render(request, "403.html")
+
+    main_category_details = get_object_or_404(ProductMainCategory, pk=pk)
+    
+    context = {
+        'main_category_details': main_category_details
+    }
+    return render(request, 'product/maincategories/cat_details.html', context) 
+
+
+
+@method_decorator(login_required, name='dispatch') 
+class ProductMainCategoryCreateView(CreateView):
+    model             = ProductMainCategory 
+    form_class        = ProductMainCategoryForm
+    template_name     = 'product/maincategories/add_category.html'
+    success_url       = reverse_lazy('backend:product_main_category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/add-product-main-category/"):
+            messages.error(request, "You do not have permission to add a product main category.")
+            return render(request, "403.html") 
+        return super().dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Product main category created successfully.")
+        return super().form_valid(form) 
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductMainCategoryUpdateView(UpdateView):
+    model             = ProductMainCategory
+    form_class        = ProductMainCategoryForm
+    template_name     = 'product/maincategories/update_category.html'
+    success_url       = reverse_lazy('backend:product_main_category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_update", "backend/product-main-category-update/"):
+            messages.error(request, "You do not have permission to update this product main category.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Product main category updated successfully.")
+        return super().form_valid(form)
+    
+
+@login_required
+def product_main_category_delete_view(request, pk):
+   
+    if not checkUserPermission(request, "can_delete", "backend/product-main-category-delete/"):
+        return render(request, "403.html")
+
+    category = get_object_or_404(ProductMainCategory, pk=pk)
+
+    if request.method == 'POST':
+        category.is_active = False
+        category.save()
+        messages.success(request, "Product main category deleted successfully.")
+        return redirect('backend:product_main_category_list')
+
+    return redirect('backend:product_main_category_list') 
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductSubCategoryListView(ListView):
+    model               = ProductSubCategory
+    template_name       = 'product/subcategories/cat_list.html'
+    paginate_by         = None 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/product-main-category-list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ProductSubCategory.objects.filter(is_active=True).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'product_sub_categories': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context
+    
+
+@login_required
+def product_sub_category_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/product-main-category-list/"):
+        messages.error(request, "You do not have permission to view this product sub category.")
+        return render(request, "403.html")
+
+    sub_category_details = get_object_or_404(ProductSubCategory, pk=pk)
+
+    context = {
+        'sub_category_details': sub_category_details
+    }
+    return render(request, 'product/subcategories/cat_details.html', context) 
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductSubCategoryCreateView(CreateView):
+    model             = ProductSubCategory 
+    form_class        = ProductSubCategoryForm
+    template_name     = 'product/subcategories/add_category.html'
+    success_url       = reverse_lazy('backend:product_sub_category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/product-main-category-list/"):
+            messages.error(request, "You do not have permission to add a product sub category.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Product sub category created successfully.")
+        return super().form_valid(form)
+    
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductSubCategoryUpdateView(UpdateView):
+    model             = ProductSubCategory
+    form_class        = ProductSubCategoryForm
+    template_name     = 'product/subcategories/cat_update.html'
+    success_url       = reverse_lazy('backend:product_sub_category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_update", "backend/product-main-category-list/"):
+            messages.error(request, "You do not have permission to update this product sub category.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Product sub category updated successfully.")
+        return super().form_valid(form) 
+    
+
+@login_required
+def product_sub_category_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/product-sub-category-delete/"):
+        return render(request, "403.html")
+
+    sub_category = get_object_or_404(ProductSubCategory, pk=pk)
+
+    if request.method == 'POST':
+        sub_category.is_active = False
+        sub_category.save()
+        messages.success(request, "Product sub category deleted successfully.")
+        return redirect('backend:product_sub_category_list')
+
+    return redirect('backend:product_sub_category_list') 
+
+
+
+
+class ProductChildCategoryListView(ListView):
+    model               = ProductChildCategory
+    template_name       = 'product/childcategories/cat_list.html'
+    paginate_by         = None 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/product-child-category-list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ProductChildCategory.objects.filter(is_active=True).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'product_child_categories': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context 
+    
+
+
+@login_required
+def product_child_category_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/product-child-category-details/"):
+        messages.error(request, "You do not have permission to view this product child category.")
+        return render(request, "403.html")
+
+    child_category_details = get_object_or_404(ProductChildCategory, pk=pk)
+
+    context = {
+        'child_category_details': child_category_details
+    }
+    return render(request, 'product/childcategories/cat_details.html', context) 
+
+
+
+
+class ProductChildCategoryCreateView(CreateView):
+    model              = ProductChildCategory 
+    form_class         = ProductChildCategoryForm 
+    template_name      = 'product/childcategories/add_category.html'
+    success_url        = reverse_lazy('backend:product_child_category_list') 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/product-child-category-list/"):
+            messages.error(request, "You do not have permission to add a product child category.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs) 
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Product child category created successfully.")
+        return super().form_valid(form) 
+
+
+class ProductChildCategoryUpdateView(UpdateView):
+    model              = ProductChildCategory
+    form_class         = ProductChildCategoryForm
+    template_name      = 'product/childcategories/cat_update.html'
+    success_url        = reverse_lazy('backend:product_child_category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_edit", "backend/product-child-category-list/"):
+            messages.error(request, "You do not have permission to update this product child category.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Product child category updated successfully.")
+        return super().form_valid(form) 
+
+
+@login_required
+def product_child_category_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/product-child-category-delete/"):
+        return render(request, "403.html")
+
+    child_category = get_object_or_404(ProductChildCategory, pk=pk)
+
+    if request.method == 'POST':
+        child_category.is_active = False
+        child_category.save()
+        messages.success(request, "Product child category deleted successfully.")
+        return redirect('backend:product_child_category_list')
+
+    return redirect('backend:product_child_category_list') 
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class AttributeListView(ListView):
+    model               = AttributeList
+    template_name       = 'product/attributes/attribute_list.html'
+    paginate_by         = None 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/attribute-list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return AttributeList.objects.filter(is_active=True).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'attribute_lists': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context 
+
+
+@login_required
+def attribute_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/attribute-details/"):
+        messages.error(request, "You do not have permission to view this attribute.")
+        return render(request, "403.html")
+
+    attribute_details = get_object_or_404(AttributeList, pk=pk)
+
+    context = {
+        'attribute_details': attribute_details
+    }
+    return render(request, 'product/attributes/attribute_details.html', context)
+
+
+
+@method_decorator(login_required, name='dispatch')
+class AttributeCreateView(CreateView):
+    model              = AttributeList 
+    form_class         = AttributeListForm 
+    template_name      = 'product/attributes/add_attribute.html'
+    success_url        = reverse_lazy('backend:attribute_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/attribute-list/"):
+            messages.error(request, "You do not have permission to add an attribute.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs) 
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Attribute created successfully.")
+        return super().form_valid(form) 
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class AttributeUpdateView(UpdateView):
+    model              = AttributeList
+    form_class         = AttributeListForm
+    template_name      = 'product/attributes/attribute_update.html'
+    success_url        = reverse_lazy('backend:attribute_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_edit", "backend/attribute-list/"):
+            messages.error(request, "You do not have permission to update this attribute.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Attribute updated successfully.")
+        return super().form_valid(form) 
+
+
+
+
+@login_required
+def attribute_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/attribute-delete/"):
+        return render(request, "403.html")
+
+    attribute = get_object_or_404(AttributeList, pk=pk)
+
+    if request.method == 'POST':
+        attribute.is_active = False
+        attribute.save()
+        messages.success(request, "Attribute deleted successfully.")
+        return redirect('backend:attribute_list')
+
+    return redirect('backend:attribute_list') 
+
+
+
+@method_decorator(login_required, name='dispatch')
+class AttributeValueListView(ListView):
+    model               = AttributeValueList
+    template_name       = 'product/attributevalue/attribute_value_list.html'
+    paginate_by         = None 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/attribute-value-list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return AttributeValueList.objects.filter(is_active=True).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'attribute_value_lists': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context 
+
+
+
+@login_required
+def attribute_value_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/attribute-value-details/"):
+        messages.error(request, "You do not have permission to view this attribute value.")
+        return render(request, "403.html")
+
+    attribute_value_details = get_object_or_404(AttributeValueList, pk=pk)
+
+    context = {
+        'attribute_value_details': attribute_value_details
+    }
+    return render(request, 'product/attributevalue/attribute_value_details.html', context) 
+
+
+@method_decorator(login_required, name='dispatch')
+class AttributeValueCreateView(CreateView):
+    model              = AttributeValueList 
+    form_class         = AttributeValueListForm 
+    template_name      = 'product/attributevalue/add_attribute_value.html'
+    success_url        = reverse_lazy('backend:attribute_value_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/attribute-value-list/"):
+            messages.error(request, "You do not have permission to add an attribute value.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs) 
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Attribute value created successfully.")
+        return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class AttributeValueUpdateView(UpdateView):
+    model              = AttributeValueList
+    form_class         = AttributeValueListForm
+    template_name      = 'product/attributevalue/attribute_value_update.html'
+    success_url        = reverse_lazy('backend:attribute_value_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_edit", "backend/attribute-value-list/"):
+            messages.error(request, "You do not have permission to update this attribute value.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Attribute value updated successfully.")
+        return super().form_valid(form) 
+
+
+
+@login_required
+def attribute_value_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/attribute-value-delete/"):
+        return render(request, "403.html")
+
+    attribute_value = get_object_or_404(AttributeValueList, pk=pk)
+
+    if request.method == 'POST':
+        attribute_value.is_active = False
+        attribute_value.save()
+        messages.success(request, "Attribute value deleted successfully.")
+        return redirect('backend:attribute_value_list')
+
+    return redirect('backend:attribute_value_list') 
+
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductListView(ListView):
+    model               = ProductList 
+    template_name       = 'product/products/product_list.html'
+    paginate_by         = None 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/product-list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ProductList.objects.filter(is_active=True).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'products': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context 
+
+
+@login_required
+def product_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/product-details/"):
+        messages.error(request, "You do not have permission to view this product.")
+        return render(request, "403.html")
+
+    product_details = get_object_or_404(ProductList, pk=pk)
+
+    context = {
+        'product_details': product_details
+    }
+    return render(request, 'product/products/product_details.html', context) 
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductCreateView(CreateView):
+    model = ProductList
+    form_class = ProductListForm
+    template_name = 'product/products/add_product.html'
+    success_url = reverse_lazy('backend:product_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/product-list/"):
+            messages.error(request, "You do not have permission to add a product.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Product created successfully.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f"{field}: {error}")
+        return super().form_invalid(form)
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductUpdateView(UpdateView):
+    model              = ProductList
+    form_class         = ProductListForm
+    template_name      = 'product/products/product_update.html'
+    success_url        = reverse_lazy('backend:product_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_edit", "backend/product-list/"):
+            messages.error(request, "You do not have permission to update this product.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Product updated successfully.")
+        return super().form_valid(form) 
+    
+
+@login_required
+def product_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/product-delete/"):
+        return render(request, "403.html")
+
+    product = get_object_or_404(ProductList, pk=pk)
+
+    if request.method == 'POST':
+        product.is_active = False
+        product.save()
+        messages.success(request, "Product deleted successfully.")
+        return redirect('backend:product_list')
+
+    return redirect('backend:product_list') 
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductAttibuteListView(ListView):
+    model             = ProductAttribute
+    template_name     = 'product/productattrs/attribute_list.html'
+    paginate_by       = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_view", "backend/product-attribute-list/"):
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        return ProductAttribute.objects.filter(is_active=True).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num  = self.request.GET.get('page', 1)
+        full_queryset   = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)  
+
+        context.update({
+            'product_attributes': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number,
+        })
+
+        return context 
+
+
+
+@login_required
+def product_attribute_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/product-attribute-details/"):
+        messages.error(request, "You do not have permission to view this product attribute.")
+        return render(request, "403.html")
+
+    product_attribute_details = get_object_or_404(ProductAttribute, pk=pk)
+
+    context = {
+        'product_attribute_details': product_attribute_details
+    }
+    return render(request, 'product/productattrs/attribute_details.html', context) 
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductAttributeCreateView(CreateView):
+    model              = ProductAttribute 
+    form_class         = ProductAttributeForm 
+    template_name      = 'product/productattrs/add_attribute.html'
+    success_url        = reverse_lazy('backend:product_attribute_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_add", "backend/product-attribute-list/"):
+            messages.error(request, "You do not have permission to add a product attribute.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs) 
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Product attribute created successfully.")
+        return super().form_valid(form)
+    
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductAttributeUpdateView(UpdateView):
+    model              = ProductAttribute
+    form_class         = ProductAttributeForm
+    template_name      = 'product/productattrs/attribute_update.html'
+    success_url        = reverse_lazy('backend:product_attribute_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, "can_edit", "backend/product-attribute-list/"):
+            messages.error(request, "You do not have permission to update this product attribute.")
+            return render(request, "403.html")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Product attribute updated successfully.")
+        return super().form_valid(form)  
+
+
+
+@login_required
+def product_attribute_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/product-attribute-delete/"):
+        return render(request, "403.html")
+
+    product_attribute = get_object_or_404(ProductAttribute, pk=pk)
+
+    if request.method == 'POST':
+        product_attribute.is_active = False
+        product_attribute.save()
+        messages.success(request, "Product attribute deleted successfully.")
+        return redirect('backend:product_attribute_list')
+
+    return redirect('backend:product_attribute_list') 
 
 
 
