@@ -142,64 +142,64 @@ class ProductMainCategoryForm(forms.ModelForm):
 
     class Meta:
         model = ProductMainCategory
-        fields = ['main_cat_name', 'cat_image', 'description', 'cat_ordering']
+        fields = ['name', 'image', 'description', 'ordering']
 
         widgets = {
-            'main_cat_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+            'ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
 
 
 class ProductSubCategoryForm(forms.ModelForm):
     class Meta:
         model = ProductSubCategory
-        fields = ['main_category', 'sub_cat_name', 'sub_cat_image', 'description', 'sub_cat_ordering']
+        fields = ['main_category', 'name', 'image', 'description', 'ordering']
 
         widgets = {
             'main_category': forms.Select(attrs={'class': 'form-control', 'required': True}),
-            'sub_cat_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'sub_cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'sub_cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+            'ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
 
 
 class ProductChildCategoryForm(forms.ModelForm):
     class Meta:
         model = ProductChildCategory
-        fields = ['sub_category', 'child_cat_name', 'child_cat_image', 'description', 'child_cat_ordering']
+        fields = ['sub_category', 'name', 'image', 'description', 'ordering']
 
         widgets = {
             'sub_category': forms.Select(attrs={'class': 'form-control', 'required': True}),
-            'child_cat_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'child_cat_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'child_cat_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+            'ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
 
 
 class AttributeListForm(forms.ModelForm):
     class Meta:
         model = AttributeList
-        fields = ['attribute_name', 'attribute_ordering']
+        fields = ['name', 'ordering']
 
         widgets = {
-            'attribute_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'attribute_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
 
 
 class AttributeValueListForm(forms.ModelForm):
     class Meta:
         model = AttributeValueList
-        fields = ['attribute', 'attribute_value', 'attribute_value_ordering']
+        fields = ['attribute', 'value', 'ordering']
         
         widgets = {
             'attribute': forms.Select(attrs={'class': 'form-control', 'required': True}),
-            'attribute_value': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'attribute_value_ordering': forms.NumberInput(attrs={'class': 'form-control'})
+            'value': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'ordering': forms.NumberInput(attrs={'class': 'form-control'})
         }
 
 
@@ -235,10 +235,10 @@ class ProductListForm(forms.ModelForm):
 class ProductAttributeForm(forms.ModelForm):
     class Meta:
         model = ProductAttribute
-        fields = ['product', 'attribute', 'attribute_value']
+        fields = ['product', 'attribute', 'value']
 
         widgets = {
             'product': forms.Select(attrs={'class': 'form-control', 'required': True}),
             'attribute': forms.Select(attrs={'class': 'form-control', 'required': True}),
-            'attribute_value': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'value': forms.Select(attrs={'class': 'form-control', 'required': True}),
         }

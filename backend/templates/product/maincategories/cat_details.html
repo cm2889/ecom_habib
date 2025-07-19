@@ -41,14 +41,14 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="details-info">
-                                <h4>{{ main_category_details.main_cat_name }}</h4>
+                                <h4>{{ main_category_details.name }}</h4>
                                 <div class="info-row">
                                     <div class="info-label">Category Slug:</div>
-                                    <div class="info-value">{{ main_category_details.cat_slug }}</div>
+                                    <div class="info-value">{{ main_category_details.slug }}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Ordering:</div>
-                                    <div class="info-value">{{ main_category_details.cat_ordering }}</div>
+                                    <div class="info-value">{{ main_category_details.ordering }}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Description:</div>
@@ -94,8 +94,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="category-image">
-                                {% if main_category_details.cat_image %}
-                                    <img src="{{ main_category_details.cat_image.url }}" alt="{{ main_category_details.main_cat_name }}" class="img-fluid" />
+                                {% if main_category_details.image %}
+                                    <img src="{{ main_category_details.image.url }}" alt="{{ main_category_details.name }}" class="img-fluid" />
                                 {% else %}
                                     <div class="no-image">No image available</div>
                                 {% endif %}

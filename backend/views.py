@@ -771,7 +771,7 @@ def attribute_delete_view(request, pk):
 @method_decorator(login_required, name='dispatch')
 class AttributeValueListView(ListView):
     model = AttributeValueList
-    template_name = 'product/attributevalue/attribute_value_list.html'
+    template_name = 'product/attributevalue/value_list.html'
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):
@@ -791,7 +791,7 @@ class AttributeValueListView(ListView):
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
 
         context.update({
-            'attribute_value_lists': paginated_data,
+            'value_lists': paginated_data,
             'page_num': page_num,
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
@@ -800,25 +800,25 @@ class AttributeValueListView(ListView):
 
 
 @login_required
-def attribute_value_details_view(request, pk):
+def value_details_view(request, pk):
     if not checkUserPermission(request, "can_view", "backend/attribute-value-details/"):
         messages.error(request, "You do not have permission to view this attribute value.")
         return render(request, "403.html")
 
-    attribute_value_details = get_object_or_404(AttributeValueList, pk=pk)
+    value_details = get_object_or_404(AttributeValueList, pk=pk)
 
     context = {
-        'attribute_value_details': attribute_value_details
+        'value_details': value_details
     }
-    return render(request, 'product/attributevalue/attribute_value_details.html', context)
+    return render(request, 'product/attributevalue/value_details.html', context)
 
 
 @method_decorator(login_required, name='dispatch')
 class AttributeValueCreateView(CreateView):
     model = AttributeValueList
     form_class = AttributeValueListForm
-    template_name = 'product/attributevalue/add_attribute_value.html'
-    success_url = reverse_lazy('backend:attribute_value_list')
+    template_name = 'product/attributevalue/add_value.html'
+    success_url = reverse_lazy('backend:value_list')
 
     def dispatch(self, request, *args, **kwargs):
         if not checkUserPermission(request, "can_add", "backend/attribute-value-list/"):
@@ -836,8 +836,8 @@ class AttributeValueCreateView(CreateView):
 class AttributeValueUpdateView(UpdateView):
     model = AttributeValueList
     form_class = AttributeValueListForm
-    template_name = 'product/attributevalue/attribute_value_update.html'
-    success_url = reverse_lazy('backend:attribute_value_list')
+    template_name = 'product/attributevalue/value_update.html'
+    success_url = reverse_lazy('backend:value_list')
 
     def dispatch(self, request, *args, **kwargs):
         if not checkUserPermission(request, "can_edit", "backend/attribute-value-list/"):
@@ -852,19 +852,19 @@ class AttributeValueUpdateView(UpdateView):
 
 
 @login_required
-def attribute_value_delete_view(request, pk):
+def value_delete_view(request, pk):
     if not checkUserPermission(request, "can_delete", "backend/attribute-value-delete/"):
         return render(request, "403.html")
 
-    attribute_value = get_object_or_404(AttributeValueList, pk=pk)
+    value = get_object_or_404(AttributeValueList, pk=pk)
 
     if request.method == 'POST':
-        attribute_value.is_active = False
-        attribute_value.save()
+        value.is_active = False
+        value.save()
         messages.success(request, "Attribute value deleted successfully.")
-        return redirect('backend:attribute_value_list')
+        return redirect('backend:value_list')
 
-    return redirect('backend:attribute_value_list')
+    return redirect('backend:value_list')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -1170,20 +1170,20 @@ def product_attribute_delete_view(request, pk):
 #         return redirect('dashboard')
 
 #     if request.method == 'POST':
-#         main_cat_name = request.POST.get('main_cat_name').strip()
+#         name = request.POST.get('name').strip()
 #         description   = request.POST.get('description').strip()
-#         cat_ordering  = request.POST.get('cat_ordering').strip()
-#         cat_image     = request.FILES.get('cat_image')
+#         ordering  = request.POST.get('ordering').strip()
+#         image     = request.FILES.get('image')
 
-#         if not main_cat_name:
+#         if not name:
 #             messages.error(request, "Name is required.")
 #             return redirect('add_product_main_category')
 
 #         ProductMainCategory.objects.create(
-#             main_cat_name=main_cat_name,
+#             name=name,
 #             description=description,
-#             cat_ordering=cat_ordering,
-#             cat_image=cat_image,
+#             ordering=ordering,
+#             image=image,
 #             is_active=True,
 #             created_by=request.user
 #         )
@@ -1354,17 +1354,17 @@ def product_attribute_delete_view(request, pk):
 #     if not checkUserPermission(request, "can_add", "backend/add-product-sub-category/"):
 #         return redirect('dashboard')
 
-#     opt_main_category  = ProductMainCategory.objects.filter(is_active=True).values('id', 'main_cat_name').order_by('-id')
+#     opt_main_category  = ProductMainCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
 
 #     if request.method == "POST":
 #         main_category       = request.POST.get('main_category').strip()
-#         sub_cat_name        = request.POST.get('sub_cat_name').strip()
-#         sub_cat_slug        = request.POST.get('sub_cat_slug').strip()
+#         name        = request.POST.get('name').strip()
+#         slug        = request.POST.get('slug').strip()
 #         description         = request.POST.get('description').strip()
-#         sub_cat_image       = request.FILES.get('sub_cat_image')
-#         sub_cat_ordering    = request.POST.get('sub_cat_ordering').strip()
+#         image       = request.FILES.get('image')
+#         ordering    = request.POST.get('ordering').strip()
 
-#         if not main_category or not sub_cat_name:
+#         if not main_category or not name:
 #             messages.error(request, 'Name is required')
 #             return redirect('add_product_sub_category')
         
@@ -1372,10 +1372,10 @@ def product_attribute_delete_view(request, pk):
 #             main_category_obj = ProductMainCategory.objects.get(id=main_category)
 #             ProductSubCategory.objects.create(
 #                 main_category    = main_category_obj,
-#                 sub_cat_name     = sub_cat_name,
+#                 name     = name,
 #                 description      = description,
-#                 sub_cat_image    = sub_cat_image,
-#                 sub_cat_ordering = int(sub_cat_ordering) if sub_cat_ordering else 0,
+#                 image    = image,
+#                 ordering = int(ordering) if ordering else 0,
 #                 is_active        = True,
 #                 created_by       = request.user,
 #             )
@@ -1404,30 +1404,30 @@ def product_attribute_delete_view(request, pk):
 #         return redirect('dashboard')
 #     category = get_object_or_404(ProductSubCategory, pk=pk)
 
-#     opt_main_category = ProductMainCategory.objects.filter(is_active=True).values('id', 'main_cat_name').order_by('-id')
+#     opt_main_category = ProductMainCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
 
 #     if request.method  == "POST":
 #         main_category       = request.POST.get('main_category').strip()
-#         sub_cat_name        = request.POST.get('sub_cat_name').strip()
-#         sub_cat_slug        = request.POST.get('sub_cat_slug').strip()
+#         name        = request.POST.get('name').strip()
+#         slug        = request.POST.get('slug').strip()
 #         description         = request.POST.get('description').strip()
-#         sub_cat_image       = request.FILES.get('sub_cat_image')
-#         sub_cat_ordering    = request.POST.get('sub_cat_ordering').strip()
+#         image       = request.FILES.get('image')
+#         ordering    = request.POST.get('ordering').strip()
 #         is_active           = request.POST.get('is_active') == 'on'
 
-#         if not main_category or not sub_cat_name:
+#         if not main_category or not name:
 #             messages.error(request, 'Name is required')
 #             return redirect('product_sub_category_update', pk=pk)
     
 #         try:
 #             main_category_obj = ProductMainCategory.objects.get(id=main_category)
 #             category.main_category    = main_category_obj
-#             category.sub_cat_name     = sub_cat_name
-#             category.sub_cat_slug     = sub_cat_slug if sub_cat_slug else category.sub_cat_slug
+#             category.name     = name
+#             category.slug     = slug if slug else category.slug
 #             category.description      = description
-#             if sub_cat_image:
-#                 category.sub_cat_image = sub_cat_image
-#             category.sub_cat_ordering = int(sub_cat_ordering) if sub_cat_ordering else 0
+#             if image:
+#                 category.image = image
+#             category.ordering = int(ordering) if ordering else 0
 #             category.is_active        = is_active
 #             category.updated_by       = request.user
 #             category.save()
@@ -1516,17 +1516,17 @@ def product_attribute_delete_view(request, pk):
 #     if not checkUserPermission(request, "can_add", "backend/add-product-child-category/"):
 #         return redirect('dashboard')
 
-#     opt_sub_category = ProductSubCategory.objects.filter(is_active=True).values('id', 'sub_cat_name').order_by('-id')
+#     opt_sub_category = ProductSubCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
 
 #     if request.method == "POST":
 #         sub_cate_name       = request.POST.get('sub_cate_name').strip()
-#         child_cat_name      = request.POST.get('child_cat_name').strip()
-#         child_cat_slug      = request.POST.get('child_cat_slug').strip()
+#         name      = request.POST.get('name').strip()
+#         slug      = request.POST.get('slug').strip()
 #         description         = request.POST.get('description').strip()
-#         child_cat_ordering  = request.POST.get('child_cat_ordering').strip()
-#         child_cat_image     = request.FILES.get('child_cat_image')
+#         ordering  = request.POST.get('ordering').strip()
+#         image     = request.FILES.get('image')
 
-#         if not sub_cate_name or not child_cat_name:
+#         if not sub_cate_name or not name:
 #             messages.error(request, 'Name is required')
 #             return redirect('add_product_child_category')
         
@@ -1535,10 +1535,10 @@ def product_attribute_delete_view(request, pk):
 #             sub_category_obj   = ProductSubCategory.objects.get(id=sub_cate_name)
 #             ProductChildCategory.objects.create(
 #                 sub_category      = sub_category_obj,
-#                 child_cat_name    = child_cat_name,
+#                 name    = name,
 #                 description       = description,
-#                 child_cat_image   = child_cat_image,
-#                 child_cat_ordering= int(child_cat_ordering) if child_cat_ordering else 0,
+#                 image   = image,
+#                 ordering= int(ordering) if ordering else 0,
 #                 is_active         = True,
 #                 created_by        = request.user,
 #             )
@@ -1567,29 +1567,29 @@ def product_attribute_delete_view(request, pk):
 #         return redirect('dashboard')
 #     category = get_object_or_404(ProductChildCategory, pk=pk)
 
-#     opt_sub_category = ProductSubCategory.objects.filter(is_active=True).values('id', 'sub_cat_name').order_by('-id')
+#     opt_sub_category = ProductSubCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
 
 #     if request.method == "POST":
 #         sub_cate_name       = request.POST.get('sub_cate_name').strip()
-#         child_cat_name      = request.POST.get('child_cat_name').strip()
-#         child_cat_slug      = request.POST.get('child_cat_slug').strip()
+#         name      = request.POST.get('name').strip()
+#         slug      = request.POST.get('slug').strip()
 #         description         = request.POST.get('description').strip()
-#         child_cat_image     = request.FILES.get('child_cat_image')
-#         child_cat_ordering  = request.POST.get('child_cat_ordering').strip()
+#         image     = request.FILES.get('image')
+#         ordering  = request.POST.get('ordering').strip()
 
-#         if not sub_cate_name or not child_cat_name:
+#         if not sub_cate_name or not name:
 #             messages.error(request, 'Name is required')
 #             return redirect('product_child_category_update', pk=pk)
         
 #         try:
 #             sub_category_obj   = ProductSubCategory.objects.get(id=sub_cate_name)
 #             category.sub_category      = sub_category_obj
-#             category.child_cat_name    = child_cat_name
-#             category.child_cat_slug    = child_cat_slug if child_cat_slug else category.child_cat_slug
+#             category.name    = name
+#             category.slug    = slug if slug else category.slug
 #             category.description       = description
-#             if child_cat_image:
-#                 category.child_cat_image = child_cat_image
-#             category.child_cat_ordering= int(child_cat_ordering) if child_cat_ordering else 0
+#             if image:
+#                 category.image = image
+#             category.ordering= int(ordering) if ordering else 0
 #             category.is_active         = True
 #             category.updated_by        = request.user
 #             category.save()
@@ -1736,7 +1736,7 @@ def product_attribute_delete_view(request, pk):
 
 
 # @login_required
-# def attribute_value_list_view(request):
+# def value_list_view(request):
 #     """
 #     View to list all active attribute values.
 #     This view checks user permissions and paginates the list of attribute values.
@@ -1746,20 +1746,20 @@ def product_attribute_delete_view(request, pk):
 #     if not checkUserPermission(request, "can_view", "backend/attribute-value-list/"):
 #         return redirect('dashboard')
 
-#     attribute_values = AttributeValueList.objects.filter(is_active=True).order_by('-id')
+#     values = AttributeValueList.objects.filter(is_active=True).order_by('-id')
 #     page_number = request.GET.get('page', 1)
-#     attribute_values, paginator_list, last_page_number = paginate_data(request, page_number, attribute_values)
+#     values, paginator_list, last_page_number = paginate_data(request, page_number, values)
 
 #     context = {
 #         'paginator_list': paginator_list,
 #         'last_page_number': last_page_number,
-#         'attribute_values': attribute_values,
+#         'values': values,
 #     }
-#     return render(request, "product/attribute_value_list.html", context)
+#     return render(request, "product/value_list.html", context)
 
 
 # @login_required
-# def attribute_value_details_view(request, pk):
+# def value_details_view(request, pk):
 #     """
 #     View to display the details of a specific attribute value.
 #     This view checks user permissions and retrieves the attribute value by its primary key (pk).
@@ -1768,13 +1768,13 @@ def product_attribute_delete_view(request, pk):
 #     context = {}
 #     if not checkUserPermission(request, "can_view", "backend/attribute-value-details/"):
 #         return redirect('dashboard')
-#     attribute_value = get_object_or_404(AttributeValueList, pk=pk)
-#     context['attribute_value'] = attribute_value
+#     value = get_object_or_404(AttributeValueList, pk=pk)
+#     context['value'] = value
 #     return render(request, 'product/', context)
 
 
 # @login_required
-# def attribute_value_create_view(request):
+# def value_create_view(request):
 #     """
 #     View to create a new attribute value.
 #     This view checks user permissions and handles the form submission for creating a new attribute value.
@@ -1788,7 +1788,7 @@ def product_attribute_delete_view(request, pk):
 #         if form.is_valid():
 #             form.save()
 #             messages.success(request, "Attribute value created successfully.")
-#             return redirect('attribute_value_list')
+#             return redirect('value_list')
 #     else:
 #         form = AttributeValueListForm()
 
@@ -1798,7 +1798,7 @@ def product_attribute_delete_view(request, pk):
 
 
 # @login_required
-# def attribute_value_update_view(request, pk):
+# def value_update_view(request, pk):
 #     """
 #     View to update an existing attribute value.
 #     This view checks user permissions and retrieves the attribute value by its primary key (pk).
@@ -1807,22 +1807,22 @@ def product_attribute_delete_view(request, pk):
 #     context = {}
 #     if not checkUserPermission(request, "can_edit", "backend/edit-attribute-value/"):
 #         return redirect('dashboard')
-#     attribute_value = get_object_or_404(AttributeValueList, pk=pk)
+#     value = get_object_or_404(AttributeValueList, pk=pk)
 #     if request.method == "POST":
-#         form = AttributeValueListForm(request.POST, instance=attribute_value)
+#         form = AttributeValueListForm(request.POST, instance=value)
 #         if form.is_valid():
 #             form.save()
 #             messages.success(request, "Attribute value updated successfully.")
-#             return redirect('attribute_value_list')
+#             return redirect('value_list')
 #     else:
-#         form = AttributeValueListForm(instance=attribute_value)
+#         form = AttributeValueListForm(instance=value)
 
 #     context['form'] = form
 #     return render(request, 'product/', context)
 
 
 # @login_required
-# def attribute_value_delete_view(request, pk):
+# def value_delete_view(request, pk):
 #     """
 #     View to delete an attribute value.
 #     This view checks user permissions and retrieves the attribute value by its primary key (pk).
@@ -1831,14 +1831,14 @@ def product_attribute_delete_view(request, pk):
 #     context = {}
 #     if not checkUserPermission(request, "can_delete", "backend/delete-attribute-value/"):
 #         return redirect('dashboard')
-#     attribute_value = get_object_or_404(AttributeValueList, pk=pk)
+#     value = get_object_or_404(AttributeValueList, pk=pk)
 #     if request.method == "POST":
-#         attribute_value.is_active = False
-#         attribute_value.save()
+#         value.is_active = False
+#         value.save()
 #         messages.success(request, "Attribute value deleted successfully.")
-#         return redirect('attribute_value_list')
+#         return redirect('value_list')
     
-#     context['attribute_value'] = attribute_value
+#     context['value'] = value
 #     return render(request, 'product/', context)
 
 

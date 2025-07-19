@@ -13,7 +13,7 @@
                 <div class="breadcrumbs">
                     <ul class="breadcrumbs-list">
                         <li><a href="{% url 'backend:backend_dashboard' %}"><span><img src="/static/images/icons/Home.svg" alt="home" /></span>Home</a></li>
-                        <li><a href="{% url 'backend:attribute_value_list' %}">Attribute Value List</a></li>
+                        <li><a href="{% url 'backend:value_list' %}">Attribute Value List</a></li>
                         <li><a href="#">Attribute Value Details</a></li>
                     </ul>
                 </div>
@@ -22,36 +22,36 @@
             <div class="form-area-content">
                 <div class="form-inner-content">
                     <div class="form-group">
-                        <label>Attribute:</label> {{ attribute_value_details.attribute.attribute_name }}
+                        <label>Attribute:</label> {{ value_details.attribute.name }}
                     </div>
                     <div class="form-group">
-                        <label>Attribute Value:</label> {{ attribute_value_details.attribute_value }}
+                        <label>Attribute Value:</label> {{ value_details.value }}
                     </div>
                     <div class="form-group">
-                        <label>Ordering:</label> {{ attribute_value_details.attribute_value_ordering }}
+                        <label>Ordering:</label> {{ value_details.ordering }}
                     </div>
                     <div class="form-group">
-                        <label>Status:</label> {% if attribute_value_details.is_active %}Active{% else %}Inactive{% endif %}
+                        <label>Status:</label> {% if value_details.is_active %}Active{% else %}Inactive{% endif %}
                     </div>
                     <div class="form-group">
-                        <label>Created At:</label> {{ attribute_value_details.created_at|date:"d-M-Y" }}
+                        <label>Created At:</label> {{ value_details.created_at|date:"d-M-Y" }}
                     </div>
                     <div class="form-group">
-                        <label>Created By:</label> {{ attribute_value_details.created_by }}
+                        <label>Created By:</label> {{ value_details.created_by }}
                     </div>
-                    {% if attribute_value_details.updated_at %}
+                    {% if value_details.updated_at %}
                     <div class="form-group">
-                        <label>Updated At:</label> {{ attribute_value_details.updated_at|date:"d-M-Y" }}
+                        <label>Updated At:</label> {{ value_details.updated_at|date:"d-M-Y" }}
                     </div>
                     {% endif %}
-                    {% if attribute_value_details.updated_by %}
+                    {% if value_details.updated_by %}
                     <div class="form-group">
-                        <label>Updated By:</label> {{ attribute_value_details.updated_by }}
+                        <label>Updated By:</label> {{ value_details.updated_by }}
                     </div>
                     {% endif %}
                     <div class="form-group">
                         <div class="form-button">
-                            <a href="{% url 'backend:attribute_value_list' %}" class="button primary-button cancle-button">Back to List</a>
+                            <a href="{% url 'backend:value_list' %}" class="button primary-button cancle-button">Back to List</a>
                         </div>
                     </div>
                 </div>

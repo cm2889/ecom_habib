@@ -49,7 +49,7 @@
                             {% for data in attribute_lists %}
                             <tr>
                                 <td class="text-center">{{ forloop.counter }}</td>
-                                <td class="text-left"><a href="{% url 'backend:attribute_details' data.id %}">{{ data.attribute_name }}</a></td>
+                                <td class="text-left"><a href="{% url 'backend:attribute_details' data.id %}">{{ data.name }}</a></td>
                                 <td class="text-left">{{ data.created_by }}</td>
                                 <td class="text-center">
                                     {% if data.is_active %}

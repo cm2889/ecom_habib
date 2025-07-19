@@ -14,7 +14,7 @@
                     <div class="breadcrumbs">
                         <ul class="breadcrumbs-list">
                             <li><a href="/"><span><img src="/static/images/icons/Home.svg" alt="more"></span>Home</a></li>
-                            <li><a href="{% url 'backend:attribute_value_list' %}">Attribute Value List</a></li>
+                            <li><a href="{% url 'backend:value_list' %}">Attribute Value List</a></li>
                             <li><a href="#">Add New Attribute Value</a></li>
                         </ul>
                     </div>
@@ -42,21 +42,21 @@
                                 {{ form.attribute }}
                             </div>
                             <div class="input-field">
-                                <label for="id_attribute_value">Attribute Value</label>
-                                {{ form.attribute_value }}
+                                <label for="id_value">Attribute Value</label>
+                                {{ form.value }}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-field">
-                                <label for="id_attribute_value_ordering">Ordering</label>
-                                {{ form.attribute_value_ordering }}
+                                <label for="id_ordering">Ordering</label>
+                                {{ form.ordering }}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="form-button">
                                 <button type="submit" class="button blue-button">Save</button>
-                                <a href="{% url 'backend:attribute_value_list' %}" class="button primary-button cancle-button">Cancel</a>
+                                <a href="{% url 'backend:value_list' %}" class="button primary-button cancle-button">Cancel</a>
                             </div>
                         </div>
                     </form>

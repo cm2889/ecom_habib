@@ -39,18 +39,18 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="details-info">
-                                <h4>{{ child_category_details.child_cat_name }}</h4>
+                                <h4>{{ child_category_details.name }}</h4>
                                 <div class="info-row">
                                     <div class="info-label">Sub Category:</div>
-                                    <div class="info-value">{{ child_category_details.sub_category.sub_cat_name }}</div>
+                                    <div class="info-value">{{ child_category_details.sub_category.name }}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Child Category Slug:</div>
-                                    <div class="info-value">{{ child_category_details.child_cat_slug }}</div>
+                                    <div class="info-value">{{ child_category_details.slug }}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Ordering:</div>
-                                    <div class="info-value">{{ child_category_details.child_cat_ordering }}</div>
+                                    <div class="info-value">{{ child_category_details.ordering }}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Description:</div>
@@ -96,8 +96,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="category-image">
-                                {% if child_category_details.child_cat_image %}
-                                    <img src="{{ child_category_details.child_cat_image.url }}" alt="{{ child_category_details.child_cat_name }}" class="img-fluid" />
+                                {% if child_category_details.image %}
+                                    <img src="{{ child_category_details.image.url }}" alt="{{ child_category_details.name }}" class="img-fluid" />
                                 {% else %}
                                     <div class="no-image">No image available</div>
                                 {% endif %}

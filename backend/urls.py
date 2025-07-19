@@ -57,11 +57,11 @@ urlpatterns = [
     path('attribute-list-delete/<int:pk>/', views.attribute_delete_view, name='attribute_list_delete'),
 
     # Attribute value list URLs
-    path('attribute-value-list/', views.AttributeValueListView.as_view(), name='attribute_value_list'),
-    path('attribute-value-details/<int:pk>/', views.attribute_value_details_view, name='attribute_value_details'),
-    path('add-attribute-value/', views.AttributeValueCreateView.as_view(), name='add_attribute_value_list'),
-    path('attribute-value-update/<int:pk>/', views.AttributeValueUpdateView.as_view(), name='attribute_value_update'),
-    path('attribute-value-delete/<int:pk>/', views.attribute_value_delete_view, name='attribute_value_delete'),
+    path('attribute-value-list/', views.AttributeValueListView.as_view(), name='value_list'),
+    path('attribute-value-details/<int:pk>/', views.value_details_view, name='value_details'),
+    path('add-attribute-value/', views.AttributeValueCreateView.as_view(), name='add_value_list'),
+    path('attribute-value-update/<int:pk>/', views.AttributeValueUpdateView.as_view(), name='value_update'),
+    path('attribute-value-delete/<int:pk>/', views.value_delete_view, name='value_delete'),
 
     # Product list URLs
     path('product-list/', views.ProductListView.as_view(), name='product_list'),

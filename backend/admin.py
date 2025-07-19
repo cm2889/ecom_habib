@@ -75,42 +75,42 @@ from django.contrib import admin
 
 # @admin.register(ProductMainCategory)
 # class ProductMainCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('main_cat_name', 'cat_slug', 'cat_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+#     list_display = ('name', 'slug', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active',)
-#     search_fields = ('main_cat_name', 'cat_slug')
-#     ordering = ('cat_ordering',)
+#     search_fields = ('name', 'slug')
+#     ordering = ('ordering',)
 
 
 # @admin.register(ProductSubCategory)
 # class ProductSubCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('sub_cat_name', 'sub_cat_slug', 'sub_cat_image', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+#     list_display = ('name', 'slug', 'image', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active',)
-#     search_fields = ('sub_cat_name', 'sub_cat_slug')
-#     ordering = ('sub_cat_ordering',)
+#     search_fields = ('name', 'slug')
+#     ordering = ('ordering',)
 
 
 # @admin.register(ProductChildCategory)
 # class ProductChildCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('child_cat_name', 'child_cat_slug', 'description', 'child_cat_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+#     list_display = ('name', 'slug', 'description', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active',)
-#     search_fields = ('child_cat_name', 'child_cat_slug')
-#     ordering = ('child_cat_ordering',)
+#     search_fields = ('name', 'slug')
+#     ordering = ('ordering',)
 
 
 # @admin.register(AttributeList)
 # class AttributeListAdmin(admin.ModelAdmin):
-#     list_display = ('attribute_name', 'attribute_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+#     list_display = ('name', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active',)
-#     search_fields = ('attribute_name',)
-#     ordering = ('attribute_ordering',)
+#     search_fields = ('name',)
+#     ordering = ('ordering',)
 
 
 # @admin.register(AttributeValueList)
 # class AttributeValueListAdmin(admin.ModelAdmin):
-#     list_display = ('attribute', 'attribute_value', 'attribute_value_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+#     list_display = ('attribute', 'value', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active',)
-#     search_fields = ('attribute__attribute_name', 'attribute_value')
-#     ordering = ('attribute_value_ordering',)
+#     search_fields = ('attribute__name', 'value')
+#     ordering = ('ordering',)
 
 
 # @admin.register(ProductList)
@@ -123,6 +123,6 @@ from django.contrib import admin
 
 # @admin.register(ProductAttribute)
 # class ProductAttributeAdmin(admin.ModelAdmin):
-#     list_display = ('product', 'attribute', 'attribute_value', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+#     list_display = ('product', 'attribute', 'value', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
 #     list_filter = ('is_active',)
 #     ordering = ('created_at',)

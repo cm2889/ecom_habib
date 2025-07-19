@@ -51,7 +51,7 @@
                             <tr>
                                 <td class="text-center">{{ forloop.counter }}</td>
                                 <td class="text-left"><a href="{% url 'backend:product_details' data.id %}">{{ data.product_name }}</a></td>
-                                <td class="text-left">{{ data.main_category.main_cat_name }}</td>
+                                <td class="text-left">{{ data.main_category.name }}</td>
                                 <td class="text-left">{{ data.unit_price }}</td>
                                 <td class="text-center">
                                     {% if data.is_active %}

@@ -43,26 +43,26 @@
                                 {{ form.sub_category }}
                             </div>
                             <div class="input-field">
-                                <label for="id_child_cat_name">Child Category Name</label>
-                                {{ form.child_cat_name }}
+                                <label for="id_name">Child Category Name</label>
+                                {{ form.name }}
                             </div>
                         </div>
 
                          <div class="form-group">
                             
                              <div class="input-field">
-                                <label for="id_child_cat_ordering">Ordering</label>
-                                {{ form.child_cat_ordering }}
+                                <label for="id_ordering">Ordering</label>
+                                {{ form.ordering }}
                             </div>
 
                             <div class="input-field input-photo">
-                                <label for="id_child_cat_image">Image</label>
-                                {% if form.instance.child_cat_image %}
+                                <label for="id_image">Image</label>
+                                {% if form.instance.image %}
                                 <div class="current-image mb-2">
-                                    <p>Current: <a href="{{ form.instance.child_cat_image.url }}" target="_blank">{{ form.instance.child_cat_image.name }}</a></p>
+                                    <p>Current: <a href="{{ form.instance.image.url }}" target="_blank">{{ form.instance.image.name }}</a></p>
                                 </div>
                                 {% endif %}
-                                {{ form.child_cat_image }}
+                                {{ form.image }}
                             </div>
                             
                         </div>

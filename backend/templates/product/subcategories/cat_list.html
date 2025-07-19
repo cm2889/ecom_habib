@@ -51,8 +51,8 @@
                             {% for data in product_sub_categories %}
                             <tr>
                                 <td class="text-center">{{ forloop.counter }}</td>
-                                <td class="text-left"><a href="{% url 'backend:product_sub_category_details_view' data.id %}">{{ data.sub_cat_name }}</a></td>
-                                <td class="text-left">{{ data.main_category.main_cat_name }}</td>
+                                <td class="text-left"><a href="{% url 'backend:product_sub_category_details_view' data.id %}">{{ data.name }}</a></td>
+                                <td class="text-left">{{ data.main_category.name }}</td>
                                 <td class="text-left">{{ data.description|truncatewords:10 }}</td>
                                 <td class="text-left">{{ data.created_by }}</td>
                                 <td class="text-center">
