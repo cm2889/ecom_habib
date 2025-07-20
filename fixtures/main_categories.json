@@ -1,0 +1,82 @@
+[
+    {
+        "model": "backend.productmaincategory",
+        "pk": 1,
+        "fields": {
+            "name": "Electronics",
+            "slug": "electronics",
+            "image": null,
+            "description": "Electronic gadgets and devices.",
+            "ordering": 1,
+            "created_by": 1,
+            "updated_by": null,
+            "created_at": "2025-07-20T15:19:00.000000",
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productmaincategory",
+        "pk": 2,
+        "fields": {
+            "name": "Apparel",
+            "slug": "apparel",
+            "image": null,
+            "description": "Clothing and fashion items.",
+            "ordering": 2,
+            "created_by": 1,
+            "updated_by": null,
+            "created_at": "2025-07-20T15:19:00.000000",
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productmaincategory",
+        "pk": 3,
+        "fields": {
+            "name": "Home & Kitchen",
+            "slug": "home-kitchen",
+            "image": null,
+            "description": "Products for home and kitchen use.",
+            "ordering": 3,
+            "created_by": 1,
+            "updated_by": null,
+            "created_at": "2025-07-20T15:19:00.000000",
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productmaincategory",
+        "pk": 4,
+        "fields": {
+            "name": "Books",
+            "slug": "books",
+            "image": null,
+            "description": "Various genres of books.",
+            "ordering": 4,
+            "created_by": 1,
+            "updated_by": null,
+            "created_at": "2025-07-20T15:19:00.000000",
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productmaincategory",
+        "pk": 5,
+        "fields": {
+            "name": "Sports & Outdoors",
+            "slug": "sports-outdoors",
+            "image": null,
+            "description": "Equipment for sports and outdoor activities.",
+            "ordering": 5,
+            "created_by": 1,
+            "updated_by": null,
+            "created_at": "2025-07-20T15:19:00.000000",
+            "updated_at": null,
+            "is_active": true
+        }
+    }
+]

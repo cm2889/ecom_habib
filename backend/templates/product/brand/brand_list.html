@@ -1,24 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}Product List | Ecommerce{% endblock %}
+{% block title %}Brand List | Ecommerce{% endblock %}
 
 {% block content %}
+
 <section class="customer-list-section">
     <div class="container">
         <div class="content">
             <div class="title-box">
                 <div class="page-title">
-                    <h3>Product List</h3>
+                    <h3>Brand List</h3>
                 </div>
                 <div class="breadcrumbs">
                     <ul class="breadcrumbs-list">
                         <li><a href="{% url 'backend:backend_dashboard' %}"><span><img src="/static/images/icons/Home.svg" alt="home" /></span>Home</a></li>
-                        <li><a href="{% url 'backend:product_list' %}">Product List</a></li>
+                        <li><a href="#">Brand List</a></li>
                     </ul>
                 </div>
                 <div class="top-button">
                     <div class="button-box">
-                        <a class="button primary-button" href="{% url 'backend:add_product' %}">
+                        <a class="button primary-button" href="{% url 'backend:add_product_brand' %}">
                             <span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New
                         </a>
                     </div>
@@ -27,35 +28,6 @@
 
             <div class="listing-box">
                 <div class="table table-border-bottom">
-
-                    <form method="get" class="mb-3 d-flex align-items-center flex-wrap" style="gap: 10px;">
-        
-                        <input type="text" name="name" class="form-control" placeholder="Product Name"
-                            value="{{ filter_name }}" style="width: 180px;">
-
-                        <select name="category" class="form-control" style="width: 180px;">
-                            <option value="">All Categories</option>
-                            {% for cat in categories %}
-                                <option value="{{ cat.id }}" {% if filter_category == cat.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ cat.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-
-                        <select name="brand" class="form-control" style="width: 180px;">
-                            <option value="">All Brands</option>
-                            {% for brand in brands %}
-                                <option value="{{ brand.id }}" {% if filter_brand == brand.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ brand.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                        <a href="{% url 'backend:product_list' %}" class="btn btn-danger">Reset</a>
-                    </form>
-
-
                     {% if messages %}
                         <div class="alert alert-info" role="alert" style="color: green">
                             {% for message in messages %}
@@ -63,41 +35,38 @@
                             {% endfor %}
                         </div>
                     {% endif %} 
-                    
                     <table>
                         <thead>
                             <tr>
                                 <th class="text-center">SL No.</th>
-                                <th class="text-left">Name</th>
-                                <th class="text-left">Category</th>
-                                <th class="text-left">Price</th>
+                                <th class="text-left">Brand Name</th>
+                                <th class="text-left">Created By</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-left">Created Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for data in products %}
+                            {% for brand in brand_list %}
                             <tr>
                                 <td class="text-center">{{ forloop.counter }}</td>
-                                <td class="text-left"><a href="{% url 'backend:product_details' data.id %}">{{ data.product_name }}</a></td>
-                                <td class="text-left">{{ data.main_category.name }}</td>
-                                <td class="text-left">{{ data.unit_price }}</td>
+                                <td class="text-left"><a href="{% url 'backend:product_brand_details_view' brand.id %}">{{ brand.name }}</a></td>
+                                <td class="text-left">{{ brand.created_by }}</td>
                                 <td class="text-center">
-                                    {% if data.is_active %}
+                                    {% if brand.is_active %}
                                         <span class="active"><img src="/static/images/icons/ellipse-active.svg" alt="yes" /></span>Yes
                                     {% else %}
                                         <span class="inactive"><img src="/static/images/icons/ellipse-inactive.svg" alt="no" /></span>No
                                     {% endif %}
                                 </td>
-                                <td class="text-left">{{ data.created_at|date:"d-M-Y" }}</td>
+                                <td class="text-left">{{ brand.created_at|date:"d-M-Y" }}</td>
                                 <td class="text-center">
-                                    <span class="more"><a href="{% url 'backend:product_details' data.id %}"><i class="fas fa-eye font-weight500"></i></a></span>
-                                    <span class="more"><a href="{% url 'backend:product_update' data.id %}"><i class="fas fa-edit font-weight500"></i></a></span>
+                                    <span class="more"><a href="{% url 'backend:product_brand_details_view' brand.id %}"><i class="fas fa-eye font-weight500"></i></a></span>
+                                    <span class="more"><a href="{% url 'backend:product_brand_update' brand.id %}"><i class="fas fa-edit font-weight500"></i></a></span>
                                     <span class="more">
-                                        <form method="post" action="{% url 'backend:product_delete' data.id %}" style="display: inline;">
+                                        <form method="post" action="{% url 'backend:product_brand_delete' brand.id %}" style="display: inline;">
                                             {% csrf_token %}
-                                            <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this product?');">
+                                            <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this brand?');">
                                                 <i class="fas fa-trash-alt font-weight500"></i>
                                             </button>
                                         </form>
@@ -106,7 +75,7 @@
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="7" class="text-center">No Data found.</td>
+                                <td colspan="6" class="text-center">No Data found.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -118,22 +87,22 @@
                     {% if last_page_number > 1 %}
                     <nav aria-label="navigation">
                         <ul class="pagination justify-content-center">
-                            {% if products.has_previous %}
+                            {% if brand_list.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ products.previous_page_number }}{% if params %}&{{ params }}{% endif %}" aria-label="Previous">
+                                <a class="page-link" href="?page={{ brand_list.previous_page_number }}{% if params %}&{{ params }}{% endif %}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
                             {% endif %}
                             {% for i in paginator_list %}
-                            <li class="page-item {% if products.number == i %}active{% endif %}">
+                            <li class="page-item {% if brand_list.number == i %}active{% endif %}">
                                 <a class="page-link" href="?page={{ i }}{% if params %}&{{ params }}{% endif %}">{{ i }}</a>
                             </li>
                             {% endfor %}
-                            {% if products.has_next %}
+                            {% if brand_list.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ products.next_page_number }}{% if params %}&{{ params }}{% endif %}" aria-label="Next">
+                                <a class="page-link" href="?page={{ brand_list.next_page_number }}{% if params %}&{{ params }}{% endif %}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>

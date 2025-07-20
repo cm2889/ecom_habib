@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import AdminUser, FrontendSettings, EmailConfiguration, SMSConfiguration
 
 from .models import (
-    ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
+   ProductBrand,  ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
 )
 
 
@@ -138,6 +138,19 @@ class UserCreateForm(forms.ModelForm):
         return admin_user
 
 
+class ProductBrandForm(forms.ModelForm):
+    class Meta:
+        model = ProductBrand
+        fields = ['name', 'image', 'description', 'ordering']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'ordering': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
+
 class ProductMainCategoryForm(forms.ModelForm):
 
     class Meta:
@@ -206,28 +219,31 @@ class AttributeValueListForm(forms.ModelForm):
 class ProductListForm(forms.ModelForm):
     class Meta:
         model = ProductList
-        exclude = ['product_slug', 'product_sku', 'available_qty', 'new_product', 'created_by', 'updated_by', 'updated_at', 'created_at', 'is_active', 'sold_qty', 'return_qty', 'total_views']
+        fields = ['brand', 'main_category', 'sub_category', 'child_category', 'product_name', 'product_image', 'product_home_image', 'product_video', 'short_description', 'description', 'unit_price', 'sale_price', 'discount_price', 'discount_percent', 'discount_status', 'total_qty', 'available_qty', 'stock_status', 'product_ordering', 'is_new_product', 'is_featured_product', 'is_combo_product']
+        exclude = ['product_slug', 'product_sku', 'created_by', 'updated_by', 'updated_at', 'created_at', 'is_active', 'sold_qty', 'return_qty', 'total_views']
 
         widgets = {
             'main_category': forms.Select(attrs={'class': 'form-control select2-single', 'required': True}),
             'sub_category': forms.Select(attrs={'class': 'form-control select2-single'}),
             'child_category': forms.Select(attrs={'class': 'form-control select2-single'}),
             'product_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'brand': forms.Select(attrs={'class': 'form-control select2-single'}),
             'product_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'product_home_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'product_video': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'short_description': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'guideline': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'unit_price': forms.NumberInput(attrs={'class': 'form-control'}),
             'sale_price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'discount_price' : forms.NumberInput(attrs={'class': 'form-control'}), 
             'discount_percent': forms.NumberInput(attrs={'class': 'form-control'}),
             'discount_status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'total_qty': forms.NumberInput(attrs={'class': 'form-control'}),
-            'sold_qty': forms.NumberInput(attrs={'class': 'form-control'}),
-            'return_qty': forms.NumberInput(attrs={'class': 'form-control'}),
+            'available_qty': forms.NumberInput(attrs={'class': 'form-control'}),
             'stock_status': forms.Select(attrs={'class': 'form-control select2-single'}),
             'product_ordering': forms.NumberInput(attrs={'class': 'form-control'}),
-            'warranty': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'variant_product': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            # 'template_product': forms.Select(attrs={'class': 'form-control'}),
+            'is_new_product': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_featured_product': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'is_combo_product': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 

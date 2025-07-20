@@ -38,25 +38,50 @@
                                 <div class="input-field">
                                     <label for="id_product_name">Product Name</label>
                                     {{ form.product_name }}
-                                  
                                 </div>
                                 <div class="input-field">
-                                    <label for="id_main_category">Main Category</label>
-                                    {{ form.main_category }}
-                                  
+                                    <label for="id_brand">Brand</label>
+                                    {{ form.brand }}
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="input-field">
+                                    <label for="id_main_category">Main Category</label>
+                                    {{ form.main_category }}
+                                </div>
+                                <div class="input-field">
                                     <label for="id_sub_category">Sub Category</label>
                                     {{ form.sub_category }}
-                                 
                                 </div>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="input-field">
                                     <label for="id_child_category">Child Category</label>
                                     {{ form.child_category }}
-                                   
+                                </div>
+                                <div class="input-field">
+                                    <label for="id_total_qty">Total Quantity</label>
+                                    {{ form.total_qty }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-field">
+                                    <label for="id_available_qty">Available Quantity</label>
+                                    {{ form.available_qty }}
+                                </div>
+                                <div class="input-field">
+                                    <label for="id_stock_status">Stock Status</label>
+                                    {{ form.stock_status }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-field-full">
+                                    <label for="id_short_description">Short Description</label>
+                                    {{ form.short_description }}
                                 </div>
                             </div>
 
@@ -64,7 +89,6 @@
                                 <div class="input-field-full">
                                     <label for="id_description">Description</label>
                                     {{ form.description }}
-                                   
                                 </div>
                             </div>
 
@@ -72,74 +96,21 @@
                                 <div class="input-field">
                                     <label for="id_unit_price">Unit Price</label>
                                     {{ form.unit_price }}
-                                   
                                 </div>
                                 <div class="input-field">
                                     <label for="id_sale_price">Sale Price</label>
                                     {{ form.sale_price }}
-                                 
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="input-field">
-                                    <label for="id_total_qty">Total Quantity</label>
-                                    {{ form.total_qty }}
-                                   
-                                </div>
-                                <div class="input-field">
-                                    <label for="id_stock_status">Stock Status</label>
-                                    {{ form.stock_status }}
-                                 
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-field-full">
-                                    <label for="id_guideline">Guideline</label>
-                                    {{ form.guideline }}
-                                   
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-field">
-                                    <label for="id_product_ordering">Ordering</label>
-                                    {{ form.product_ordering }}
-                                    
-                                </div>
-                                <div class="input-field">
-                                    <label for="id_warranty">Warranty</label>
-                                    {{ form.warranty }}
-                                  
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-field">
-                                    <label for="id_variant_product">Variant Product</label>
-                                    {{ form.variant_product }}
-                                   
-                                </div>
-
-                              <div class="input-field">
-                                <label for="id_template_product">Template Product</label>
-                                {{ form.template_product }}
-                               
-                            </div>
-                               
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-field">
-                                    <label for="id_is_combo_product">Combo Product</label>
-                                    {{ form.is_combo_product }}
-                                    
+                                    <label for="id_discount_price">Discount Price</label>
+                                    {{ form.discount_price }}
                                 </div>
                                 <div class="input-field">
                                     <label for="id_discount_percent">Discount Percent</label>
                                     {{ form.discount_percent }}
-                                   
                                 </div>
                             </div>
 
@@ -147,12 +118,43 @@
                                 <div class="input-field">
                                     <label for="id_discount_status">Discount Status</label>
                                     {{ form.discount_status }}
-                                 
+                                </div>
+                                <div class="input-field">
+                                    <label for="id_product_ordering">Ordering</label>
+                                    {{ form.product_ordering }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-field">
+                                    <label for="id_is_new_product">New Product</label>
+                                    {{ form.is_new_product }}
+                                </div>
+                                <div class="input-field">
+                                    <label for="id_is_featured_product">Featured Product</label>
+                                    {{ form.is_featured_product }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-field">
+                                    <label for="id_is_combo_product">Combo Product</label>
+                                    {{ form.is_combo_product }}
                                 </div>
                                 <div class="input-field input-photo">
-                                    <label for="id_product_image">Image</label>
+                                    <label for="id_product_image">Product Image</label>
                                     {{ form.product_image }}
-                                    
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-field input-photo">
+                                    <label for="id_product_home_image">Home Page Image</label>
+                                    {{ form.product_home_image }}
+                                </div>
+                                <div class="input-field input-photo">
+                                    <label for="id_product_video">Product Video</label>
+                                    {{ form.product_video }}
                                 </div>
                             </div>
 

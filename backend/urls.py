@@ -28,7 +28,15 @@ urlpatterns = [
     # path('company-setting/', views.company_setting, name='company_setting'),
     # path('add-new-company/', views.add_new_company, name='add_new_company'),
 
-    # # Product main category URLs
+    # Product brand 
+    path('product-brand-list/', views.ProductBrandListView.as_view(), name='product_brand_list'),
+    path('product-brand-details/<int:pk>/', views.product_brand_detail_view, name='product_brand_details_view'),
+    path('add-product-brand/', views.ProductBrandCreateView.as_view(), name='add_product_brand'), 
+    path('product-brand-update/<int:pk>/', views.ProductBrandUpdateView.as_view(), name='product_brand_update'),
+    path('product-brand-delete/<int:pk>/', views.product_brand_delete_view, name='product_brand_delete'),
+
+
+    # Product main category URLs
     path('product-main-category-list/', views.ProductMainCategoryListView.as_view(), name='product_main_category_list'),
     path('product-main-category-list/<int:pk>/', views.product_main_category_datails_view, name='product_main_category_details_view'),
     path('add-product-main-category/', views.ProductMainCategoryCreateView.as_view(), name='add_product_main_category'),

@@ -1,3 +1,4 @@
+from django.db.models import Q 
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -16,11 +17,11 @@ from urllib.parse import urlencode
 from backend.common_func import checkUserPermission
 from backend.decorators import admin_required
 from backend.models import (
-    LoginLog, AdminUser, BackendMenu, UserMenuPermission, FrontendSettings, EmailConfiguration, SMSLog, SMSConfiguration,
+    LoginLog, AdminUser, BackendMenu, UserMenuPermission, FrontendSettings, EmailConfiguration, SMSLog, SMSConfiguration, ProductBrand, 
     ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
 )
 from backend.forms import (
-    CustomUserLoginForm, UserCreateForm, FrontendSettingsForm, EmailConfigurationForm, SMSConfigurationForm,
+    CustomUserLoginForm, UserCreateForm, FrontendSettingsForm, EmailConfigurationForm, SMSConfigurationForm, ProductBrandForm,
     ProductMainCategoryForm, ProductSubCategoryForm, ProductChildCategoryForm, AttributeListForm, AttributeValueListForm,
     ProductListForm, ProductAttributeForm
 )
@@ -372,8 +373,107 @@ def inventory_dashboard(request):
     return render(request, 'inventory/inventory_dashboard.html', context)
 # Inventory
 
+@method_decorator(login_required, name='dispatch')
+class ProductBrandListView(ListView):
+    model          = ProductBrand
+    template_name  = 'product/brand/brand_list.html' 
+    paginated_by   = None 
 
-# product main category
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, 'can_view', 'backend/brand-list'):
+            return render(request, '403.html') 
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        return ProductBrand.objects.filter(is_active=True).order_by('-id')
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        page_num   = self.request.GET.get('page', 1)
+        full_query = self.get_queryset()
+
+        paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_query)
+
+        context.update({
+            'brand_list' : paginated_data,
+            'page_num'   : page_num,
+            'paginator_list' : paginator_list, 
+            'last_page_number' : last_page_number
+        })
+
+        return context 
+
+
+@login_required
+def product_brand_detail_view(request, pk):
+    if not checkUserPermission(request, 'can_view', 'backend/brand-list'):
+        messages.error(request, 'You have not permission to view')
+        return render(request, '403.html')
+
+    brand = get_object_or_404(ProductBrand, pk=pk)
+    context = {
+        'brand': brand
+    }
+    return render(request, 'product/brand/brand_detail.html', context)
+
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductBrandCreateView(CreateView):
+    model          = ProductBrand 
+    form_class     = ProductBrandForm 
+    template_name  = 'product/brand/add_brand.html' 
+    success_url    = reverse_lazy('backend:product_brand_list')
+ 
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, 'can_add', 'backend/brand-list'):
+            messages.error(request, 'You have not permision to add brand ')
+            return render(request, '403.html') 
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductBrandUpdateView(UpdateView):
+    model         = ProductBrand
+    form_class    = ProductBrandForm
+    template_name = 'product/brand/update_brand.html'
+    success_url   = reverse_lazy('backend:product_brand_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not checkUserPermission(request, 'can_update', 'backend/brand-list'):
+            messages.error(request, 'You do not have permission to update this brand.')
+            return render(request, '403.html')
+        return super().dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, 'Brand updated successfully.')
+        return super().form_valid(form)
+
+
+@login_required
+def product_brand_delete_view(request, pk):
+    if not checkUserPermission(request, 'can_delete', 'backend/brand-list'):
+        return render(request, '403.html')
+    
+    brand = get_object_or_404(ProductBrand, pk=pk)
+
+    if request.method == 'POST':
+        brand.is_active = False 
+        brand.save()
+        messages.success(request, 'Product brand deleted successfully!')
+        return redirect('backend:product_brand_list')
+
+    return redirect('backend:product_brand_list')
+
+
 @method_decorator(login_required, name='dispatch')
 class ProductMainCategoryListView(ListView):
     model = ProductMainCategory
@@ -879,7 +979,21 @@ class ProductListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ProductList.objects.filter(is_active=True).order_by('-id')
+        filters = {'is_active' : True}
+
+        name        = self.request.GET.get('name') 
+        category_id = self.request.GET.get('category')
+        brand       = self.request.GET.get('brand')
+
+        if name:
+            filters['product_name__icontains'] = name
+        if category_id:
+            filters['main_category__id'] = category_id
+        if brand:
+            filters['brand__id'] = brand
+        
+        return ProductList.objects.filter(**filters).order_by('-id')
+        
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -894,7 +1008,16 @@ class ProductListView(ListView):
             'page_num': page_num,
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
+
+            'filter_name': self.request.GET.get('name', ''),
+            'filter_category': self.request.GET.get('category', ''),
+            'filter_brand': self.request.GET.get('brand', ''),
+            'categories'  : ProductMainCategory.objects.filter(is_active=True).order_by('name'),
+            'brands'      : ProductBrand.objects.filter(is_active=True).order_by('name'),
+
+
         })
+        
         return context
 
 
