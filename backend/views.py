@@ -984,6 +984,13 @@ class ProductListView(ListView):
         name        = self.request.GET.get('name') 
         category_id = self.request.GET.get('category')
         brand       = self.request.GET.get('brand')
+        created_from = self.request.GET.get('created_from')
+        created_to   = self.request.GET.get('created_to') 
+
+        if created_from:
+            filters['created_at__gte'] = created_from
+        if created_to:
+            filters['created_at__lte'] = created_to 
 
         if name:
             filters['product_name__icontains'] = name
@@ -1009,6 +1016,8 @@ class ProductListView(ListView):
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
 
+            'filter_created_from': self.request.GET.get('created_from', ''),
+            'filter_created_to': self.request.GET.get('created_to', ''),
             'filter_name': self.request.GET.get('name', ''),
             'filter_category': self.request.GET.get('category', ''),
             'filter_brand': self.request.GET.get('brand', ''),

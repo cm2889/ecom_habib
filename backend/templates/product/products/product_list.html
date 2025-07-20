@@ -51,6 +51,11 @@
                             {% endfor %}
                         </select>
 
+                        <input type="date" name="created_from" class="form-control" placeholder="Created From"
+                            value="{{ filter_created_from }}" style="width: 180px;">
+                        <input type="date" name="created_to" class="form-control" placeholder="Created To"
+                            value="{{ filter_created_to }}" style="width: 180px;"> 
+
                         <button type="submit" class="btn btn-primary">Filter</button>
                         <a href="{% url 'backend:product_list' %}" class="btn btn-danger">Reset</a>
                     </form>

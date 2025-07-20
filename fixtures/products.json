@@ -3,8 +3,8 @@
         "model": "backend.productlist",
         "pk": 1,
         "fields": {
-            "product_name": "Sample Product 1",
-            "product_slug": "sample-product-1",
+            "product_name": "iPhone 15 Pro Max",
+            "product_slug": "iphone-15-pro-max",
             "product_sku": "SKU-A1B2C3D4",
             "brand": 1,
             "main_category": 1,
@@ -31,7 +31,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-01-01T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -41,8 +41,8 @@
         "model": "backend.productlist",
         "pk": 2,
         "fields": {
-            "product_name": "Sample Product 2",
-            "product_slug": "sample-product-2",
+            "product_name": "Organic Farm Eggs (Dozen)",
+            "product_slug": "organic-farm-eggs-dozen",
             "product_sku": "SKU-E5F6G7H8",
             "brand": 1,
             "main_category": 1,
@@ -69,7 +69,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-02-14T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -79,8 +79,8 @@
         "model": "backend.productlist",
         "pk": 3,
         "fields": {
-            "product_name": "Sample Product 3",
-            "product_slug": "sample-product-3",
+            "product_name": "Samsung Galaxy S24 Ultra",
+            "product_slug": "samsung-galaxy-s24-ultra",
             "product_sku": "SKU-I9J0K1L2",
             "brand": 1,
             "main_category": 1,
@@ -107,7 +107,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-03-28T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -117,8 +117,8 @@
         "model": "backend.productlist",
         "pk": 4,
         "fields": {
-            "product_name": "Sample Product 4",
-            "product_slug": "sample-product-4",
+            "product_name": "Freshly Baked Bread Loaf",
+            "product_slug": "freshly-baked-bread-loaf",
             "product_sku": "SKU-M3N4O5P6",
             "brand": 1,
             "main_category": 1,
@@ -145,7 +145,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-05-11T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -155,8 +155,8 @@
         "model": "backend.productlist",
         "pk": 5,
         "fields": {
-            "product_name": "Sample Product 5",
-            "product_slug": "sample-product-5",
+            "product_name": "Dell XPS 15 Laptop",
+            "product_slug": "dell-xps-15-laptop",
             "product_sku": "SKU-Q7R8S9T0",
             "brand": 1,
             "main_category": 1,
@@ -183,7 +183,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-06-24T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -193,8 +193,8 @@
         "model": "backend.productlist",
         "pk": 6,
         "fields": {
-            "product_name": "Sample Product 6",
-            "product_slug": "sample-product-6",
+            "product_name": "Organic Whole Milk (Gallon)",
+            "product_slug": "organic-whole-milk-gallon",
             "product_sku": "SKU-U1V2W3X4",
             "brand": 1,
             "main_category": 1,
@@ -221,7 +221,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-08-07T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -231,8 +231,8 @@
         "model": "backend.productlist",
         "pk": 7,
         "fields": {
-            "product_name": "Sample Product 7",
-            "product_slug": "sample-product-7",
+            "product_name": "Sony WH-1000XM5 Headphones",
+            "product_slug": "sony-wh-1000xm5-headphones",
             "product_sku": "SKU-Y5Z6A7B8",
             "brand": 1,
             "main_category": 1,
@@ -259,7 +259,7 @@
             "is_featured_product": false,
             "is_combo_product": true,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-09-20T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -269,8 +269,8 @@
         "model": "backend.productlist",
         "pk": 8,
         "fields": {
-            "product_name": "Sample Product 8",
-            "product_slug": "sample-product-8",
+            "product_name": "Fresh Chicken Breast (1lb)",
+            "product_slug": "fresh-chicken-breast-1lb",
             "product_sku": "SKU-C9D0E1F2",
             "brand": 1,
             "main_category": 1,
@@ -297,7 +297,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-11-03T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -307,8 +307,8 @@
         "model": "backend.productlist",
         "pk": 9,
         "fields": {
-            "product_name": "Sample Product 9",
-            "product_slug": "sample-product-9",
+            "product_name": "Apple Watch Series 9",
+            "product_slug": "apple-watch-series-9",
             "product_sku": "SKU-G3H4I5J6",
             "brand": 1,
             "main_category": 1,
@@ -335,7 +335,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2020-12-17T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -345,8 +345,8 @@
         "model": "backend.productlist",
         "pk": 10,
         "fields": {
-            "product_name": "Sample Product 10",
-            "product_slug": "sample-product-10",
+            "product_name": "Ground Coffee (Medium Roast)",
+            "product_slug": "ground-coffee-medium-roast",
             "product_sku": "SKU-K7L8M9N0",
             "brand": 1,
             "main_category": 1,
@@ -373,7 +373,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-01-30T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -383,8 +383,8 @@
         "model": "backend.productlist",
         "pk": 11,
         "fields": {
-            "product_name": "Sample Product 11",
-            "product_slug": "sample-product-11",
+            "product_name": "HP Spectre x360 Laptop",
+            "product_slug": "hp-spectre-x360-laptop",
             "product_sku": "SKU-O1P2Q3R4",
             "brand": 1,
             "main_category": 1,
@@ -411,7 +411,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-03-15T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -421,8 +421,8 @@
         "model": "backend.productlist",
         "pk": 12,
         "fields": {
-            "product_name": "Sample Product 12",
-            "product_slug": "sample-product-12",
+            "product_name": "Fresh Strawberries (1lb)",
+            "product_slug": "fresh-strawberries-1lb",
             "product_sku": "SKU-S5T6U7V8",
             "brand": 1,
             "main_category": 1,
@@ -449,7 +449,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-04-28T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -459,8 +459,8 @@
         "model": "backend.productlist",
         "pk": 13,
         "fields": {
-            "product_name": "Sample Product 13",
-            "product_slug": "sample-product-13",
+            "product_name": "Google Pixel 8 Pro",
+            "product_slug": "google-pixel-8-pro",
             "product_sku": "SKU-W9X0Y1Z2",
             "brand": 1,
             "main_category": 1,
@@ -487,7 +487,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-06-11T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -497,8 +497,8 @@
         "model": "backend.productlist",
         "pk": 14,
         "fields": {
-            "product_name": "Sample Product 14",
-            "product_slug": "sample-product-14",
+            "product_name": "Organic Bananas (Bunch)",
+            "product_slug": "organic-bananas-bunch",
             "product_sku": "SKU-A3B4C5D6",
             "brand": 1,
             "main_category": 1,
@@ -525,7 +525,7 @@
             "is_featured_product": false,
             "is_combo_product": true,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-07-25T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -535,8 +535,8 @@
         "model": "backend.productlist",
         "pk": 15,
         "fields": {
-            "product_name": "Sample Product 15",
-            "product_slug": "sample-product-15",
+            "product_name": "Bose QuietComfort Earbuds II",
+            "product_slug": "bose-quietcomfort-earbuds-ii",
             "product_sku": "SKU-E7F8G9H0",
             "brand": 1,
             "main_category": 1,
@@ -563,7 +563,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-09-07T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -573,8 +573,8 @@
         "model": "backend.productlist",
         "pk": 16,
         "fields": {
-            "product_name": "Sample Product 16",
-            "product_slug": "sample-product-16",
+            "product_name": "Fresh Avocados (Each)",
+            "product_slug": "fresh-avocados-each",
             "product_sku": "SKU-I1J2K3L4",
             "brand": 1,
             "main_category": 1,
@@ -601,7 +601,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-10-21T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -611,8 +611,8 @@
         "model": "backend.productlist",
         "pk": 17,
         "fields": {
-            "product_name": "Sample Product 17",
-            "product_slug": "sample-product-17",
+            "product_name": "Microsoft Surface Laptop 5",
+            "product_slug": "microsoft-surface-laptop-5",
             "product_sku": "SKU-M5N6O7P8",
             "brand": 1,
             "main_category": 1,
@@ -639,7 +639,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2021-12-04T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -649,8 +649,8 @@
         "model": "backend.productlist",
         "pk": 18,
         "fields": {
-            "product_name": "Sample Product 18",
-            "product_slug": "sample-product-18",
+            "product_name": "Organic Carrots (Bag)",
+            "product_slug": "organic-carrots-bag",
             "product_sku": "SKU-Q9R0S1T2",
             "brand": 1,
             "main_category": 1,
@@ -677,7 +677,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-01-17T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -687,8 +687,8 @@
         "model": "backend.productlist",
         "pk": 19,
         "fields": {
-            "product_name": "Sample Product 19",
-            "product_slug": "sample-product-19",
+            "product_name": "AirPods Pro (2nd Gen)",
+            "product_slug": "airpods-pro-2nd-gen",
             "product_sku": "SKU-U3V4W5X6",
             "brand": 1,
             "main_category": 1,
@@ -715,7 +715,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-03-02T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -725,8 +725,8 @@
         "model": "backend.productlist",
         "pk": 20,
         "fields": {
-            "product_name": "Sample Product 20",
-            "product_slug": "sample-product-20",
+            "product_name": "Fresh Broccoli (Head)",
+            "product_slug": "fresh-broccoli-head",
             "product_sku": "SKU-Y7Z8A9B0",
             "brand": 1,
             "main_category": 1,
@@ -753,7 +753,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-04-15T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -763,8 +763,8 @@
         "model": "backend.productlist",
         "pk": 21,
         "fields": {
-            "product_name": "Sample Product 21",
-            "product_slug": "sample-product-21",
+            "product_name": "LG OLED C3 TV (65-inch)",
+            "product_slug": "lg-oled-c3-tv-65-inch",
             "product_sku": "SKU-C1D2E3F4",
             "brand": 1,
             "main_category": 1,
@@ -791,7 +791,7 @@
             "is_featured_product": false,
             "is_combo_product": true,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-05-29T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -801,8 +801,8 @@
         "model": "backend.productlist",
         "pk": 22,
         "fields": {
-            "product_name": "Sample Product 22",
-            "product_slug": "sample-product-22",
+            "product_name": "Organic Spinach (Bag)",
+            "product_slug": "organic-spinach-bag",
             "product_sku": "SKU-G5H6I7J8",
             "brand": 1,
             "main_category": 1,
@@ -829,7 +829,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-07-12T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -839,8 +839,8 @@
         "model": "backend.productlist",
         "pk": 23,
         "fields": {
-            "product_name": "Sample Product 23",
-            "product_slug": "sample-product-23",
+            "product_name": "Canon EOS R5 Camera",
+            "product_slug": "canon-eos-r5-camera",
             "product_sku": "SKU-K9L0M1N2",
             "brand": 1,
             "main_category": 1,
@@ -867,7 +867,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-08-25T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -877,8 +877,8 @@
         "model": "backend.productlist",
         "pk": 24,
         "fields": {
-            "product_name": "Sample Product 24",
-            "product_slug": "sample-product-24",
+            "product_name": "Fresh Bell Peppers (Red)",
+            "product_slug": "fresh-bell-peppers-red",
             "product_sku": "SKU-O3P4Q5R6",
             "brand": 1,
             "main_category": 1,
@@ -905,7 +905,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-10-08T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -915,8 +915,8 @@
         "model": "backend.productlist",
         "pk": 25,
         "fields": {
-            "product_name": "Sample Product 25",
-            "product_slug": "sample-product-25",
+            "product_name": "Samsung 4K Smart TV (55-inch)",
+            "product_slug": "samsung-4k-smart-tv-55-inch",
             "product_sku": "SKU-S7T8U9V0",
             "brand": 1,
             "main_category": 1,
@@ -943,7 +943,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2022-11-21T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -953,8 +953,8 @@
         "model": "backend.productlist",
         "pk": 26,
         "fields": {
-            "product_name": "Sample Product 26",
-            "product_slug": "sample-product-26",
+            "product_name": "Organic Cucumbers (Each)",
+            "product_slug": "organic-cucumbers-each",
             "product_sku": "SKU-W1X2Y3Z4",
             "brand": 1,
             "main_category": 1,
@@ -981,7 +981,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-01-04T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -991,8 +991,8 @@
         "model": "backend.productlist",
         "pk": 27,
         "fields": {
-            "product_name": "Sample Product 27",
-            "product_slug": "sample-product-27",
+            "product_name": "GoPro HERO11 Black",
+            "product_slug": "gopro-hero11-black",
             "product_sku": "SKU-A5B6C7D8",
             "brand": 1,
             "main_category": 1,
@@ -1019,7 +1019,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-02-17T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1029,8 +1029,8 @@
         "model": "backend.productlist",
         "pk": 28,
         "fields": {
-            "product_name": "Sample Product 28",
-            "product_slug": "sample-product-28",
+            "product_name": "Fresh Tomatoes (Vine Ripe)",
+            "product_slug": "fresh-tomatoes-vine-ripe",
             "product_sku": "SKU-E9F0G1H2",
             "brand": 1,
             "main_category": 1,
@@ -1057,7 +1057,7 @@
             "is_featured_product": false,
             "is_combo_product": true,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-03-31T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1067,8 +1067,8 @@
         "model": "backend.productlist",
         "pk": 29,
         "fields": {
-            "product_name": "Sample Product 29",
-            "product_slug": "sample-product-29",
+            "product_name": "Dyson V15 Detect Vacuum",
+            "product_slug": "dyson-v15-detect-vacuum",
             "product_sku": "SKU-I3J4K5L6",
             "brand": 1,
             "main_category": 1,
@@ -1095,7 +1095,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-05-14T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1105,8 +1105,8 @@
         "model": "backend.productlist",
         "pk": 30,
         "fields": {
-            "product_name": "Sample Product 30",
-            "product_slug": "sample-product-30",
+            "product_name": "Organic Potatoes (5lb Bag)",
+            "product_slug": "organic-potatoes-5lb-bag",
             "product_sku": "SKU-M7N8O9P0",
             "brand": 1,
             "main_category": 1,
@@ -1133,7 +1133,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-06-27T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1143,8 +1143,8 @@
         "model": "backend.productlist",
         "pk": 31,
         "fields": {
-            "product_name": "Sample Product 31",
-            "product_slug": "sample-product-31",
+            "product_name": "Nintendo Switch OLED",
+            "product_slug": "nintendo-switch-oled",
             "product_sku": "SKU-Q1R2S3T4",
             "brand": 1,
             "main_category": 1,
@@ -1171,7 +1171,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-08-10T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1181,8 +1181,8 @@
         "model": "backend.productlist",
         "pk": 32,
         "fields": {
-            "product_name": "Sample Product 32",
-            "product_slug": "sample-product-32",
+            "product_name": "Fresh Onions (Yellow, 3lb Bag)",
+            "product_slug": "fresh-onions-yellow-3lb-bag",
             "product_sku": "SKU-U5V6W7X8",
             "brand": 1,
             "main_category": 1,
@@ -1209,7 +1209,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-09-23T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1219,8 +1219,8 @@
         "model": "backend.productlist",
         "pk": 33,
         "fields": {
-            "product_name": "Sample Product 33",
-            "product_slug": "sample-product-33",
+            "product_name": "PlayStation 5 Console",
+            "product_slug": "playstation-5-console",
             "product_sku": "SKU-Y9Z0A1B2",
             "brand": 1,
             "main_category": 1,
@@ -1247,7 +1247,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-11-06T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1257,8 +1257,8 @@
         "model": "backend.productlist",
         "pk": 34,
         "fields": {
-            "product_name": "Sample Product 34",
-            "product_slug": "sample-product-34",
+            "product_name": "Organic Apples (Red Delicious)",
+            "product_slug": "organic-apples-red-delicious",
             "product_sku": "SKU-C3D4E5F6",
             "brand": 1,
             "main_category": 1,
@@ -1285,7 +1285,7 @@
             "is_featured_product": false,
             "is_combo_product": true,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2023-12-20T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1295,8 +1295,8 @@
         "model": "backend.productlist",
         "pk": 35,
         "fields": {
-            "product_name": "Sample Product 35",
-            "product_slug": "sample-product-35",
+            "product_name": "Xbox Series X Console",
+            "product_slug": "xbox-series-x-console",
             "product_sku": "SKU-G7H8I9J0",
             "brand": 1,
             "main_category": 1,
@@ -1323,7 +1323,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-02-02T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1333,8 +1333,8 @@
         "model": "backend.productlist",
         "pk": 36,
         "fields": {
-            "product_name": "Sample Product 36",
-            "product_slug": "sample-product-36",
+            "product_name": "Fresh Oranges (Navel, 3lb Bag)",
+            "product_slug": "fresh-oranges-navel-3lb-bag",
             "product_sku": "SKU-K1L2M3N4",
             "brand": 1,
             "main_category": 1,
@@ -1361,7 +1361,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-03-17T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1371,8 +1371,8 @@
         "model": "backend.productlist",
         "pk": 37,
         "fields": {
-            "product_name": "Sample Product 37",
-            "product_slug": "sample-product-37",
+            "product_name": "Amazon Echo Dot (5th Gen)",
+            "product_slug": "amazon-echo-dot-5th-gen",
             "product_sku": "SKU-O5P6Q7R8",
             "brand": 1,
             "main_category": 1,
@@ -1399,7 +1399,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-04-30T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1409,8 +1409,8 @@
         "model": "backend.productlist",
         "pk": 38,
         "fields": {
-            "product_name": "Sample Product 38",
-            "product_slug": "sample-product-38",
+            "product_name": "Fresh Lemons (Bag)",
+            "product_slug": "fresh-lemons-bag",
             "product_sku": "SKU-S9T0U1V2",
             "brand": 1,
             "main_category": 1,
@@ -1437,7 +1437,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-06-13T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1447,8 +1447,8 @@
         "model": "backend.productlist",
         "pk": 39,
         "fields": {
-            "product_name": "Sample Product 39",
-            "product_slug": "sample-product-39",
+            "product_name": "Fitbit Charge 6",
+            "product_slug": "fitbit-charge-6",
             "product_sku": "SKU-W3X4Y5Z6",
             "brand": 1,
             "main_category": 1,
@@ -1475,7 +1475,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-07-27T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1485,8 +1485,8 @@
         "model": "backend.productlist",
         "pk": 40,
         "fields": {
-            "product_name": "Sample Product 40",
-            "product_slug": "sample-product-40",
+            "product_name": "Fresh Limes (Bag)",
+            "product_slug": "fresh-limes-bag",
             "product_sku": "SKU-A7B8C9D0",
             "brand": 1,
             "main_category": 1,
@@ -1513,7 +1513,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-09-09T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1523,8 +1523,8 @@
         "model": "backend.productlist",
         "pk": 41,
         "fields": {
-            "product_name": "Sample Product 41",
-            "product_slug": "sample-product-41",
+            "product_name": "Kindle Paperwhite",
+            "product_slug": "kindle-paperwhite",
             "product_sku": "SKU-E1F2G3H4",
             "brand": 1,
             "main_category": 1,
@@ -1551,7 +1551,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-10-23T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1561,8 +1561,8 @@
         "model": "backend.productlist",
         "pk": 42,
         "fields": {
-            "product_name": "Sample Product 42",
-            "product_slug": "sample-product-42",
+            "product_name": "Fresh Garlic (Head)",
+            "product_slug": "fresh-garlic-head",
             "product_sku": "SKU-I5J6K7L8",
             "brand": 1,
             "main_category": 1,
@@ -1589,7 +1589,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2024-12-06T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1599,8 +1599,8 @@
         "model": "backend.productlist",
         "pk": 43,
         "fields": {
-            "product_name": "Sample Product 43",
-            "product_slug": "sample-product-43",
+            "product_name": "Logitech MX Master 3S Mouse",
+            "product_slug": "logitech-mx-master-3s-mouse",
             "product_sku": "SKU-M9N0O1P2",
             "brand": 1,
             "main_category": 1,
@@ -1627,7 +1627,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-01-19T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1637,8 +1637,8 @@
         "model": "backend.productlist",
         "pk": 44,
         "fields": {
-            "product_name": "Sample Product 44",
-            "product_slug": "sample-product-44",
+            "product_name": "Fresh Ginger Root (Per Pound)",
+            "product_slug": "fresh-ginger-root-per-pound",
             "product_sku": "SKU-Q3R4S5T6",
             "brand": 1,
             "main_category": 1,
@@ -1665,7 +1665,7 @@
             "is_featured_product": false,
             "is_combo_product": true,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-03-04T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1675,8 +1675,8 @@
         "model": "backend.productlist",
         "pk": 45,
         "fields": {
-            "product_name": "Sample Product 45",
-            "product_slug": "sample-product-45",
+            "product_name": "Roku Streaming Stick 4K",
+            "product_slug": "roku-streaming-stick-4k",
             "product_sku": "SKU-U7V8W9X0",
             "brand": 1,
             "main_category": 1,
@@ -1703,7 +1703,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-04-17T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1713,8 +1713,8 @@
         "model": "backend.productlist",
         "pk": 46,
         "fields": {
-            "product_name": "Sample Product 46",
-            "product_slug": "sample-product-46",
+            "product_name": "Fresh Sweet Potatoes (Each)",
+            "product_slug": "fresh-sweet-potatoes-each",
             "product_sku": "SKU-Y1Z2A3B4",
             "brand": 1,
             "main_category": 1,
@@ -1741,7 +1741,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-05-31T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1751,8 +1751,8 @@
         "model": "backend.productlist",
         "pk": 47,
         "fields": {
-            "product_name": "Sample Product 47",
-            "product_slug": "sample-product-47",
+            "product_name": "Google Nest Hub (2nd Gen)",
+            "product_slug": "google-nest-hub-2nd-gen",
             "product_sku": "SKU-C5D6E7F8",
             "brand": 1,
             "main_category": 1,
@@ -1779,7 +1779,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-07-14T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1789,8 +1789,8 @@
         "model": "backend.productlist",
         "pk": 48,
         "fields": {
-            "product_name": "Sample Product 48",
-            "product_slug": "sample-product-48",
+            "product_name": "Fresh Zucchini (Each)",
+            "product_slug": "fresh-zucchini-each",
             "product_sku": "SKU-G9H0I1J2",
             "brand": 1,
             "main_category": 1,
@@ -1817,7 +1817,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-08-27T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1827,8 +1827,8 @@
         "model": "backend.productlist",
         "pk": 49,
         "fields": {
-            "product_name": "Sample Product 49",
-            "product_slug": "sample-product-49",
+            "product_name": "TP-Link Kasa Smart Plug",
+            "product_slug": "tp-link-kasa-smart-plug",
             "product_sku": "SKU-K3L4M5N6",
             "brand": 1,
             "main_category": 1,
@@ -1855,7 +1855,7 @@
             "is_featured_product": false,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-10-10T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
@@ -1865,8 +1865,8 @@
         "model": "backend.productlist",
         "pk": 50,
         "fields": {
-            "product_name": "Sample Product 50",
-            "product_slug": "sample-product-50",
+            "product_name": "Fresh Green Beans (1lb Bag)",
+            "product_slug": "fresh-green-beans-1lb-bag",
             "product_sku": "SKU-O7P8Q9R0",
             "brand": 1,
             "main_category": 1,
@@ -1893,7 +1893,7 @@
             "is_featured_product": true,
             "is_combo_product": false,
             "created_by": 1,
-            "created_at": "2025-07-20T13:58:30.000000",
+            "created_at": "2025-11-23T00:00:00.000000Z",
             "updated_by": null,
             "updated_at": null,
             "is_active": true
