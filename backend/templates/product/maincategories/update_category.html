@@ -17,7 +17,7 @@
                                 <span><img src="/static/images/icons/Home.svg" alt="home" /></span>Home
                             </a>
                         </li>
-                        <li><a href="{% url 'backend:product_main_category_list' %}">Main Category List</a></li>
+                        <li><a href="{% url 'backend:category_list' %}">Main Category List</a></li>
                         <li><a href="#">Update Category</a></li>
                     </ul>
                 </div>
@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <div class="form-button">
                                 <button type="submit" class="button blue-button">Update</button>
-                                <a href="{% url 'backend:product_main_category_list' %}" class="button primary-button cancle-button">Cancel</a>
+                                <a href="{% url 'backend:category_list' %}" class="button primary-button cancle-button">Cancel</a>
                             </div>
                         </div>
                     </form>
