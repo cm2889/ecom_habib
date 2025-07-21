@@ -1,4 +1,3 @@
-from django.db.models import Q 
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -17,7 +16,7 @@ from urllib.parse import urlencode
 from backend.common_func import checkUserPermission
 from backend.decorators import admin_required
 from backend.models import (
-    LoginLog, AdminUser, BackendMenu, UserMenuPermission, FrontendSettings, EmailConfiguration, SMSLog, SMSConfiguration, ProductBrand, 
+    LoginLog, AdminUser, BackendMenu, UserMenuPermission, FrontendSettings, EmailConfiguration, SMSLog, SMSConfiguration, ProductBrand,
     ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
 )
 from backend.forms import (
@@ -373,42 +372,41 @@ def inventory_dashboard(request):
     return render(request, 'inventory/inventory_dashboard.html', context)
 # Inventory
 
+
 @method_decorator(login_required, name='dispatch')
-class ProductBrandListView(ListView):
-    model          = ProductBrand
-    template_name  = 'product/brand/brand_list.html' 
-    paginated_by   = None 
+class BrandListView(ListView):
+    model = ProductBrand
+    template_name = 'product/brand/brand_list.html'
+    paginated_by = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, 'can_view', 'backend/brand-list'):
-            return render(request, '403.html') 
+        if not checkUserPermission(request, 'can_view', 'backend/brand/'):
+            return render(request, '403.html')
         return super().dispatch(request, *args, **kwargs)
     
     def get_queryset(self):
         return ProductBrand.objects.filter(is_active=True).order_by('-id')
     
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        page_num   = self.request.GET.get('page', 1)
+        page_num = self.request.GET.get('page', 1)
         full_query = self.get_queryset()
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_query)
 
         context.update({
-            'brand_list' : paginated_data,
-            'page_num'   : page_num,
-            'paginator_list' : paginator_list, 
-            'last_page_number' : last_page_number
+            'brand_list': paginated_data,
+            'page_num': page_num,
+            'paginator_list': paginator_list,
+            'last_page_number': last_page_number
         })
-
-        return context 
+        return context
 
 
 @login_required
-def product_brand_detail_view(request, pk):
-    if not checkUserPermission(request, 'can_view', 'backend/brand-list'):
+def brand_detail_view(request, pk):
+    if not checkUserPermission(request, 'can_view', 'backend/brand/'):
         messages.error(request, 'You have not permission to view')
         return render(request, '403.html')
 
@@ -419,19 +417,17 @@ def product_brand_detail_view(request, pk):
     return render(request, 'product/brand/brand_detail.html', context)
 
 
-
 @method_decorator(login_required, name='dispatch')
-class ProductBrandCreateView(CreateView):
-    model          = ProductBrand 
-    form_class     = ProductBrandForm 
-    template_name  = 'product/brand/add_brand.html' 
-    success_url    = reverse_lazy('backend:product_brand_list')
+class BrandCreateView(CreateView):
+    model = ProductBrand
+    form_class = ProductBrandForm
+    template_name = 'product/brand/add_brand.html'
+    success_url = reverse_lazy('backend:brand_list')
  
-
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, 'can_add', 'backend/brand-list'):
+        if not checkUserPermission(request, 'can_add', 'backend/brand/'):
             messages.error(request, 'You have not permision to add brand ')
-            return render(request, '403.html') 
+            return render(request, '403.html')
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -440,14 +436,14 @@ class ProductBrandCreateView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductBrandUpdateView(UpdateView):
-    model         = ProductBrand
-    form_class    = ProductBrandForm
+class BrandUpdateView(UpdateView):
+    model = ProductBrand
+    form_class = ProductBrandForm
     template_name = 'product/brand/update_brand.html'
-    success_url   = reverse_lazy('backend:product_brand_list')
+    success_url = reverse_lazy('backend:brand_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, 'can_update', 'backend/brand-list'):
+        if not checkUserPermission(request, 'can_update', 'backend/brand/'):
             messages.error(request, 'You do not have permission to update this brand.')
             return render(request, '403.html')
         return super().dispatch(request, *args, **kwargs)
@@ -459,29 +455,29 @@ class ProductBrandUpdateView(UpdateView):
 
 
 @login_required
-def product_brand_delete_view(request, pk):
-    if not checkUserPermission(request, 'can_delete', 'backend/brand-list'):
+def brand_delete_view(request, pk):
+    if not checkUserPermission(request, 'can_delete', 'backend/brand'):
         return render(request, '403.html')
     
     brand = get_object_or_404(ProductBrand, pk=pk)
 
     if request.method == 'POST':
-        brand.is_active = False 
+        brand.is_active = False
         brand.save()
         messages.success(request, 'Product brand deleted successfully!')
-        return redirect('backend:product_brand_list')
+        return redirect('backend:brand_list')
 
-    return redirect('backend:product_brand_list')
+    return redirect('backend:brand_list')
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductMainCategoryListView(ListView):
+class MainCategoryListView(ListView):
     model = ProductMainCategory
     template_name = 'product/maincategories/main_cat_list.html'
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_view", "backend/main_cat_list/"):
+        if not checkUserPermission(request, "can_view", "backend/category/"):
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
 
@@ -507,8 +503,8 @@ class ProductMainCategoryListView(ListView):
     
 
 @login_required
-def product_main_category_datails_view(request, pk):
-    if not checkUserPermission(request, "can_view", "backend/product-main-category-details/"):
+def category_detail_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/category/"):
         messages.error(request, "You do not have permission to view this product main category.")
         return render(request, "403.html")
 
@@ -521,14 +517,14 @@ def product_main_category_datails_view(request, pk):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductMainCategoryCreateView(CreateView):
+class CategoryCreateView(CreateView):
     model = ProductMainCategory
     form_class = ProductMainCategoryForm
     template_name = 'product/maincategories/add_category.html'
-    success_url = reverse_lazy('backend:product_main_category_list')
+    success_url = reverse_lazy('backend:category_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_add", "backend/add-product-main-category/"):
+        if not checkUserPermission(request, "can_add", "backend/category/"):
             messages.error(request, "You do not have permission to add a product main category.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -540,14 +536,14 @@ class ProductMainCategoryCreateView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductMainCategoryUpdateView(UpdateView):
+class CategoryUpdateView(UpdateView):
     model = ProductMainCategory
     form_class = ProductMainCategoryForm
     template_name = 'product/maincategories/update_category.html'
-    success_url = reverse_lazy('backend:product_main_category_list')
+    success_url = reverse_lazy('backend:category_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_update", "backend/product-main-category-update/"):
+        if not checkUserPermission(request, "can_update", "backend/category/"):
             messages.error(request, "You do not have permission to update this product main category.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -559,8 +555,8 @@ class ProductMainCategoryUpdateView(UpdateView):
     
 
 @login_required
-def product_main_category_delete_view(request, pk):
-    if not checkUserPermission(request, "can_delete", "backend/product-main-category-delete/"):
+def category_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/category/"):
         return render(request, "403.html")
 
     category = get_object_or_404(ProductMainCategory, pk=pk)
@@ -569,19 +565,19 @@ def product_main_category_delete_view(request, pk):
         category.is_active = False
         category.save()
         messages.success(request, "Product main category deleted successfully.")
-        return redirect('backend:product_main_category_list')
+        return redirect('backend:category_list')
 
-    return redirect('backend:product_main_category_list')
+    return redirect('backend:category_list')
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductSubCategoryListView(ListView):
+class SubCategoryListView(ListView):
     model = ProductSubCategory
     template_name = 'product/subcategories/cat_list.html'
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_view", "backend/product-main-category-list/"):
+        if not checkUserPermission(request, "can_view", "backend/sub-category/"):
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
 
@@ -606,8 +602,8 @@ class ProductSubCategoryListView(ListView):
     
 
 @login_required
-def product_sub_category_details_view(request, pk):
-    if not checkUserPermission(request, "can_view", "backend/product-main-category-list/"):
+def sub_category_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/sub-category/"):
         messages.error(request, "You do not have permission to view this product sub category.")
         return render(request, "403.html")
 
@@ -620,14 +616,14 @@ def product_sub_category_details_view(request, pk):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductSubCategoryCreateView(CreateView):
+class SubCategoryCreateView(CreateView):
     model = ProductSubCategory
     form_class = ProductSubCategoryForm
     template_name = 'product/subcategories/add_category.html'
-    success_url = reverse_lazy('backend:product_sub_category_list')
+    success_url = reverse_lazy('backend:sub_category_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_add", "backend/product-main-category-list/"):
+        if not checkUserPermission(request, "can_add", "backend/sub-category/"):
             messages.error(request, "You do not have permission to add a product sub category.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -639,14 +635,14 @@ class ProductSubCategoryCreateView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProductSubCategoryUpdateView(UpdateView):
+class SubCategoryUpdateView(UpdateView):
     model = ProductSubCategory
     form_class = ProductSubCategoryForm
     template_name = 'product/subcategories/cat_update.html'
-    success_url = reverse_lazy('backend:product_sub_category_list')
+    success_url = reverse_lazy('backend:sub_category_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_update", "backend/product-main-category-list/"):
+        if not checkUserPermission(request, "can_update", "backend/sub-category/"):
             messages.error(request, "You do not have permission to update this product sub category.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -658,8 +654,8 @@ class ProductSubCategoryUpdateView(UpdateView):
     
 
 @login_required
-def product_sub_category_delete_view(request, pk):
-    if not checkUserPermission(request, "can_delete", "backend/product-sub-category-delete/"):
+def sub_category_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/sub-category/"):
         return render(request, "403.html")
 
     sub_category = get_object_or_404(ProductSubCategory, pk=pk)
@@ -668,18 +664,18 @@ def product_sub_category_delete_view(request, pk):
         sub_category.is_active = False
         sub_category.save()
         messages.success(request, "Product sub category deleted successfully.")
-        return redirect('backend:product_sub_category_list')
+        return redirect('backend:sub_category_list')
 
-    return redirect('backend:product_sub_category_list')
+    return redirect('backend:sub_category_list')
 
 
-class ProductChildCategoryListView(ListView):
+class ChildCategoryListView(ListView):
     model = ProductChildCategory
     template_name = 'product/childcategories/cat_list.html'
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_view", "backend/product-child-category-list/"):
+        if not checkUserPermission(request, "can_view", "backend/child-category"):
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
 
@@ -704,8 +700,8 @@ class ProductChildCategoryListView(ListView):
 
 
 @login_required
-def product_child_category_details_view(request, pk):
-    if not checkUserPermission(request, "can_view", "backend/product-child-category-details/"):
+def child_category_details_view(request, pk):
+    if not checkUserPermission(request, "can_view", "backend/child-category/"):
         messages.error(request, "You do not have permission to view this product child category.")
         return render(request, "403.html")
 
@@ -717,14 +713,14 @@ def product_child_category_details_view(request, pk):
     return render(request, 'product/childcategories/cat_details.html', context)
 
 
-class ProductChildCategoryCreateView(CreateView):
+class ChildCategoryCreateView(CreateView):
     model = ProductChildCategory
     form_class = ProductChildCategoryForm
     template_name = 'product/childcategories/add_category.html'
-    success_url = reverse_lazy('backend:product_child_category_list')
+    success_url = reverse_lazy('backend:child_category_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_add", "backend/product-child-category-list/"):
+        if not checkUserPermission(request, "can_add", "backend/child-category"):
             messages.error(request, "You do not have permission to add a product child category.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -735,14 +731,14 @@ class ProductChildCategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductChildCategoryUpdateView(UpdateView):
+class ChildCategoryUpdateView(UpdateView):
     model = ProductChildCategory
     form_class = ProductChildCategoryForm
     template_name = 'product/childcategories/cat_update.html'
-    success_url = reverse_lazy('backend:product_child_category_list')
+    success_url = reverse_lazy('backend:child_category_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_edit", "backend/product-child-category-list/"):
+        if not checkUserPermission(request, "can_edit", "backend/child-category"):
             messages.error(request, "You do not have permission to update this product child category.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -754,8 +750,8 @@ class ProductChildCategoryUpdateView(UpdateView):
 
 
 @login_required
-def product_child_category_delete_view(request, pk):
-    if not checkUserPermission(request, "can_delete", "backend/product-child-category-delete/"):
+def child_category_delete_view(request, pk):
+    if not checkUserPermission(request, "can_delete", "backend/child-category/"):
         return render(request, "403.html")
 
     child_category = get_object_or_404(ProductChildCategory, pk=pk)
@@ -764,9 +760,9 @@ def product_child_category_delete_view(request, pk):
         child_category.is_active = False
         child_category.save()
         messages.success(request, "Product child category deleted successfully.")
-        return redirect('backend:product_child_category_list')
+        return redirect('backend:child_category_list')
 
-    return redirect('backend:product_child_category_list')
+    return redirect('backend:child_category_list')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -776,7 +772,7 @@ class AttributeListView(ListView):
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_view", "backend/attribute-list/"):
+        if not checkUserPermission(request, "can_view", "backend/attributes/"):
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
 
@@ -802,7 +798,7 @@ class AttributeListView(ListView):
 
 @login_required
 def attribute_details_view(request, pk):
-    if not checkUserPermission(request, "can_view", "backend/attribute-details/"):
+    if not checkUserPermission(request, "can_view", "backend/attributes/"):
         messages.error(request, "You do not have permission to view this attribute.")
         return render(request, "403.html")
 
@@ -822,7 +818,7 @@ class AttributeCreateView(CreateView):
     success_url = reverse_lazy('backend:attribute_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_add", "backend/attribute-list/"):
+        if not checkUserPermission(request, "can_add", "backend/attributes/"):
             messages.error(request, "You do not have permission to add an attribute.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -841,7 +837,7 @@ class AttributeUpdateView(UpdateView):
     success_url = reverse_lazy('backend:attribute_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_edit", "backend/attribute-list/"):
+        if not checkUserPermission(request, "can_edit", "backend/attributes/"):
             messages.error(request, "You do not have permission to update this attribute.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -854,7 +850,7 @@ class AttributeUpdateView(UpdateView):
 
 @login_required
 def attribute_delete_view(request, pk):
-    if not checkUserPermission(request, "can_delete", "backend/attribute-delete/"):
+    if not checkUserPermission(request, "can_delete", "backend/attributes/"):
         return render(request, "403.html")
 
     attribute = get_object_or_404(AttributeList, pk=pk)
@@ -974,38 +970,43 @@ class ProductListView(ListView):
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_view", "backend/product-list/"):
+        if not checkUserPermission(request, "can_view", "backend/products/"):
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        filters = {'is_active' : True}
+        filters = {'deleted': False}
 
-        name        = self.request.GET.get('name') 
+        product_id = self.request.GET.get('product')
+        brand_id = self.request.GET.get('brand')
         category_id = self.request.GET.get('category')
-        brand       = self.request.GET.get('brand')
+        sub_category_id = self.request.GET.get('sub_category')
+        child_category_id = self.request.GET.get('child_category')
         created_from = self.request.GET.get('created_from')
-        created_to   = self.request.GET.get('created_to') 
+        created_to = self.request.GET.get('created_to')
 
         if created_from:
             filters['created_at__gte'] = created_from
         if created_to:
-            filters['created_at__lte'] = created_to 
+            filters['created_at__lte'] = created_to
 
-        if name:
-            filters['product_name__icontains'] = name
+        if product_id:
+            filters['id'] = product_id
+        if brand_id:
+            filters['brand__id'] = brand_id
         if category_id:
             filters['main_category__id'] = category_id
-        if brand:
-            filters['brand__id'] = brand
+        if sub_category_id:
+            filters['sub_category__id'] = sub_category_id
+        if child_category_id:
+            filters['child_category__id'] = child_category_id
         
         return ProductList.objects.filter(**filters).order_by('-id')
         
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        page_num = self.request.GET.get('page', 1)
+        page_num = int(self.request.GET.get('page', 1))
         full_queryset = self.get_queryset()
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
@@ -1018,21 +1019,30 @@ class ProductListView(ListView):
 
             'filter_created_from': self.request.GET.get('created_from', ''),
             'filter_created_to': self.request.GET.get('created_to', ''),
-            'filter_name': self.request.GET.get('name', ''),
-            'filter_category': self.request.GET.get('category', ''),
+            'filter_product_id': self.request.GET.get('product', ''),
             'filter_brand': self.request.GET.get('brand', ''),
-            'categories'  : ProductMainCategory.objects.filter(is_active=True).order_by('name'),
-            'brands'      : ProductBrand.objects.filter(is_active=True).order_by('name'),
-
-
+            'filter_category': self.request.GET.get('category', ''),
+            'filter_sub_ategory': self.request.GET.get('sub_category', ''),
+            'filter_child_category': self.request.GET.get('child_category', ''),
+            'filter_products': ProductList.objects.filter(is_active=True).order_by('product_name'),
+            'filter_brands': ProductBrand.objects.filter(is_active=True).order_by('name'),
+            'filter_categories': ProductMainCategory.objects.filter(is_active=True).order_by('name'),
+            'filter_sub_categories': ProductSubCategory.objects.filter(is_active=True).order_by('name'),
+            'filter_child_categories': ProductChildCategory.objects.filter(is_active=True).order_by('name'),
+            'sl_start': (page_num - 1) * paginated_data.paginator.per_page,
         })
-        
+
+        get_params = self.request.GET.copy()
+        if 'page' in get_params:
+            get_params.pop('page')
+        context['query_params'] = get_params.urlencode()
+
         return context
 
 
 @login_required
 def product_details_view(request, pk):
-    if not checkUserPermission(request, "can_view", "backend/product-details/"):
+    if not checkUserPermission(request, "can_view", "backend/products/"):
         messages.error(request, "You do not have permission to view this product.")
         return render(request, "403.html")
 
@@ -1052,7 +1062,7 @@ class ProductCreateView(CreateView):
     success_url = reverse_lazy('backend:product_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_add", "backend/product-list/"):
+        if not checkUserPermission(request, "can_add", "backend/products/"):
             messages.error(request, "You do not have permission to add a product.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -1077,7 +1087,7 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('backend:product_list')
 
     def dispatch(self, request, *args, **kwargs):
-        if not checkUserPermission(request, "can_edit", "backend/product-list/"):
+        if not checkUserPermission(request, "can_update", "backend/products/"):
             messages.error(request, "You do not have permission to update this product.")
             return render(request, "403.html")
         return super().dispatch(request, *args, **kwargs)
@@ -1090,13 +1100,13 @@ class ProductUpdateView(UpdateView):
 
 @login_required
 def product_delete_view(request, pk):
-    if not checkUserPermission(request, "can_delete", "backend/product-delete/"):
+    if not checkUserPermission(request, "can_delete", "backend/products/"):
         return render(request, "403.html")
 
     product = get_object_or_404(ProductList, pk=pk)
 
     if request.method == 'POST':
-        product.is_active = False
+        product.deleted = True
         product.save()
         messages.success(request, "Product deleted successfully.")
         return redirect('backend:product_list')
@@ -1201,777 +1211,6 @@ def product_attribute_delete_view(request, pk):
         return redirect('backend:product_attribute_list')
 
     return redirect('backend:product_attribute_list')
-
-
-# @login_required
-# def setting_dashboard(request):
-#     get_setting_menu = BackendMenu.objects.filter(module_name='Setting', is_active=True)
-   
-#     context = {
-#         "get_setting_menu": get_setting_menu,
-        
-#     }
-#     return render(request, 'home/setting_dashboard.html', context)
-
-
-# @login_required
-# def cities(request):
-#     if not checkUserPermission(request, "can_view", "backend/cities/"):
-#         return redirect('dashboard')
-
-#     cities = City.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     cities, paginator_list, last_page_number = paginate_data(request, page_number, cities)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'cities': cities,
-      
-#     }
-#     return render(request, "setting/city_list.html", context)
-
-
-# @login_required
-# def company_setting(request):
-#     if not checkUserPermission(request, "can_view", "backend/company-setting/"):
-#         return redirect('dashboard')
-
-#     companies = Company.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     companies, paginator_list, last_page_number = paginate_data(request, page_number, companies)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'companies': companies,
-#     }
-#     return render(request, "setting/company/list.html", context)
-
-
-# @login_required
-# def add_new_company(request):
-#     if not checkUserPermission(request, "can_add", "backend/add-new-company/"):
-#         return redirect('dashboard')
-
-#     if request.method == 'POST':
-#         company_name = request.POST.get('company_name').strip()
-#         company_address = request.POST.get('company_address').strip()
-#         company_phone = request.POST.get('company_phone').strip()
-#         company_email = request.POST.get('company_email').strip()
-
-#         if not company_name or not company_address or not company_phone or not company_email:
-#             messages.error(request, "All fields are required.")
-#             return redirect('add_new_company')
-
-#         Company.objects.create(
-#             name=company_name,
-#             address=company_address,
-#             phone=company_phone,
-#             email=company_email,
-#             created_by=request.user.id
-#         )
-#         messages.success(request, "Company added successfully.")
-#         return redirect('company_setting')
-
-#     return render(request, "setting/company/add_company.html")
-
-
-# #Products Information
-# @login_required
-# def product_main_category_list(request):
-#     if not checkUserPermission(request, "can_view", "backend/product-main-category-list/"):
-#         return redirect('dashboard')
-
-    
-#     product_main_categories = ProductMainCategory.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     product_main_categories, paginator_list, last_page_number = paginate_data(request, page_number, product_main_categories)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'product_main_categories': product_main_categories,
-#     }
-#     return render(request, "product/main_category_list.html", context)
-
-
-# @login_required
-# def add_product_main_category(request):
-#     if not checkUserPermission(request, "can_add", "backend/add-product-main-category/"):
-#         return redirect('dashboard')
-
-#     if request.method == 'POST':
-#         name = request.POST.get('name').strip()
-#         description   = request.POST.get('description').strip()
-#         ordering  = request.POST.get('ordering').strip()
-#         image     = request.FILES.get('image')
-
-#         if not name:
-#             messages.error(request, "Name is required.")
-#             return redirect('add_product_main_category')
-
-#         ProductMainCategory.objects.create(
-#             name=name,
-#             description=description,
-#             ordering=ordering,
-#             image=image,
-#             is_active=True,
-#             created_by=request.user
-#         )
-#         messages.success(request, "Product main category added successfully.")
-#         return redirect('product_main_category_list')
-
-#     form = ProductMainCategoryForm()
-    
-#     return render(request, "product/add_product_main_category.html", {'form': form})
-
-
-# @login_required
-# def product_main_category_list_view(request):
-#     """
-#     View to list all active product main categories.
-#     This view checks user permissions and paginates the list of product main categories.
-#     If the user does not have permission to view the list, they are redirected to the dashboard.
-#     """
-#     context  = {}
-#     if not checkUserPermission(request, "can_view", "backend/product-main-category-list/"):
-#         return redirect('dashboard')
-
-#     product_main_categories = ProductMainCategory.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     product_main_categories, paginator_list, last_page_number = paginate_data(request, page_number, product_main_categories)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'product_main_categories': product_main_categories,
-#     }
-
-#     return render(request, "product/maincategories/main_category_list.html", context)
-
-
-# @login_required
-# def product_main_category_details_view(request, pk):
-#     """
-#     View to display the details of a specific product main category.
-#     This view checks user permissions and retrieves the product main category by its primary key (pk).
-#     If the user does not have permission to view the details, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/product-main-category-details/"):
-#         return redirect('dashboard')
-#     main_category_details = get_object_or_404(ProductMainCategory, pk=pk)
-#     context['main_category_details'] = main_category_details
-#     return render(request, 'product/maincategories/main_category_details.html', context)
-
-
-# @login_required
-# def product_main_category_create_view(request):
-#     """
-#     View to create a new product main category.
-#     This view checks user permissions and handles the form submission for creating a new product main category.
-#     If the user does not have permission to add a new category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_add", "backend/add-product-main-category/"):
-#         return redirect('dashboard')
-#     if request.method == "POST":
-#         form = ProductMainCategoryForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             category = form.save(commit=False)
-#             category.created_by = request.user
-#             category.save()
-#             messages.success(request, "Product main category created successfully.")
-#             return redirect('product_main_category_list')
-#     else:
-#         form = ProductMainCategoryForm()
-
-#     context['form'] = form
-    
-#     return render(request, 'product/maincategories/add_product_main_category.html', context)
-
-
-# @login_required
-# def product_main_category_update_view(request, pk):
-#     """
-#     View to update an existing product main category.
-#     This view checks user permissions and retrieves the product main category by its primary key (pk).
-#     If the user does not have permission to update the category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_edit", "backend/product-main-category-update/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductMainCategory, pk=pk)
-#     if request.method == "POST":
-#         form = ProductMainCategoryForm(request.POST, request.FILES, instance=category)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Product main category updated successfully.")
-#             return redirect('product_main_category_list')
-#     else:
-#         form = ProductMainCategoryForm(instance=category)
-
-#     context['form'] = form
-#     return render(request, 'product/maincategories/main_category_update.html', context)
-
-
-# @login_required
-# def product_main_category_delete_view(request, pk):
-#     """
-#     View to delete a product main category.
-#     This view checks user permissions and retrieves the product main category by its primary key (pk).
-#     If the user does not have permission to delete the category, they are redirected to the dashboard.
-#     """
-#     if not checkUserPermission(request, "can_delete", "backend/delete-product-main-category/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductMainCategory, pk=pk)
-#     if request.method == "POST":
-#         category.is_active = False
-#         category.save()
-#         messages.success(request, "Product main category deleted successfully.")
-#         return redirect('product_main_category_list')
-    
-#     else:
-#         messages.error(request, "You do not have permission to delete this category.")
-#         return redirect('product_main_category_list')
-
-
-# @login_required
-# def product_sub_category_list_view(request):
-#     """
-#     View to list all active product subcategories.
-#     This view checks user permissions and paginates the list of product subcategories.
-#     If the user does not have permission to view the list, they are redirected to the dashboard.
-#     """
-#     if not checkUserPermission(request, "can_view", "backend/product-sub-category-list/"):
-#         return render(request, "403.html")
-
-#     context = {}
-#     product_sub_categories = ProductSubCategory.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     product_sub_categories, paginator_list, last_page_number = paginate_data(request, page_number, product_sub_categories)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'product_sub_categories': product_sub_categories,
-#     }
-#     return render(request, "product/subcategory/sub_category_list.html", context)
-
-
-# @login_required
-# def product_sub_category_details_view(request, pk):
-#     """
-#     View to display the details of a specific product subcategory.
-#     This view checks user permissions and retrieves the product subcategory by its primary key (pk).
-#     If the user does not have permission to view the details, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/product-sub-category-details/"):
-#         return redirect('dashboard')
-#     sub_category_details = get_object_or_404(ProductSubCategory, pk=pk)
-#     context['sub_category_details'] = sub_category_details
-#     return render(request, 'product/subcategory/sub_category_detail.html', context)
-
-
-# @login_required
-# def product_sub_category_create_view(request):
-#     """
-#     View to create a new product subcategory.
-#     This view checks user permissions and handles the form submission for creating a new product subcategory.
-#     If the user does not have permission to add a new category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_add", "backend/add-product-sub-category/"):
-#         return redirect('dashboard')
-
-#     opt_main_category  = ProductMainCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
-
-#     if request.method == "POST":
-#         main_category       = request.POST.get('main_category').strip()
-#         name        = request.POST.get('name').strip()
-#         slug        = request.POST.get('slug').strip()
-#         description         = request.POST.get('description').strip()
-#         image       = request.FILES.get('image')
-#         ordering    = request.POST.get('ordering').strip()
-
-#         if not main_category or not name:
-#             messages.error(request, 'Name is required')
-#             return redirect('add_product_sub_category')
-        
-#         try:
-#             main_category_obj = ProductMainCategory.objects.get(id=main_category)
-#             ProductSubCategory.objects.create(
-#                 main_category    = main_category_obj,
-#                 name     = name,
-#                 description      = description,
-#                 image    = image,
-#                 ordering = int(ordering) if ordering else 0,
-#                 is_active        = True,
-#                 created_by       = request.user,
-#             )
-#             messages.success(request, "Product sub category created successfully.")
-#             return redirect('product_sub_category_list')
-#         except ProductMainCategory.DoesNotExist:
-#             messages.error(request, 'Invalid main category selected')
-#             return redirect('add_product_sub_category')
-#         except Exception as e:
-#             messages.error(request, f'Error creating sub category: {str(e)}')
-#             return redirect('add_product_sub_category')
-    
-#     context['opt_main_category'] = opt_main_category
-    
-#     return render(request, 'product/subcategory/add_product_sub_category.html', context)
-
-
-# def product_sub_category_update_view(request, pk):
-#     """
-#     View to update an existing product subcategory.
-#     This view checks user permissions and retrieves the product subcategory by its primary key (pk).
-#     If the user does not have permission to update the category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_edit", "backend/edit-product-sub-category/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductSubCategory, pk=pk)
-
-#     opt_main_category = ProductMainCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
-
-#     if request.method  == "POST":
-#         main_category       = request.POST.get('main_category').strip()
-#         name        = request.POST.get('name').strip()
-#         slug        = request.POST.get('slug').strip()
-#         description         = request.POST.get('description').strip()
-#         image       = request.FILES.get('image')
-#         ordering    = request.POST.get('ordering').strip()
-#         is_active           = request.POST.get('is_active') == 'on'
-
-#         if not main_category or not name:
-#             messages.error(request, 'Name is required')
-#             return redirect('product_sub_category_update', pk=pk)
-    
-#         try:
-#             main_category_obj = ProductMainCategory.objects.get(id=main_category)
-#             category.main_category    = main_category_obj
-#             category.name     = name
-#             category.slug     = slug if slug else category.slug
-#             category.description      = description
-#             if image:
-#                 category.image = image
-#             category.ordering = int(ordering) if ordering else 0
-#             category.is_active        = is_active
-#             category.updated_by       = request.user
-#             category.save()
-#             messages.success(request, "Product sub category updated successfully.")
-#             return redirect('product_sub_category_list')
-#         except ProductMainCategory.DoesNotExist:
-#             messages.error(request, 'Invalid main category selected')
-#             return redirect('product_sub_category_update', pk=pk)
-#         except Exception as e:
-#             messages.error(request, f'Error updating sub category: {str(e)}')
-#             return redirect('product_sub_category_update', pk=pk)
-        
-#     context['opt_main_category'] = opt_main_category
-#     context['category'] = category
-    
-#     return render(request, 'product/subcategory/sub_category_update.html', context)
-
-
-# @login_required
-# def product_sub_category_delete_view(request, pk):
-#     """
-#     View to delete a product subcategory.
-#     This view checks user permissions and retrieves the product subcategory by its primary key (pk).
-#     If the user does not have permission to delete the category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_delete", "backend/delete-product-sub-category/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductSubCategory, pk=pk)
-#     if request.method == "POST":
-#         category.is_active = False
-#         category.save()
-#         messages.success(request, "Product sub category deleted successfully.")
-#         return redirect('product_sub_category_list')
-#     else:
-#         messages.error(request, "You do not have permission to delete this category.")
-#         return redirect('product_sub_category_list')
-
-
-# @login_required
-# def product_child_category_list_view(request):
-#     """
-#     View to list all active product child categories.
-#     This view checks user permissions and paginates the list of product child categories.
-#     If the user does not have permission to view the list, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/product-child-category-list/"):
-#         return redirect('dashboard')
-
-#     product_child_categories = ProductChildCategory.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     product_child_categories, paginator_list, last_page_number = paginate_data(request, page_number, product_child_categories)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'product_child_categories': product_child_categories,
-#     }
-#     return render(request, "product/chaildcategory/child_category_list.html", context)
-
-
-# @login_required
-# def product_child_category_details_view(request, pk):
-#     """
-#     View to display the details of a specific product child category.
-#     This view checks user permissions and retrieves the product child category by its primary key (pk).
-#     If the user does not have permission to view the details, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/product-child-category-details/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductChildCategory, pk=pk)
-#     context['category'] = category
-#     return render(request, 'product/chaildcategory/child_category_details.html', context)
-
-
-# @login_required
-# def product_child_category_create_view(request):
-#     """
-#     View to create a new product child category.
-#     This view checks user permissions and handles the form submission for creating a new product child category.
-#     If the user does not have permission to add a new category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_add", "backend/add-product-child-category/"):
-#         return redirect('dashboard')
-
-#     opt_sub_category = ProductSubCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
-
-#     if request.method == "POST":
-#         sub_cate_name       = request.POST.get('sub_cate_name').strip()
-#         name      = request.POST.get('name').strip()
-#         slug      = request.POST.get('slug').strip()
-#         description         = request.POST.get('description').strip()
-#         ordering  = request.POST.get('ordering').strip()
-#         image     = request.FILES.get('image')
-
-#         if not sub_cate_name or not name:
-#             messages.error(request, 'Name is required')
-#             return redirect('add_product_child_category')
-        
-
-#         try:
-#             sub_category_obj   = ProductSubCategory.objects.get(id=sub_cate_name)
-#             ProductChildCategory.objects.create(
-#                 sub_category      = sub_category_obj,
-#                 name    = name,
-#                 description       = description,
-#                 image   = image,
-#                 ordering= int(ordering) if ordering else 0,
-#                 is_active         = True,
-#                 created_by        = request.user,
-#             )
-#             messages.success(request, "Product child category created successfully.")
-#             return redirect('product_child_category_list')
-#         except ProductSubCategory.DoesNotExist:
-#             messages.error(request, 'Invalid sub category selected')
-#             return redirect('add_product_child_category')
-#         except Exception as e:
-#             messages.error(request, f'Error creating child category: {str(e)}')
-#             return redirect('add_product_child_category')
-        
-#     context['opt_sub_category'] = opt_sub_category
-#     return render(request, 'product/chaildcategory/add_child_category.html', context)
-
-
-# @login_required
-# def product_child_category_update_view(request, pk):
-#     """
-#     View to update an existing product child category.
-#     This view checks user permissions and retrieves the product child category by its primary key (pk).
-#     If the user does not have permission to update the category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_edit", "backend/edit-product-child-category/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductChildCategory, pk=pk)
-
-#     opt_sub_category = ProductSubCategory.objects.filter(is_active=True).values('id', 'name').order_by('-id')
-
-#     if request.method == "POST":
-#         sub_cate_name       = request.POST.get('sub_cate_name').strip()
-#         name      = request.POST.get('name').strip()
-#         slug      = request.POST.get('slug').strip()
-#         description         = request.POST.get('description').strip()
-#         image     = request.FILES.get('image')
-#         ordering  = request.POST.get('ordering').strip()
-
-#         if not sub_cate_name or not name:
-#             messages.error(request, 'Name is required')
-#             return redirect('product_child_category_update', pk=pk)
-        
-#         try:
-#             sub_category_obj   = ProductSubCategory.objects.get(id=sub_cate_name)
-#             category.sub_category      = sub_category_obj
-#             category.name    = name
-#             category.slug    = slug if slug else category.slug
-#             category.description       = description
-#             if image:
-#                 category.image = image
-#             category.ordering= int(ordering) if ordering else 0
-#             category.is_active         = True
-#             category.updated_by        = request.user
-#             category.save()
-#             messages.success(request, "Product child category updated successfully.")
-#             return redirect('product_child_category_list')
-#         except ProductSubCategory.DoesNotExist:
-#             messages.error(request, 'Invalid sub category selected')
-#             return redirect('product_child_category_update', pk=pk)
-#         except Exception as e:
-#             messages.error(request, f'Error updating child category: {str(e)}')
-#             return redirect('product_child_category_update', pk=pk)
-        
-#     context['opt_sub_category'] = opt_sub_category
-#     context['category'] = category
-#     return render(request, 'product/chaildcategory/child_category_update.html', context)
-
-
-# @login_required
-# def product_child_category_delete_view(request, pk):
-#     """
-#     View to delete a product child category.
-#     This view checks user permissions and retrieves the product child category by its primary key (pk).
-#     If the user does not have permission to delete the category, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_delete", "backend/delete-product-child-category/"):
-#         return redirect('dashboard')
-#     category = get_object_or_404(ProductChildCategory, pk=pk)
-#     if request.method == "POST":
-#         category.is_active = False
-#         category.save()
-#         messages.success(request, "Product child category deleted successfully.")
-#         return redirect('product_child_category_list')
-#     else:
-#         messages.error(request, "You do not have permission to delete this category.")
-#         return redirect('product_child_category_list')
-
-
-# @login_required
-# def attribute_list_view(request):
-#     """
-#     View to list all active attributes.
-#     This view checks user permissions and paginates the list of attributes.
-#     If the user does not have permission to view the list, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/attribute-list/"):
-#         return redirect('dashboard')
-
-#     attributes = AttributeList.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     attributes, paginator_list, last_page_number = paginate_data(request, page_number, attributes)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'attributes': attributes,
-#     }
-#     return render(request, "product/attribute_list.html", context)
-
-
-# @login_required
-# def attribute_details_view(request, pk):
-#     """
-#     View to display the details of a specific attribute.
-#     This view checks user permissions and retrieves the attribute by its primary key (pk).
-#     If the user does not have permission to view the details, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/attribute-details/"):
-#         return redirect('dashboard')
-#     attribute = get_object_or_404(AttributeList, pk=pk)
-#     context['attribute'] = attribute
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def attribute_create_view(request):
-#     """
-#     View to create a new attribute.
-#     This view checks user permissions and handles the form submission for creating a new attribute.
-#     If the user does not have permission to add a new attribute, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_add", "backend/add-attribute/"):
-#         return redirect('dashboard')
-#     if request.method == "POST":
-#         form = AttributeListForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Attribute created successfully.")
-#             return redirect('attribute_list')
-#     else:
-#         form = AttributeListForm()
-
-#     context['form'] = form
-    
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def attribute_update_view(request, pk):
-#     """
-#     View to update an existing attribute.
-#     This view checks user permissions and retrieves the attribute by its primary key (pk).
-#     If the user does not have permission to update the attribute, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_edit", "backend/edit-attribute/"):
-#         return redirect('dashboard')
-#     attribute = get_object_or_404(AttributeList, pk=pk)
-#     if request.method == "POST":
-#         form = AttributeListForm(request.POST, instance=attribute)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Attribute updated successfully.")
-#             return redirect('attribute_list')
-#     else:
-#         form = AttributeListForm(instance=attribute)
-
-#     context['form'] = form
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def attribute_delete_view(request, pk):
-#     """
-#     View to delete an attribute.
-#     This view checks user permissions and retrieves the attribute by its primary key (pk).
-#     If the user does not have permission to delete the attribute, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_delete", "backend/delete-attribute/"):
-#         return redirect('dashboard')
-#     attribute = get_object_or_404(AttributeList, pk=pk)
-#     if request.method == "POST":
-#         attribute.is_active = False
-#         attribute.save()
-#         messages.success(request, "Attribute deleted successfully.")
-#         return redirect('attribute_list')
-    
-#     context['attribute'] = attribute
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def value_list_view(request):
-#     """
-#     View to list all active attribute values.
-#     This view checks user permissions and paginates the list of attribute values.
-#     If the user does not have permission to view the list, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/attribute-value-list/"):
-#         return redirect('dashboard')
-
-#     values = AttributeValueList.objects.filter(is_active=True).order_by('-id')
-#     page_number = request.GET.get('page', 1)
-#     values, paginator_list, last_page_number = paginate_data(request, page_number, values)
-
-#     context = {
-#         'paginator_list': paginator_list,
-#         'last_page_number': last_page_number,
-#         'values': values,
-#     }
-#     return render(request, "product/value_list.html", context)
-
-
-# @login_required
-# def value_details_view(request, pk):
-#     """
-#     View to display the details of a specific attribute value.
-#     This view checks user permissions and retrieves the attribute value by its primary key (pk).
-#     If the user does not have permission to view the details, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_view", "backend/attribute-value-details/"):
-#         return redirect('dashboard')
-#     value = get_object_or_404(AttributeValueList, pk=pk)
-#     context['value'] = value
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def value_create_view(request):
-#     """
-#     View to create a new attribute value.
-#     This view checks user permissions and handles the form submission for creating a new attribute value.
-#     If the user does not have permission to add a new attribute value, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_add", "backend/add-attribute-value/"):
-#         return redirect('dashboard')
-#     if request.method == "POST":
-#         form = AttributeValueListForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Attribute value created successfully.")
-#             return redirect('value_list')
-#     else:
-#         form = AttributeValueListForm()
-
-#     context['form'] = form
-    
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def value_update_view(request, pk):
-#     """
-#     View to update an existing attribute value.
-#     This view checks user permissions and retrieves the attribute value by its primary key (pk).
-#     If the user does not have permission to update the attribute value, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_edit", "backend/edit-attribute-value/"):
-#         return redirect('dashboard')
-#     value = get_object_or_404(AttributeValueList, pk=pk)
-#     if request.method == "POST":
-#         form = AttributeValueListForm(request.POST, instance=value)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Attribute value updated successfully.")
-#             return redirect('value_list')
-#     else:
-#         form = AttributeValueListForm(instance=value)
-
-#     context['form'] = form
-#     return render(request, 'product/', context)
-
-
-# @login_required
-# def value_delete_view(request, pk):
-#     """
-#     View to delete an attribute value.
-#     This view checks user permissions and retrieves the attribute value by its primary key (pk).
-#     If the user does not have permission to delete the attribute value, they are redirected to the dashboard.
-#     """
-#     context = {}
-#     if not checkUserPermission(request, "can_delete", "backend/delete-attribute-value/"):
-#         return redirect('dashboard')
-#     value = get_object_or_404(AttributeValueList, pk=pk)
-#     if request.method == "POST":
-#         value.is_active = False
-#         value.save()
-#         messages.success(request, "Attribute value deleted successfully.")
-#         return redirect('value_list')
-    
-#     context['value'] = value
-#     return render(request, 'product/', context)
 
 
 # Settings

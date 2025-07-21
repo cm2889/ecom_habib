@@ -18,48 +18,57 @@
                 </div>
                 <div class="top-button">
                     <div class="button-box">
-                        <a class="button primary-button" href="{% url 'backend:add_product' %}">
-                            <span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New
-                        </a>
+                        <a class="button primary-button" href="{% url 'backend:add_product' %}"><span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New</a>
+                        <a class="button primary-button" href="{% url 'backend:export_products_to_excel' %}{% if query_params %}?{{ query_params }}{% endif %}"></span>Excel Export</a>
                     </div>
                 </div>
             </div>
 
             <div class="listing-box">
                 <div class="table table-border-bottom">
-
-                    <form method="get" class="mb-3 d-flex align-items-center flex-wrap" style="gap: 10px;">
-        
-                        <input type="text" name="name" class="form-control" placeholder="Product Name"
-                            value="{{ filter_name }}" style="width: 180px;">
-
-                        <select name="category" class="form-control" style="width: 180px;">
-                            <option value="">All Categories</option>
-                            {% for cat in categories %}
-                                <option value="{{ cat.id }}" {% if filter_category == cat.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ cat.name }}
+                    <form method="get" id="filterForm" class="mb-3 d-flex align-items-center flex-wrap" style="gap: 10px;">
+                        <select name="product" class="form-control select2-items" style="width: 180px;">
+                            <option value="">All Product</option>
+                            {% for data in filter_products %}
+                                <option value="{{ data.id }}" {% if filter_product_id == data.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ data.product_name }} ({{ data.product_sku }})
                                 </option>
                             {% endfor %}
                         </select>
 
-                        <select name="brand" class="form-control" style="width: 180px;">
-                            <option value="">All Brands</option>
-                            {% for brand in brands %}
-                                <option value="{{ brand.id }}" {% if filter_brand == brand.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ brand.name }}
+                        <select name="category" class="form-control select2-items" style="width: 180px;">
+                            <option value="">All Category</option>
+                            {% for data in filter_categories %}
+                                <option value="{{ data.id }}" {% if filter_category == data.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ data.name }}
                                 </option>
                             {% endfor %}
                         </select>
 
-                        <input type="date" name="created_from" class="form-control" placeholder="Created From"
-                            value="{{ filter_created_from }}" style="width: 180px;">
-                        <input type="date" name="created_to" class="form-control" placeholder="Created To"
-                            value="{{ filter_created_to }}" style="width: 180px;"> 
+                        <select name="sub_category" class="form-control select2-items" style="width: 180px;">
+                            <option value="">All Sub Category</option>
+                            {% for data in filter_sub_categories %}
+                                <option value="{{ data.id }}" {% if filter_sub_category == data.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ data.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <select name="child_category" class="form-control select2-items" style="width: 180px;">
+                            <option value="">All Child Category</option>
+                            {% for data in filter_child_categories %}
+                                <option value="{{ data.id }}" {% if filter_child_category == data.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ data.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <input type="date" name="created_from" class="form-control" placeholder="Created From" value="{{ filter_created_from }}" style="width: 180px;">
+                        <input type="date" name="created_to" class="form-control" placeholder="Created To" value="{{ filter_created_to }}" style="width: 180px;"> 
 
                         <button type="submit" class="btn btn-primary">Filter</button>
                         <a href="{% url 'backend:product_list' %}" class="btn btn-danger">Reset</a>
                     </form>
-
 
                     {% if messages %}
                         <div class="alert alert-info" role="alert" style="color: green">
@@ -84,7 +93,7 @@
                         <tbody>
                             {% for data in products %}
                             <tr>
-                                <td class="text-center">{{ forloop.counter }}</td>
+                                <td class="text-center">{{ sl_start|add:forloop.counter }}</td>
                                 <td class="text-left"><a href="{% url 'backend:product_details' data.id %}">{{ data.product_name }}</a></td>
                                 <td class="text-left">{{ data.main_category.name }}</td>
                                 <td class="text-left">{{ data.unit_price }}</td>
@@ -125,7 +134,7 @@
                         <ul class="pagination justify-content-center">
                             {% if products.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ products.previous_page_number }}{% if params %}&{{ params }}{% endif %}" aria-label="Previous">
+                                <a class="page-link" href="?page={{ products.previous_page_number }}{% if query_params %}&{{ query_params }}{% endif %}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -133,12 +142,12 @@
                             {% endif %}
                             {% for i in paginator_list %}
                             <li class="page-item {% if products.number == i %}active{% endif %}">
-                                <a class="page-link" href="?page={{ i }}{% if params %}&{{ params }}{% endif %}">{{ i }}</a>
+                                <a class="page-link" href="?page={{ i }}{% if query_params %}&{{ query_params }}{% endif %}">{{ i }}</a>
                             </li>
                             {% endfor %}
                             {% if products.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ products.next_page_number }}{% if params %}&{{ params }}{% endif %}" aria-label="Next">
+                                <a class="page-link" href="?page={{ products.next_page_number }}{% if query_params %}&{{ query_params }}{% endif %}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
@@ -152,4 +161,21 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+            $('.select2-items').select2();
+        });
+
+        document.getElementById('filterForm').addEventListener('submit', function (e) {
+            const inputs = this.querySelectorAll('input, select');
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].value) {
+                    inputs[i].disabled = true;
+                }
+            }
+        });
+    </script>
 {% endblock %}

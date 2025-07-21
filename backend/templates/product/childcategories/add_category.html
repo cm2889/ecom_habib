@@ -14,7 +14,7 @@
                     <div class="breadcrumbs">
                         <ul class="breadcrumbs-list">
                             <li><a href="/"><span><img src="/static/images/icons/Home.svg" alt="more"></span>Home</a></li>
-                            <li><a href="{% url 'backend:product_child_category_list' %}">Child Category List</a></li>
+                            <li><a href="{% url 'backend:child_category_list' %}">Child Category List</a></li>
                             <li><a href="#">Add New Child Category</a></li>
                         </ul>
                     </div>
@@ -70,7 +70,7 @@
                             <div class="form-group">
                                 <div class="form-button">
                                     <input type="submit" class="button blue-button" value="Save">
-                                    <a href="{% url 'backend:product_child_category_list' %}" class="button primary-button cancle-button">Cancel</a>
+                                    <a href="{% url 'backend:child_category_list' %}" class="button primary-button cancle-button">Cancel</a>
                                 </div>
                             </div>
                         </form>

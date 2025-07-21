@@ -18,7 +18,7 @@
                 </div>
                 <div class="top-button">
                     <div class="button-box">
-                        <a class="button primary-button" href="{% url 'backend:add_product_main_category' %}">
+                        <a class="button primary-button" href="{% url 'backend:add_category' %}">
                             <span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New
                         </a>
                     </div>
@@ -52,7 +52,7 @@
                             {% for data in product_main_categories %}
                             <tr>
                                 <td class="text-center">{{ forloop.counter }}</td>
-                                <td class="text-left"><a href="{% url 'backend:product_main_category_details_view' data.id %}">{{ data.name }}</a></td>
+                                <td class="text-left"><a href="{% url 'backend:category_detail_view' data.id %}">{{ data.name }}</a></td>
                                 <td class="text-left">{{ data.description|truncatewords:10 }}</td>
                                 <td class="text-left">{{ data.created_by }}</td>
                                 <td class="text-center">
@@ -64,8 +64,8 @@
                                 </td>
                                 <td class="text-left">{{ data.created_at|date:"d-M-Y" }}</td>
                                 <td class="text-center">
-                                    <span class="more"><a href="{% url 'backend:product_main_category_details_view' data.id %}"><i class="fas fa-eye font-weight500"></i></a></span>
-                                    <span class="more"><a href="{% url 'backend:product_main_category_update' data.id %}"><i class="fas fa-edit font-weight500"></i></a></span>
+                                    <span class="more"><a href="{% url 'backend:category_detail_view' data.id %}"><i class="fas fa-eye font-weight500"></i></a></span>
+                                    <span class="more"><a href="{% url 'backend:category_update' data.id %}"><i class="fas fa-edit font-weight500"></i></a></span>
                                     <span class="more">
                                         <form method="post" action="{% url 'backend:product_main_category_delete' data.id %}" style="display: inline;">
                                             {% csrf_token %}
