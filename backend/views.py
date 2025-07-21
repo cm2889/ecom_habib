@@ -967,6 +967,7 @@ def value_delete_view(request, pk):
 class ProductListView(ListView):
     model = ProductList
     template_name = 'product/products/product_list.html'
+    # template_name = 'product/pdf/pdf_template.html'   # for pdf template editing 
     paginate_by = None
 
     def dispatch(self, request, *args, **kwargs):

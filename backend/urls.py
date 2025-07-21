@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from . import export_function
+from . import pdf_generator_func 
 
 app_name = 'backend' 
 
@@ -79,6 +80,7 @@ urlpatterns = [
     path('product-update/<int:pk>/', views.ProductUpdateView.as_view(), name='product_update'),
     path('product-delete/<int:pk>/', views.product_delete_view, name='product_delete'),
     path('download-product-excel/', export_function.export_products_to_excel, name='export_products_to_excel'),
+    path('download-product-pdf/', pdf_generator_func.generate_pdf_from_template, name='export_products_to_pdf'), 
 
     # Product attribute URLs
     path('product-attribute-list/', views.ProductAttibuteListView.as_view(), name='product_attribute_list'),

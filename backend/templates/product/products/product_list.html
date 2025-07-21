@@ -20,6 +20,7 @@
                     <div class="button-box">
                         <a class="button primary-button" href="{% url 'backend:add_product' %}"><span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New</a>
                         <a class="button primary-button" href="{% url 'backend:export_products_to_excel' %}{% if query_params %}?{{ query_params }}{% endif %}"></span>Excel Export</a>
+                        <a class="button primary-button" href="{% url 'backend:export_products_to_pdf' %}{% if query_params %}?{{ query_params }}{% endif %}"></span>PDF Export</a>
                     </div>
                 </div>
             </div>
