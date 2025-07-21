@@ -1,7 +1,125 @@
-:root{
-    --body-color:#000000;
-    --button-primary-bg-color:#000000;
-    --button-primary-color:#fffff;
-    --button-secondary-bg-color:#ffffff;
-    --button-primary-color:#000000;
+:root {
+    --body-color: #22242A;
+    --button-primary-bg-color: #22242A;
+    --button-primary-color: #fffff;
+    --button-secondary-bg-color: #ffffff;
+    --button-primary-color: #22242A;
+    --border-color: #A4A4A4;
+}
+
+body {
+    color: var(--body-color);
+    font-size: 14px;
+}
+
+.nav-top {
+    height: 104px;
+    border-bottom: 1px solid var(--border-color)
+}
+
+.top-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.user-menu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-menu ul li img {
+    height: 21px;
+}
+
+.user-menu ul li {
+    margin: 0 10px;
+}
+
+.user-menu ul li:first-child {
+    margin-left: 0px;
+}
+
+.user-menu ul li:last-child {
+    margin-right: 0px;
+}
+
+.user-menu ul ul {
+    display: none;
+}
+
+.container-box {
+    height: 100%;
+    width: -webkit-fill-available;
+}
+
+/* menu */
+nav.nav {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-menu ul {
+    display: flex;
+}
+
+.main-menu ul {
+    display: flex;
+    margin: 0;
+    list-style: none;
+    padding: 20px 0;
+}
+
+.main-menu ul li a {
+    padding: 0;
+    text-decoration: none;
+    display: inline-block;
+    padding-right: 15px;
+    color: var(--body-color);
+}
+
+.location-box img {
+    width: 20px;
+    position: relative;
+    top: -1px;
+    margin-right: 10px;
+}
+
+.location-box a {
+    text-decoration: none;
+    color: var(--body-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 12px;
+}
+
+.hero-slider img {
+    width: 100%;
+}
+
+/* footer */
+footer.footer {
+    background-color: #22242A;
+    color: white;
+}
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+}
+.footer-menu ul {
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-menu ul li a{
+    text-decoration: none;
 }

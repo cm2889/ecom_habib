@@ -7,22 +7,43 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/static/frontend/css/style.css">
+        <link rel="stylesheet" href="/static/frontend/css/style-query.css">
         {% block page_css %}{% endblock %}
     </head>
     <body>
         <header>
             <nav class="nav-top">
-                <div class="container">
+                <div class="container-box">
                     <div class="top-text">
-                        <div class="top-text-left"></div>
-                        <div class="top-text-right"> </div>
+                        <div class="top-text-left">
+                            <div class="logo">
+                                <img src="/static/frontend/images/icons/q-store.svg" alt="" srcset="">
+                            </div>
+                        </div>
+                        <div class="top-text-right">
+                            <div class="user-menu">
+                                <ul>
+                                    <li><a href="#"><img src="/static/frontend/images/icons/search.svg" alt=""></a></li>
+                                    <li>
+                                        <a href="#"><img src="/static/frontend/images/icons/accout.svg" alt="" ></a>
+                                        <div class="dropdown-user-menu">
+                                            <ul>
+                                                <li><a href="#">Profile</a></li>
+                                                <li><a href="#">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="#"><img src="/static/frontend/images/icons/wish-list.svg" alt=""></a></li>
+                                    <li><a href="#"><img src="/static/frontend/images/icons/add-to-cart.svg" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
             <nav class="nav">
-                <div class="container">
+                <div class="container-box">
                     <div class="nav-menu">
-                        <div class="logo"></div>
                         <div class="humbarger mobile" id="humbarger">
                             <span></span>
                             <span></span>
@@ -36,20 +57,8 @@
                                 <li><a href="#">About</a></li>
                             </ul>
                         </div>
-                        <div class="user-menu">
-                            <ul>
-                                <li><a href="#">Cart</a></li>
-                                <li>
-                                    <a href="#">Login</a>
-                                    <!--<a href="#">My Accout</a>-->
-                                    <div class="dropdown-user-menu">
-                                        <ul>
-                                            <li><a href="#">Profile</a></li>
-                                            <li><a href="#">Logout</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="location-box">
+                            <a href="#"><img src="/static/frontend/images/icons/location.svg" alt="" > Dhaka, Bangladesh</a>
                         </div>
                     </div>
                 </div>
