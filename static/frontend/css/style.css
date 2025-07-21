@@ -82,8 +82,11 @@ nav.nav {
     padding: 0;
     text-decoration: none;
     display: inline-block;
-    padding-right: 15px;
+    padding-right: 30px;
     color: var(--body-color);
+}
+.main-menu ul li:last-child a {
+    padding-right: 0px;
 }
 
 .location-box img {
