@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
@@ -89,7 +90,7 @@ class UserMenuPermission(models.Model):
         return str(self.menu)
 
 
-# Frontend
+# Frontend Settings
 class FrontendSettings(models.Model):
     site_title = models.CharField(max_length=255, default="My Website")
     logo = models.ImageField(upload_to='settings/logo/', blank=True, null=True)
@@ -182,23 +183,21 @@ class SMSLog(models.Model):
 
     def __str__(self):
         return str(self.mobile_number)
-
-
-# Frontend
+# Frontend Settings
 
 
 # Inventory
 class ProductBrand(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=150, unique=True, blank=True)
-    image = models.ImageField(upload_to='inventory/brand_images/', blank=True, null=True)
+    name        = models.CharField(max_length=100, unique=True)
+    slug        = models.SlugField(max_length=150, unique=True, blank=True)
+    image       = models.ImageField(upload_to='inventory/brand_images/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    ordering = models.IntegerField(default=0)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_created_by')
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_updated_by', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    ordering    = models.IntegerField(default=0)
+    created_by  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_created_by')
+    updated_by  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_updated_by', blank=True, null=True)
+    created_at  = models.DateTimeField(auto_now_add=True)
+    updated_at  = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active   = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'product_brand'
@@ -253,17 +252,25 @@ class ProductMainCategory(models.Model):
 
 
 class ProductSubCategory(models.Model):
-    main_category = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
-    name = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=150, unique=True)
-    image = models.ImageField(upload_to='ecommerce/sub_category_images/', blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    ordering = models.IntegerField(default=0)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_created_by')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_updated_by', blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    main_category  = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
+    name           = models.CharField(max_length=150)
+    slug           = models.SlugField(max_length=150, unique=True)
+    image          = models.ImageField(upload_to='ecommerce/sub_category_images/', blank=True, null=True)
+    description    = models.TextField(blank=True, null=True)
+    ordering       = models.IntegerField(default=0)
+    created_by     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_created_by')
+    created_at     = models.DateTimeField(auto_now_add=True)
+    updated_by     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_updated_by', blank=True, null=True)
+    updated_at     = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active      = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = 'product_sub_category'
+        verbose_name_plural = 'Product Sub Categories'
+        ordering = ['-is_active', 'ordering']
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -275,14 +282,6 @@ class ProductSubCategory(models.Model):
                 num += 1
             self.slug = slug
         super().save(*args, **kwargs)
-
-    class Meta:
-        db_table = 'product_sub_category'
-        verbose_name_plural = 'Product Sub Categories'
-        ordering = ['-is_active', 'ordering']
-
-    def __str__(self):
-        return self.name
 
 
 class ProductChildCategory(models.Model):
@@ -319,37 +318,37 @@ class ProductChildCategory(models.Model):
 
 
 class AttributeList(models.Model):
-    attribute_name = models.CharField(max_length=50, unique=True)
-    attribute_ordering = models.IntegerField(default=0)
+    name = models.CharField(max_length=50, unique=True)
+    ordering = models.IntegerField(default=0)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_created_by')
-    created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'attribute_list'
         verbose_name_plural = 'Attribute List'
-        ordering = ['-is_active', 'attribute_ordering']
+        ordering = ['-is_active', 'ordering']
 
     def __str__(self):
-        return self.attribute_name
+        return self.name
 
 
 class AttributeValueList(models.Model):
-    attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE, related_name='attribute_values')
-    value = models.CharField(max_length=50)
-    value_ordering = models.IntegerField(default=0)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_value_created_by')
+    attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
+    value = models.CharField(max_length=50, unique=True)
+    ordering = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='value_created_by')
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_value_updated_by', blank=True, null=True)
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='value_updated_by', blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'attribute_value_list'
+        db_table = 'value_list'
         verbose_name_plural = 'Attribute Value List'
-        ordering = ['-is_active', 'value_ordering']
+        ordering = ['-is_active', 'ordering']
 
     def __str__(self):
         return self.value
@@ -392,6 +391,22 @@ class ProductList(models.Model):
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_updated_by', blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    deleted = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.product_slug and self.product_name:
+            base_slug = slugify(self.product_name)
+            slug = base_slug
+            num = 1
+            while ProductList.objects.filter(product_slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.product_slug = slug
+
+        if not self.product_sku:
+            self.product_sku = f"SKU-{uuid.uuid4().hex[:8].upper()}"
+
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'products'
@@ -400,29 +415,40 @@ class ProductList(models.Model):
 
     def __str__(self):
         return self.product_name
-# Inventory
 
 
-# class ProductAttribute(models.Model):
-#     product         = models.ForeignKey(ProductList, on_delete=models.CASCADE)
-#     attribute       = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
-#     attribute_value = models.ForeignKey(AttributeValueList, on_delete=models.CASCADE)
-#     created_at      = models.DateTimeField(auto_now_add=True)
-#     created_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_created_by')
-#     updated_at      = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-#     updated_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_updated_by', blank=True, null=True)
-#     is_active       = models.BooleanField(default=True)
-    
-#     class Meta:
-#         db_table = 'product_attribute'
-#         verbose_name_plural = 'Product Attributes'
-#         ordering = ['-is_active','created_at']
+class ProductAttribute(models.Model):
+    product = models.ForeignKey(ProductList, on_delete=models.CASCADE)
+    attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
+    value = models.ForeignKey(AttributeValueList, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_created_by')
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_updated_by', blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
-#     def __str__(self):
-#         return str(self.product.product_name)
+    class Meta:
+        db_table = 'product_attribute'
+        verbose_name_plural = 'Product Attributes'
+        ordering = ['-is_active', 'created_at']
+
+    def __str__(self):
+        return str(self.product.product_name)
 
 
 auditlog.register(AdminUser)
 auditlog.register(LoginLog)
 auditlog.register(BackendMenu)
 auditlog.register(UserMenuPermission)
+auditlog.register(FrontendSettings)
+auditlog.register(EmailConfiguration)
+auditlog.register(SMSConfiguration)
+auditlog.register(SMSLog)
+auditlog.register(ProductBrand)
+auditlog.register(ProductMainCategory)
+auditlog.register(ProductSubCategory)
+auditlog.register(ProductChildCategory)
+auditlog.register(AttributeList)
+auditlog.register(AttributeValueList)
+auditlog.register(ProductList)
+auditlog.register(ProductAttribute)

@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-# from .models import (
-#     LoginLog, City, BackendMenu, UserMenuPermission, UserGroup, GroupWiseMenu, EmployeeType, Employee, Company, ProductMainCategory,
-#     ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
-# )
+from .models import (
+    LoginLog, BackendMenu, UserMenuPermission, ProductMainCategory,
+    ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
+)
 
 
-# @admin.register(LoginLog)
-# class LoginLogAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'username', 'wrong_password', 'login_ip', 'login_status', 'created_at')
-#     list_filter = ('login_status',)
+@admin.register(LoginLog)
+class LoginLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'username', 'wrong_password', 'login_ip', 'login_status', 'created_at')
+    list_filter = ('login_status',)
 
 
 # @admin.register(UserGroup)
@@ -51,12 +51,6 @@ from django.contrib import admin
 #     ordering = ('created_at',)
 
 
-# @admin.register(UserMenuPermission)
-# class UserMenuPermissionAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'menu', 'can_view',  'can_add', 'can_update', 'can_delete', 'created_at', 'updated_at', 'is_active', 'deleted')
-#     list_filter = ('is_active', 'deleted')
-#     ordering = ('created_at',)
-
 
 # @admin.register(City)
 # class CityAdmin(admin.ModelAdmin):
@@ -73,56 +67,64 @@ from django.contrib import admin
 #     ordering = ('created_at',)
 
 
-# @admin.register(ProductMainCategory)
-# class ProductMainCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('main_cat_name', 'cat_slug', 'cat_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     search_fields = ('main_cat_name', 'cat_slug')
-#     ordering = ('cat_ordering',)
+@admin.register(UserMenuPermission)
+class UserMenuPermissionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'menu', 'can_view',  'can_add', 'can_update', 'can_delete', 'created_at', 'updated_at', 'is_active', 'deleted')
+    list_filter = ('is_active', 'deleted')
+    ordering = ('created_at',)
 
 
-# @admin.register(ProductSubCategory)
-# class ProductSubCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('sub_cat_name', 'sub_cat_slug', 'sub_cat_image', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     search_fields = ('sub_cat_name', 'sub_cat_slug')
-#     ordering = ('sub_cat_ordering',)
+
+@admin.register(ProductMainCategory)
+class ProductMainCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'slug')
+    ordering = ('ordering',)
 
 
-# @admin.register(ProductChildCategory)
-# class ProductChildCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('child_cat_name', 'child_cat_slug', 'description', 'child_cat_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     search_fields = ('child_cat_name', 'child_cat_slug')
-#     ordering = ('child_cat_ordering',)
+@admin.register(ProductSubCategory)
+class ProductSubCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'image', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'slug')
+    ordering = ('ordering',)
 
 
-# @admin.register(AttributeList)
-# class AttributeListAdmin(admin.ModelAdmin):
-#     list_display = ('attribute_name', 'attribute_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     search_fields = ('attribute_name',)
-#     ordering = ('attribute_ordering',)
+@admin.register(ProductChildCategory)
+class ProductChildCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'description', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'slug')
+    ordering = ('ordering',)
 
 
-# @admin.register(AttributeValueList)
-# class AttributeValueListAdmin(admin.ModelAdmin):
-#     list_display = ('attribute', 'attribute_value', 'attribute_value_ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     search_fields = ('attribute__attribute_name', 'attribute_value')
-#     ordering = ('attribute_value_ordering',)
+@admin.register(AttributeList)
+class AttributeListAdmin(admin.ModelAdmin):
+    list_display = ('name', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name',)
+    ordering = ('ordering',)
 
 
-# @admin.register(ProductList)
-# class ProductListAdmin(admin.ModelAdmin):
-#     list_display = ('product_name', 'product_sku', 'main_category', 'unit_price', 'sale_price', 'discount_percent', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     search_fields = ('product_name', 'product_slug')
-#     ordering = ('product_ordering',)
+@admin.register(AttributeValueList)
+class AttributeValueListAdmin(admin.ModelAdmin):
+    list_display = ('attribute', 'value', 'ordering', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('attribute__name', 'value')
+    ordering = ('ordering',)
 
 
-# @admin.register(ProductAttribute)
-# class ProductAttributeAdmin(admin.ModelAdmin):
-#     list_display = ('product', 'attribute', 'attribute_value', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
-#     list_filter = ('is_active',)
-#     ordering = ('created_at',)
+@admin.register(ProductList)
+class ProductListAdmin(admin.ModelAdmin):
+    list_display = ('product_name', 'product_sku', 'main_category', 'unit_price', 'sale_price', 'discount_percent', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('product_name', 'product_slug')
+    ordering = ('product_ordering',)
+
+
+@admin.register(ProductAttribute)
+class ProductAttributeAdmin(admin.ModelAdmin):
+    list_display = ('product', 'attribute', 'value', 'created_by', 'updated_by', 'created_at', 'updated_at', 'is_active')
+    list_filter = ('is_active',)
+    ordering = ('created_at',)

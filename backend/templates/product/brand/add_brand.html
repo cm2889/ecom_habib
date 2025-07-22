@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %} Brand {% endblock %}
+
+{% block content %}
+    <section class="customer-list-section">
+        <div class="container">
+            <div class="content">
+
+                <div class="title-box">
+                    <div class="page-title">
+                        <h3>Add New Brand</h3>
+                    </div>
+                    <div class="breadcrumbs">
+                        <ul class="breadcrumbs-list">
+                            <li><a href="/"><span><img src="/static/images/icons/Home.svg" alt="more"></span>Home</a></li>
+                            <li><a href="{% url 'backend:brand_list' %}">Brand List</a></li>
+                            <li><a href="#">Add New Brand</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+
+                <div class="form-area-content">
+                    <div class="form-inner-content">
+                        
+                        <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Display messages if any -->
+                        {% if messages %}
+                        <div class="alert alert-info" role="alert" style="color: red">
+                            {% for message in messages %}
+                            <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <div class="input-field">
+                                <label for="id_name">Brand Name</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="input-field">
+                                <label for="id_ordering">Ordering</label>
+                                {{ form.ordering }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field-full">
+                                <label for="id_description">Description</label>
+                                {{ form.description }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-field input-photo">
+                                <label for="id_image">Logo</label>
+                                {% if form.instance.image %}
+                                <div class="current-image mb-2">
+                                    <p>Current: <a href="{{ form.instance.image.url }}" target="_blank">{{ form.instance.image.name }}</a></p>
+                                </div>
+                                {% endif %}
+                                {{ form.image }}
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-button">
+                                <button type="submit" class="button blue-button">Save</button>
+                                <a href="{% url 'backend:brand_list' %}" class="button primary-button cancle-button">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('.select2-single').select2();
+});
+</script>
+{% endblock %}

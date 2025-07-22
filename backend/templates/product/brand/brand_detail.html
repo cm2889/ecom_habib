@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Brand Details | Ecommerce{% endblock %}
+
+{% block content %}
+<section class="customer-list-section">
+    <div class="container">
+        <div class="content">
+            <div class="title-box">
+                <div class="page-title">
+                    <h3>Brand Details</h3>
+                </div>
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs-list">
+                        <li><a href="/backend/dashboard/"><span><img src="/static/images/icons/Home.svg" alt="home" /></span>Home</a></li>
+                        <li><a href="{% url 'backend:brand_list' %}">Brand List</a></li>
+                        <li><a href="#">Brand Details</a></li>
+                    </ul>
+                </div>
+                <div class="top-button">
+                    <div class="button-box">
+                        <a class="button primary-button" href="{% url 'backend:add_brand' %}">
+                            <span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Details Box -->
+            <div class="view_box">
+                <div class="details-content">
+
+                    {% if messages %}
+                    <div class="alert alert-info" role="alert" style="color: green">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                    </div> 
+                    {% endif %} 
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="details-info">
+                                <h4>{{ brand.name }}</h4>
+                                <div class="info-row">
+                                    <div class="info-label">Brand Slug:</div>
+                                    <div class="info-value">{{ brand.slug }}</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Ordering:</div>
+                                    <div class="info-value">{{ brand.ordering }}</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Description:</div>
+                                    <div class="info-value">
+                                        {% if brand.description %}
+                                            {{ brand.description }}
+                                        {% else %}
+                                            <span class="text-muted">No description available</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Status:</div>
+                                    <div class="info-value">
+                                        {% if brand.is_active %}
+                                            <span class="active"><img src="/static/images/icons/ellipse-active.svg" alt="active" /> Active</span>
+                                        {% else %}
+                                            <span class="inactive"><img src="/static/images/icons/ellipse-inactive.svg" alt="inactive" /> Inactive</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Created By:</div>
+                                    <div class="info-value">{{ brand.created_by }}</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Created At:</div>
+                                    <div class="info-value">{{ brand.created_at|date:"d-M-Y H:i" }}</div>
+                                </div>
+                                {% if brand.updated_by %}
+                                <div class="info-row">
+                                    <div class="info-label">Updated By:</div>
+                                    <div class="info-value">{{ brand.updated_by }}</div>
+                                </div>
+                                {% endif %}
+                                {% if brand.updated_at %}
+                                <div class="info-row">
+                                    <div class="info-label">Updated At:</div>
+                                    <div class="info-value">{{ brand.updated_at|date:"d-M-Y H:i" }}</div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="category-image">
+                                {% if brand.image %}
+                                    <img src="{{ brand.image.url }}" alt="{{ brand.name }}" class="img-fluid" />
+                                {% else %}
+                                    <div class="no-image">No image available</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

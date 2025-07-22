@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
+from . import export_function
 
+app_name = 'backend' 
 
 urlpatterns = [
     path('', views.backend_dashboard, name='backend_dashboard'),
@@ -27,37 +29,61 @@ urlpatterns = [
     # path('company-setting/', views.company_setting, name='company_setting'),
     # path('add-new-company/', views.add_new_company, name='add_new_company'),
 
-    # # Products Information
-    # # Product main category URLs
-    # path('product-main-category-list/', views.product_main_category_list_view, name='product_main_category_list'),
-    # path('product-main-category-list/<int:pk>/', views.product_main_category_details_view, name='product_main_category_details_view'),
-    # path('add-product-main-category/', views.add_product_main_category, name='add_product_main_category'),
-    # path('product-main-category-update/<int:pk>/', views.product_main_category_update_view, name='product_main_category_update'),
-    # path('product-main-category-delete/<int:pk>/', views.product_main_category_delete_view, name='product_main_category_delete'),
+    # Product brand
+    path('brand/', views.BrandListView.as_view(), name='brand_list'),
+    path('brand-details/<int:pk>/', views.brand_detail_view, name='brand_details_view'),
+    path('add-brand/', views.BrandCreateView.as_view(), name='add_brand'),
+    path('brand-update/<int:pk>/', views.BrandUpdateView.as_view(), name='brand_update'),
+    path('brand-delete/<int:pk>/', views.brand_delete_view, name='brand_delete'),
 
-    # # Product sub category URLs
-    # path('product-sub-category-list/', views.product_sub_category_list_view, name='product_sub_category_list'),
-    # path('product-sub-category-detail/<int:pk>/', views.product_sub_category_details_view, name='product_sub_category_details_view'),
-    # path('add-product-sub-category/', views.product_sub_category_create_view, name='add_product_sub_category'),
-    # path('product-sub-category-update/<int:pk>/', views.product_sub_category_update_view, name='product_sub_category_update'),
-    # path('product-sub-category-delete/<int:pk>/', views.product_sub_category_delete_view, name='product_sub_category_delete'),
+
+    # Product main category URLs
+    path('category/', views.MainCategoryListView.as_view(), name='category_list'),
+    path('category-details/<int:pk>/', views.category_detail_view, name='category_detail_view'),
+    path('add-category/', views.CategoryCreateView.as_view(), name='add_category'),
+    path('category-update/<int:pk>/', views.CategoryUpdateView.as_view(), name='category_update'),
+    path('category-delete/<int:pk>/', views.category_delete_view, name='product_main_category_delete'),
+
+    # Product sub category URLs
+    path('sub-category/', views.SubCategoryListView.as_view(), name='sub_category_list'),
+    path('sub-category-detail/<int:pk>/', views.sub_category_details_view, name='sub_category_details_view'),
+    path('add-sub-category/', views.SubCategoryCreateView.as_view(), name='add_sub_category'),
+    path('sub-category-update/<int:pk>/', views.SubCategoryUpdateView.as_view(), name='sub_category_update'),
+    path('sub-category-delete/<int:pk>/', views.sub_category_delete_view, name='sub_category_delete'),
 
     # # Product child category URLs
-    # path('product-child-category-list/', views.product_child_category_list_view, name='product_child_category_list'),
-    # path('product-child-category-detail/<int:pk>/', views.product_child_category_details_view, name='product_child_category_details_view'),
-    # path('add-product-child-category/', views.product_child_category_create_view, name='add_product_child_category'),
-    # path('product-child-category-update/<int:pk>/', views.product_child_category_update_view, name='product_child_category_update'),
-    # path('product-child-category-delete/<int:pk>/', views.product_child_category_delete_view, name='product_child_category_delete'),
+    path('child-category/', views.ChildCategoryListView.as_view(), name='child_category_list'),
+    path('child-category-detail/<int:pk>/', views.child_category_details_view, name='child_category_details_view'),
+    path('add-child-category/', views.ChildCategoryCreateView.as_view(), name='add_child_category'),
+    path('child-category-update/<int:pk>/', views.ChildCategoryUpdateView.as_view(), name='child_category_update'),
+    path('child-category-delete/<int:pk>/', views.child_category_delete_view, name='child_category_delete'),
 
     # Attribute list URLs
-    # path('attribute-list/', views.attribute_list_view, name='attribute_list'),
-    # path('add-attribute-list/', views.attribute_create_view, name='add_attribute_list'),
-    # path('attribute-list-update/<int:pk>/', views.attribute_update_view, name='attribute_list_update'),
-    # path('attribute-list-delete/<int:pk>/', views.attribute_delete_view, name='attribute_list_delete'),
+    path('attributes/', views.AttributeListView.as_view(), name='attribute_list'),
+    path('attribute-details/<int:pk>/', views.attribute_details_view, name='attribute_details'),
+    path('add-attribute/', views.AttributeCreateView.as_view(), name='add_attribute_list'),
+    path('attribute-list-update/<int:pk>/', views.AttributeUpdateView.as_view(), name='attribute_list_update'),
+    path('attribute-list-delete/<int:pk>/', views.attribute_delete_view, name='attribute_list_delete'),
 
     # Attribute value list URLs
-    # path('attribute-value-list/', views.attribute_value_list_view, name='attribute_value_list'),
-    # path('add-attribute-value-/', views.attribute_value_create_view, name='add_attribute_value_list'),
-    # path('attribute-value-update/<int:pk>/', views.attribute_value_update_view, name='attribute_valuet_update'),
-    # path('attribute-value-delete/<int:pk>/', views.attribute_value_delete_view, name='attribute_value_delete'),
+    path('attribute-value-list/', views.AttributeValueListView.as_view(), name='value_list'),
+    path('attribute-value-details/<int:pk>/', views.value_details_view, name='value_details'),
+    path('add-attribute-value/', views.AttributeValueCreateView.as_view(), name='add_value_list'),
+    path('attribute-value-update/<int:pk>/', views.AttributeValueUpdateView.as_view(), name='value_update'),
+    path('attribute-value-delete/<int:pk>/', views.value_delete_view, name='value_delete'),
+
+    # Product list URLs
+    path('products/', views.ProductListView.as_view(), name='product_list'),
+    path('product-details/<int:pk>/', views.product_details_view, name='product_details'),
+    path('add-product/', views.ProductCreateView.as_view(), name='add_product'),
+    path('product-update/<int:pk>/', views.ProductUpdateView.as_view(), name='product_update'),
+    path('product-delete/<int:pk>/', views.product_delete_view, name='product_delete'),
+    path('download-product-excel/', export_function.export_products_to_excel, name='export_products_to_excel'),
+
+    # Product attribute URLs
+    path('product-attribute-list/', views.ProductAttibuteListView.as_view(), name='product_attribute_list'),
+    path('product-attribute-details/<int:pk>/', views.product_attribute_details_view, name='product_attribute_details'),
+    path('add-product-attribute/', views.ProductAttributeCreateView.as_view(), name='add_product_attribute'),
+    path('product-attribute-update/<int:pk>/', views.ProductAttributeUpdateView.as_view(), name='product_attribute_update'),
+    path('product-attribute-delete/<int:pk>/', views.product_attribute_delete_view, name='product_attribute_delete'),
 ]

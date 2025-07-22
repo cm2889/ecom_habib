@@ -42,7 +42,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdownRightZiro" aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item" href="/hr/my-password-change/">Change Password</a>
-                                        <a class="dropdown-item" href="{% url 'backend_logout' %}">Log out</a>
+                                        {% comment %} <a class="dropdown-item" href="{% url 'backend:backend_logout' %}">Log out</a> {% endcomment %}
                                     </div>
                                 </li>
                             </ul>

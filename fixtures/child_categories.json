@@ -1,0 +1,682 @@
+[
+    {
+        "model": "backend.productchildcategory",
+        "pk": 1,
+        "fields": {
+            "sub_category": 1,
+            "name": "Android Phones",
+            "slug": "android-phones",
+            "image": null,
+            "description": "Smartphones running on Android OS.",
+            "ordering": 1,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 2,
+        "fields": {
+            "sub_category": 1,
+            "name": "iOS Phones",
+            "slug": "ios-phones",
+            "image": null,
+            "description": "Smartphones running on iOS.",
+            "ordering": 2,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 3,
+        "fields": {
+            "sub_category": 2,
+            "name": "Gaming Laptops",
+            "slug": "gaming-laptops",
+            "image": null,
+            "description": "Laptops optimized for gaming.",
+            "ordering": 3,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 4,
+        "fields": {
+            "sub_category": 2,
+            "name": "Ultrabooks",
+            "slug": "ultrabooks",
+            "image": null,
+            "description": "Thin and light laptops for portability.",
+            "ordering": 4,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 5,
+        "fields": {
+            "sub_category": 3,
+            "name": "DSLR Cameras",
+            "slug": "dslr-cameras",
+            "image": null,
+            "description": "Professional DSLR cameras.",
+            "ordering": 5,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 6,
+        "fields": {
+            "sub_category": 3,
+            "name": "Mirrorless Cameras",
+            "slug": "mirrorless-cameras",
+            "image": null,
+            "description": "Compact mirrorless cameras.",
+            "ordering": 6,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 7,
+        "fields": {
+            "sub_category": 4,
+            "name": "Headphones",
+            "slug": "headphones",
+            "image": null,
+            "description": "Over-ear and in-ear headphones.",
+            "ordering": 7,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 8,
+        "fields": {
+            "sub_category": 4,
+            "name": "Bluetooth Speakers",
+            "slug": "bluetooth-speakers",
+            "image": null,
+            "description": "Portable Bluetooth speakers.",
+            "ordering": 8,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 9,
+        "fields": {
+            "sub_category": 5,
+            "name": "Men's T-Shirts",
+            "slug": "mens-t-shirts",
+            "image": null,
+            "description": "Casual t-shirts for men.",
+            "ordering": 9,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 10,
+        "fields": {
+            "sub_category": 5,
+            "name": "Men's Jeans",
+            "slug": "mens-jeans",
+            "image": null,
+            "description": "Denim jeans for men.",
+            "ordering": 10,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 11,
+        "fields": {
+            "sub_category": 6,
+            "name": "Women's Dresses",
+            "slug": "womens-dresses",
+            "image": null,
+            "description": "Stylish dresses for women.",
+            "ordering": 11,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 12,
+        "fields": {
+            "sub_category": 6,
+            "name": "Women's Tops",
+            "slug": "womens-tops",
+            "image": null,
+            "description": "Trendy tops and blouses for women.",
+            "ordering": 12,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 13,
+        "fields": {
+            "sub_category": 7,
+            "name": "Sneakers",
+            "slug": "sneakers",
+            "image": null,
+            "description": "Comfortable and stylish sneakers.",
+            "ordering": 13,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 14,
+        "fields": {
+            "sub_category": 7,
+            "name": "Sandals",
+            "slug": "sandals",
+            "image": null,
+            "description": "Casual and comfortable sandals.",
+            "ordering": 14,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 15,
+        "fields": {
+            "sub_category": 8,
+            "name": "Handbags",
+            "slug": "handbags",
+            "image": null,
+            "description": "Fashionable handbags for all occasions.",
+            "ordering": 15,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 16,
+        "fields": {
+            "sub_category": 8,
+            "name": "Jewelry",
+            "slug": "jewelry",
+            "image": null,
+            "description": "Elegant and stylish jewelry.",
+            "ordering": 16,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 17,
+        "fields": {
+            "sub_category": 9,
+            "name": "Blenders",
+            "slug": "blenders",
+            "image": null,
+            "description": "Powerful blenders for smoothies and more.",
+            "ordering": 17,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 18,
+        "fields": {
+            "sub_category": 9,
+            "name": "Coffee Makers",
+            "slug": "coffee-makers",
+            "image": null,
+            "description": "Machines for brewing delicious coffee.",
+            "ordering": 18,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 19,
+        "fields": {
+            "sub_category": 10,
+            "name": "Wall Art",
+            "slug": "wall-art",
+            "image": null,
+            "description": "Decorate your walls with beautiful art.",
+            "ordering": 19,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 20,
+        "fields": {
+            "sub_category": 10,
+            "name": "Vases",
+            "slug": "vases",
+            "image": null,
+            "description": "Decorative vases for flowers and plants.",
+            "ordering": 20,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 21,
+        "fields": {
+            "sub_category": 11,
+            "name": "Sofas",
+            "slug": "sofas",
+            "image": null,
+            "description": "Comfortable sofas for your living room.",
+            "ordering": 21,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 22,
+        "fields": {
+            "sub_category": 11,
+            "name": "Dining Tables",
+            "slug": "dining-tables",
+            "image": null,
+            "description": "Tables for your dining area.",
+            "ordering": 22,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 23,
+        "fields": {
+            "sub_category": 12,
+            "name": "Bed Sheets",
+            "slug": "bed-sheets",
+            "image": null,
+            "description": "Soft and comfortable bed sheets.",
+            "ordering": 23,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 24,
+        "fields": {
+            "sub_category": 12,
+            "name": "Towels",
+            "slug": "towels",
+            "image": null,
+            "description": "Absorbent towels for bath and kitchen.",
+            "ordering": 24,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 25,
+        "fields": {
+            "sub_category": 13,
+            "name": "Fantasy Novels",
+            "slug": "fantasy-novels",
+            "image": null,
+            "description": "Immerse yourself in magical worlds.",
+            "ordering": 25,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 26,
+        "fields": {
+            "sub_category": 13,
+            "name": "Science Fiction",
+            "slug": "science-fiction",
+            "image": null,
+            "description": "Explore futuristic worlds and technologies.",
+            "ordering": 26,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 27,
+        "fields": {
+            "sub_category": 14,
+            "name": "Biographies",
+            "slug": "biographies",
+            "image": null,
+            "description": "Learn about famous personalities.",
+            "ordering": 27,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 28,
+        "fields": {
+            "sub_category": 14,
+            "name": "Self-Help",
+            "slug": "self-help",
+            "image": null,
+            "description": "Books for personal growth and development.",
+            "ordering": 28,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 29,
+        "fields": {
+            "sub_category": 15,
+            "name": "Picture Books",
+            "slug": "picture-books",
+            "image": null,
+            "description": "Colorful books for young children.",
+            "ordering": 29,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 30,
+        "fields": {
+            "sub_category": 15,
+            "name": "Chapter Books",
+            "slug": "chapter-books",
+            "image": null,
+            "description": "Books for early readers.",
+            "ordering": 30,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 31,
+        "fields": {
+            "sub_category": 16,
+            "name": "Math Textbooks",
+            "slug": "math-textbooks",
+            "image": null,
+            "description": "Textbooks for mathematics.",
+            "ordering": 31,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 32,
+        "fields": {
+            "sub_category": 16,
+            "name": "Science Textbooks",
+            "slug": "science-textbooks",
+            "image": null,
+            "description": "Textbooks for various science subjects.",
+            "ordering": 32,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 33,
+        "fields": {
+            "sub_category": 17,
+            "name": "Treadmills",
+            "slug": "treadmills",
+            "image": null,
+            "description": "Cardio equipment for home workouts.",
+            "ordering": 33,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 34,
+        "fields": {
+            "sub_category": 17,
+            "name": "Dumbbells",
+            "slug": "dumbbells",
+            "image": null,
+            "description": "Weights for strength training.",
+            "ordering": 34,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 35,
+        "fields": {
+            "sub_category": 18,
+            "name": "Tents",
+            "slug": "tents",
+            "image": null,
+            "description": "Shelter for camping trips.",
+            "ordering": 35,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 36,
+        "fields": {
+            "sub_category": 18,
+            "name": "Backpacks",
+            "slug": "backpacks",
+            "image": null,
+            "description": "Bags for hiking and travel.",
+            "ordering": 36,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 37,
+        "fields": {
+            "sub_category": 19,
+            "name": "Basketballs",
+            "slug": "basketballs",
+            "image": null,
+            "description": "Balls for playing basketball.",
+            "ordering": 37,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 38,
+        "fields": {
+            "sub_category": 19,
+            "name": "Soccer Balls",
+            "slug": "soccer-balls",
+            "image": null,
+            "description": "Balls for playing soccer.",
+            "ordering": 38,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 39,
+        "fields": {
+            "sub_category": 20,
+            "name": "Mountain Bikes",
+            "slug": "mountain-bikes",
+            "image": null,
+            "description": "Bikes for off-road trails.",
+            "ordering": 39,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productchildcategory",
+        "pk": 40,
+        "fields": {
+            "sub_category": 20,
+            "name": "Road Bikes",
+            "slug": "road-bikes",
+            "image": null,
+            "description": "Bikes for paved roads and speed.",
+            "ordering": 40,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:21:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    }
+]

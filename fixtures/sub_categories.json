@@ -1,0 +1,342 @@
+[
+    {
+        "model": "backend.productsubcategory",
+        "pk": 1,
+        "fields": {
+            "main_category": 1,
+            "name": "Smartphones",
+            "slug": "smartphones",
+            "image": null,
+            "description": "Latest smartphones and accessories.",
+            "ordering": 1,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 2,
+        "fields": {
+            "main_category": 1,
+            "name": "Laptops",
+            "slug": "laptops",
+            "image": null,
+            "description": "High-performance laptops for work and gaming.",
+            "ordering": 2,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 3,
+        "fields": {
+            "main_category": 1,
+            "name": "Cameras",
+            "slug": "cameras",
+            "image": null,
+            "description": "Digital cameras and photography equipment.",
+            "ordering": 3,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 4,
+        "fields": {
+            "main_category": 1,
+            "name": "Audio Devices",
+            "slug": "audio-devices",
+            "image": null,
+            "description": "Headphones, speakers, and other audio gear.",
+            "ordering": 4,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 5,
+        "fields": {
+            "main_category": 2,
+            "name": "Men's Clothing",
+            "slug": "mens-clothing",
+            "image": null,
+            "description": "Fashionable clothing for men.",
+            "ordering": 5,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 6,
+        "fields": {
+            "main_category": 2,
+            "name": "Women's Clothing",
+            "slug": "womens-clothing",
+            "image": null,
+            "description": "Trendy clothing for women.",
+            "ordering": 6,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 7,
+        "fields": {
+            "main_category": 2,
+            "name": "Footwear",
+            "slug": "footwear",
+            "image": null,
+            "description": "Shoes and other footwear.",
+            "ordering": 7,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 8,
+        "fields": {
+            "main_category": 2,
+            "name": "Accessories",
+            "slug": "accessories",
+            "image": null,
+            "description": "Fashion accessories like bags, belts, and jewelry.",
+            "ordering": 8,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 9,
+        "fields": {
+            "main_category": 3,
+            "name": "Kitchen Appliances",
+            "slug": "kitchen-appliances",
+            "image": null,
+            "description": "Appliances for cooking and food preparation.",
+            "ordering": 9,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 10,
+        "fields": {
+            "main_category": 3,
+            "name": "Home Decor",
+            "slug": "home-decor",
+            "image": null,
+            "description": "Items to beautify your home.",
+            "ordering": 10,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 11,
+        "fields": {
+            "main_category": 3,
+            "name": "Furniture",
+            "slug": "furniture",
+            "image": null,
+            "description": "Furniture for every room.",
+            "ordering": 11,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 12,
+        "fields": {
+            "main_category": 3,
+            "name": "Bedding & Bath",
+            "slug": "bedding-bath",
+            "image": null,
+            "description": "Comfortable bedding and bath essentials.",
+            "ordering": 12,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 13,
+        "fields": {
+            "main_category": 4,
+            "name": "Fiction",
+            "slug": "fiction",
+            "image": null,
+            "description": "Novels and fictional stories.",
+            "ordering": 13,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 14,
+        "fields": {
+            "main_category": 4,
+            "name": "Non-Fiction",
+            "slug": "non-fiction",
+            "image": null,
+            "description": "Informative and factual books.",
+            "ordering": 14,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 15,
+        "fields": {
+            "main_category": 4,
+            "name": "Children's Books",
+            "slug": "childrens-books",
+            "image": null,
+            "description": "Books for young readers.",
+            "ordering": 15,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 16,
+        "fields": {
+            "main_category": 4,
+            "name": "Textbooks",
+            "slug": "textbooks",
+            "image": null,
+            "description": "Educational textbooks for all levels.",
+            "ordering": 16,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 17,
+        "fields": {
+            "main_category": 5,
+            "name": "Fitness Equipment",
+            "slug": "fitness-equipment",
+            "image": null,
+            "description": "Gear for your workout routine.",
+            "ordering": 17,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 18,
+        "fields": {
+            "main_category": 5,
+            "name": "Camping & Hiking",
+            "slug": "camping-hiking",
+            "image": null,
+            "description": "Essentials for outdoor adventures.",
+            "ordering": 18,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 19,
+        "fields": {
+            "main_category": 5,
+            "name": "Team Sports",
+            "slug": "team-sports",
+            "image": null,
+            "description": "Equipment for popular team sports.",
+            "ordering": 19,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.productsubcategory",
+        "pk": 20,
+        "fields": {
+            "main_category": 5,
+            "name": "Cycling",
+            "slug": "cycling",
+            "image": null,
+            "description": "Bikes and cycling accessories.",
+            "ordering": 20,
+            "created_by": 1,
+            "created_at": "2025-07-20T15:20:00.000000",
+            "updated_by": null,
+            "updated_at": null,
+            "is_active": true
+        }
+    }
+]

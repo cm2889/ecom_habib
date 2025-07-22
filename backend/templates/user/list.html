@@ -19,30 +19,10 @@
             </div>
             <div class="top-button">
                 <div class="button-box">
-                    <a class="button primary-button" href="{% url 'user_add' %}"><span><img src="/static/images/icons/add.svg" alt="more" /></span> Add New User</a>
+                    <a class="button primary-button" href="{% url 'backend:user_add' %}"><span><img src="/static/images/icons/add.svg" alt="more" /></span> Add New User</a>
                 </div>
             </div>
         </div>
-
-        {% comment %} <div class="listing-box">
-            <div class="">
-                <form method="get" class="row mb-3">
-                    <div class="col-md-3">
-                        <input type="text" name="full_name" class="form-control" placeholder="Name" value="{{ full_name }}">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" name="email" class="form-control" placeholder="Email" value="{{ email }}">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{ phone }}">
-                    </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-sm btn-primary">Filter</button>
-                        <a href="{% url 'user_list' %}" class="btn btn-sm btn-secondary">Reset</a>
-                    </div>
-                </form>
-            </div>
-        </div> {% endcomment %}
 
         <div class="filter-box">
             <form method="get" class="row mb-3">
@@ -68,7 +48,7 @@
                         <label for="filter-button"></label>
                         <div class="filter-button" id="filter-button">
                             <button type="submit" class="button blue-button">Filter</button>
-                            <a class="button primary-button" href="{% url 'user_list' %}">Clear</a>
+                            <a class="button primary-button" href="{% url 'backend:user_list' %}">Clear</a>
                         </div>
                     </div>
                 </div>
@@ -106,8 +86,8 @@
                                     <span class="text-muted sr-only">Action</span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{% url 'user_permission' data.user.id %}">User Permission</a>
-                                    <a class="dropdown-item" href="{% url 'reset_password' data.id %}">Reset Password</a>
+                                    <a class="dropdown-item" href="{% url 'backend:user_permission' data.user.id %}">User Permission</a>
+                                    <a class="dropdown-item" href="{% url 'backend:reset_password' data.id %}">Reset Password</a>
                                 </div>
                             </td>
                         </tr>
