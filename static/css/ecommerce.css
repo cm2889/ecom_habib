@@ -948,3 +948,6 @@ hr {
     top: 2px;
     margin-right: 4px;
 }
+.table img.avatar-img {
+    max-width: 35px;
+}
