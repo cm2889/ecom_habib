@@ -29,7 +29,7 @@ from backend.forms import (
 )
 
 from backend.export_excel import export_data_to_excel 
-from backend.get_fks_kes_instance import get_foreign_key_instance 
+from backend.get_fks_key_instance import get_foreign_key_instance 
 
 
 def paginate_data(request, page_num, data_list):
@@ -529,8 +529,6 @@ class MainCategoryListView(ListView):
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
 
-       
-
         context.update({
             'product_main_categories': paginated_data,
             'page_num': page_num,
@@ -545,6 +543,8 @@ class MainCategoryListView(ListView):
 
         return context
     
+
+
 
 @login_required
 def category_detail_view(request, pk):
@@ -1085,7 +1085,7 @@ class ProductListView(ListView):
         return context
     
 
-
+@login_required
 def upload_product_excel(request):
     if not checkUserPermission(request, 'can_add', 'backend/product/'):
         messages.error(request, "You do not have permission to upload excel sheet")
