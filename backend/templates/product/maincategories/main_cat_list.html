@@ -16,14 +16,39 @@
                         <li><a href="#">Main Category List</a></li>
                     </ul>
                 </div>
-                <div class="top-button">
+
+                    <div class="top-button">
+                    <div class="button-box d-flex align-items-center gap-2">
+
+                        <div class="dropdown">
+                            <button class=" dropdown-toggle" type="button" id="actionDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="actionDropdownMenu">
+                                <li><a class="dropdown-item" href="?{{ params }}&export=excel" target="_blank">Export Excel</a></li>
+                                <li><a class="dropdown-item" href="?{{ params }}&export=pdf" target="_blank">Export PDF</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Add New Button -->
+                        <a class="button primary-button d-flex align-items-center gap-1" href="{% url 'backend:add_category' %}">
+                            <img src="/static/images/icons/add.svg" alt="Add" />
+                            Add New
+                        </a>
+
+                    </div>
+                </div>
+ 
+           {% comment %} 
+            <div class="top-button">
                     <div class="button-box">
                         <a class="button primary-button" href="{% url 'backend:add_category' %}">
                             <span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New
                         </a>
                     </div>
-                </div>
-            </div>
+                </div>  
+            </div> 
+            {% endcomment %}
 
             <div class="listing-box">
                 <div class="table table-border-bottom">
@@ -119,4 +144,12 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  $(document).ready(function() {
+    $('.select2-single').select2();
+  });
+</script>
 {% endblock %}

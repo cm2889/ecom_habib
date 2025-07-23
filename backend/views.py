@@ -1,3 +1,4 @@
+import pandas as pd 
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +10,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
+from django.utils import timezone 
 
 from datetime import datetime
 from urllib.parse import urlencode
@@ -24,6 +26,9 @@ from backend.forms import (
     ProductMainCategoryForm, ProductSubCategoryForm, ProductChildCategoryForm, AttributeListForm, AttributeValueListForm,
     ProductListForm, ProductAttributeForm
 )
+
+from backend.export_excel import export_data_to_excel 
+from backend.get_fks_kes_instance import get_foreign_key_instance 
 
 
 def paginate_data(request, page_num, data_list):
@@ -482,7 +487,38 @@ class MainCategoryListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ProductMainCategory.objects.filter(is_active=True).order_by('-id')
+        filters = {'is_active': True}
+
+        main_category_id     = self.request.GET.get('name')
+        created_from         = self.request.GET.get('created_from')
+        created_to           = self.request.GET.get('created_to') 
+    
+        if main_category_id:
+            filters['id'] = main_category_id
+        if created_from:
+            filters['created_at__date__gte'] = created_from
+        if created_to:
+            filters['created_at__date__lte'] = created_to
+
+        return ProductMainCategory.objects.filter(**filters).order_by('-id')
+    
+    def get(self, request, *args, **kwargs):
+        if self.request.GET.get('export') == 'excel':
+            queryset    = self.get_queryset()
+            headers     = ['ID', 'Name', 'Description', 'Created at', 'Status' ]
+
+            rows = [] 
+            for row in queryset:
+                rows.append([
+                    row.id,
+                    row.name,
+                    row.description,
+                    row.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                    'Active' if row.is_active else 'Inactive'
+                ])
+            filename = 'maincategory'
+            return export_data_to_excel(filename=filename, heaers=headers, rows=rows)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -492,12 +528,19 @@ class MainCategoryListView(ListView):
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
 
+       
+
         context.update({
             'product_main_categories': paginated_data,
             'page_num': page_num,
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
         })
+
+        get_params = self.request.GET.copy()
+        if 'page' in get_params:
+            get_params.pop('page')
+        context['query_params'] = get_params.urlencode()
 
         return context
     
@@ -1039,6 +1082,141 @@ class ProductListView(ListView):
         context['query_params'] = get_params.urlencode()
 
         return context
+    
+
+def upload_product_excel(request):
+    if not checkUserPermission(request, 'can_add', 'backend/product/'):
+        messages.error(request, "You do not have permission to upload excel sheet")
+        return render(request, '403.html')
+    
+    log = {
+        'inserted': 0,
+        'updated': 0,
+        'skipped': 0,
+        'failed': 0,
+        'details': {
+            'missing_required_fields': [],
+            'invalid_foreign_keys': [],
+            'missing_created_by': [],
+            'duplicate_sku': [],
+            'other_errors': []
+        }
+    }
+
+    if request.method == "POST":
+        product_excel_sheet = request.FILES.get('excel-sheet')
+
+        if product_excel_sheet:
+            try:
+                df = pd.read_excel(product_excel_sheet)
+                required_fields = ['product_name', 'product_sku', 'brand', 'main_category', 'created_by']
+
+                for index, row in df.iterrows():
+                    row_num = index + 2
+                    missing_fields = []
+                    fk_issues = []
+
+                    for field in required_fields:
+                        if pd.isna(row.get(field)) or str(row.get(field)).strip() == '':
+                            missing_fields.append(field)
+
+                    if missing_fields:
+                        log['details']['missing_required_fields'].append({'row': row_num, 'columns': missing_fields})
+                        log['skipped'] += 1
+                        continue
+
+                    sku = str(row.get('product_sku')).strip()
+
+                    if not sku:
+                        log['details']['missing_required_fields'].append({'row': row_num, 'columns': ['product_sku']})
+                        log['skipped'] += 1
+                        continue
+
+                    try:
+                        """ 
+                        Check for foreign key instances and collect issues 
+                        
+                        """
+                        brand, _           = get_foreign_key_instance(ProductBrand, row.get('brand'), 'Brand', fk_issues, row_num, required=True)
+                        main_cat, _        = get_foreign_key_instance(ProductMainCategory, row.get('main_category'), 'Main Category', fk_issues, row_num, required=True)
+                        sub_cat, _         = get_foreign_key_instance(ProductSubCategory, row.get('sub_category'), 'Sub Category', fk_issues, row_num)
+                        child_cat, _       = get_foreign_key_instance(ProductChildCategory, row.get('child_category'), 'Child Category', fk_issues, row_num)
+                        created_by_user, _ = get_foreign_key_instance(User, row.get('created_by'), 'Created By User', fk_issues, row_num, required=True)
+
+                        if not created_by_user:
+                            log['details']['missing_created_by'].append({'row': row_num, 'reason': f"User with ID '{row.get('created_by')}' not found."})
+                            log['skipped'] += 1
+                            continue
+
+                        if fk_issues:
+                            log['details']['invalid_foreign_keys'].append({'row': row_num, 'issues': fk_issues})
+                            log['failed'] += 1
+                            continue
+
+                        product_exists = ProductList.objects.filter(product_sku=sku).exists()
+
+                        defaults = {
+                            'product_name': row.get('product_name'),
+                            'brand': brand,
+                            'main_category': main_cat,
+                            'sub_category': sub_cat,
+                            'child_category': child_cat,
+                            'short_description': row.get('short_description') or '',
+                            'description': row.get('description') or '',
+                            'unit_price': float(row.get('unit_price', 0)),
+                            'sale_price': float(row.get('sale_price', 0)),
+                            'discount_status': bool(row.get('discount_status')),
+                            'discount_percent': int(row.get('discount_percent', 0)),
+                            'discount_price': float(row.get('discount_price', 0)),
+                            'total_qty': int(row.get('total_qty', 0)),
+                            'sold_qty': int(row.get('sold_qty', 0)),
+                            'return_qty': int(row.get('return_qty', 0)),
+                            'available_qty': int(row.get('available_qty', 0)),
+                            'stock_status': row.get('stock_status') if row.get('stock_status') in ['In Stock', 'Stock Out'] else 'In Stock',
+                            'product_ordering': int(row.get('product_ordering', 0)),
+                            'total_views': int(row.get('total_views', 0)),
+                            'is_new_product': bool(row.get('is_new_product')),
+                            'is_featured_product': bool(row.get('is_featured_product')),
+                            'is_combo_product': bool(row.get('is_combo_product')),
+                            'created_by': created_by_user,
+                            'updated_by': created_by_user,
+                            'updated_at': timezone.now(),
+                            'is_active': bool(row.get('is_active')) if pd.notna(row.get('is_active')) else True,
+                            'deleted': bool(row.get('deleted')) if pd.notna(row.get('deleted')) else False,
+                        }
+
+                        product, created = ProductList.objects.update_or_create(
+                            product_sku=sku,
+                            defaults=defaults
+                        )
+
+                        if created:
+                            log['inserted'] += 1
+                        elif product_exists:
+                            log['updated'] += 1
+
+                    except Exception as row_err:
+                        log['details']['other_errors'].append(f"Row {row_num}: Error - {str(row_err)}")
+                        log['skipped'] += 1
+                        continue
+
+            except Exception as e:
+                log['details']['other_errors'].append(f"File-level Error: {str(e)}")
+
+    if log['inserted'] > 0:
+        messages.success(request, f"Successfully inserted {log['inserted']} products.")
+    if log['updated'] > 0:
+        messages.info(request, f"Successfully updated {log['updated']} products.")
+    if log['skipped'] > 0:
+        messages.warning(request, f"{log['skipped']} products were skipped due to issues.")
+    if log['failed'] > 0:
+        messages.error(request, f"{log['failed']} products failed to process.")
+    if log['details']['other_errors']:
+        messages.error(request, f"Unexpected errors occurred. Please review the logs.")
+
+    return render(request, 'product/products/upload_excel.html', {'log': log})
+
+
 
 
 @login_required

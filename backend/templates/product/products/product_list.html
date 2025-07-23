@@ -18,9 +18,19 @@
                 </div>
                 <div class="top-button">
                     <div class="button-box">
-                        <a class="button primary-button" href="{% url 'backend:add_product' %}"><span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New</a>
-                        <a class="button primary-button" href="{% url 'backend:export_products_to_excel' %}{% if query_params %}?{{ query_params }}{% endif %}"></span>Excel Export</a>
-                        <a class="button primary-button" href="{% url 'backend:export_products_to_pdf' %}{% if query_params %}?{{ query_params }}{% endif %}"></span>PDF Export</a>
+                        <div class="dropdown">
+                            <button class=" dropdown-toggle" type="button" id="actionDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="actionDropdownMenu">
+                                
+                                <li><a class="dropdown-item" href="{% url 'backend:export_products_to_excel' %}{% if query_params %}?{{ query_params }}{% endif %}"></span>Excel Export</a></li>
+                                <li><a class="dropdown-item" href="{% url 'backend:upload_product_excel' %}" target="_blank">Import Excel</a></li>
+                            </ul>
+
+                             <a class="button primary-button" href="{% url 'backend:add_product' %}"><span><img src="/static/images/icons/add.svg" alt="add" /></span>Add New</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
