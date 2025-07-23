@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Upload{% endblock %}
+{% block title %}Upload Child Category{% endblock %}
 
 {% block content %}
     <section class="customer-list-section">
@@ -9,19 +9,20 @@
             <div class="content">
                 <div class="title-box">
                     <div class="page-title">
-                        <h3>Product Excel</h3>
+                        <h3>Child Category Excel</h3>
                     </div>
                     <div class="breadcrumbs">
                         <ul class="breadcrumbs-list">
-                            <li><a href="{% url 'backend:product_list' %}">Product List</a></li>
-                            <li><a href="{% url 'backend:add_product' %}">Upload</a></li>
+                            <li><a href="/"><span><img src="{% static 'images/icons/Home.svg' %}" alt="home"></span>Home</a></li>
+                            <li><a href="{% url 'backend:child_category_list' %}">Child Category List</a></li>
+                            <li><a href="{% url 'backend:upload_child_category_excel' %}">Upload</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="form-area-content">
                     <div class="form-inner-content">
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'backend:upload_child_category_excel' %}">
                             {% csrf_token %}
 
                             <!-- Display messages if any -->
@@ -44,13 +45,11 @@
                         </form>
 
                         <!-- Upload Logs -->
-                                                <!-- Upload Logs -->
                         {% if log %}
                             <div class="upload-log mt-4" style="margin-top: 30px;">
                                 <h5 style="margin-bottom: 10px;">Upload Summary</h5>
                                 <ul>
                                     <li><strong>Inserted:</strong> {{ log.inserted }}</li>
-                                    <li><strong>Updated:</strong> {{ log.updated }}</li>
                                     <li><strong>Skipped:</strong> {{ log.skipped }}</li>
                                     <li><strong>Failed:</strong> {{ log.failed|default:0 }}</li>
                                 </ul>
@@ -77,23 +76,12 @@
                                     </div>
                                 {% endif %}
 
-                                {% if log.details.missing_created_by %}
+                                {% if log.details.already_exists %}
                                     <div class="alert alert-warning" style="margin-top: 15px;">
-                                        <strong>Missing Created By:</strong>
+                                        <strong>Already Exists:</strong>
                                         <ul>
-                                            {% for row in log.details.missing_created_by %}
-                                                <li>Row {{ row.row }}: {{ row.reason }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
-
-                                {% if log.details.duplicate_sku %}
-                                    <div class="alert alert-warning" style="margin-top: 15px;">
-                                        <strong>Duplicate SKUs:</strong>
-                                        <ul>
-                                            {% for item in log.details.duplicate_sku %}
-                                                <li>Row {{ item.row }} - SKU: {{ item.sku }} ({{ item.action }})</li>
+                                            {% for item in log.details.already_exists %}
+                                                <li>Row {{ item.row }} - Name: {{ item.name }}</li>
                                             {% endfor %}
                                         </ul>
                                     </div>
@@ -111,19 +99,9 @@
                                 {% endif %}
                             </div>
                         {% endif %}
-
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-$(document).ready(function() {
-    $('.select2-single').select2();
-});
-</script>
 {% endblock %}

@@ -17,7 +17,7 @@
                     </ul>
                 </div>
 
-                    <div class="top-button">
+                <div class="top-button">
                     <div class="button-box d-flex align-items-center gap-2">
 
                         <div class="dropdown">
@@ -25,7 +25,8 @@
                                 Actions
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="actionDropdownMenu">
-                                <li><a class="dropdown-item" href="?{{ params }}&export=excel" target="_blank">Export Excel</a></li>
+                                <li><a class="dropdown-item" href="?{{ query_params }}&export=excel" target="_blank">Export Excel</a></li>
+                                <li><a class="dropdown-item" href="{% url 'backend:upload_category_excel' %}" target="_blank">Import Excel</a></li>
                                 <li><a class="dropdown-item" href="?{{ params }}&export=pdf" target="_blank">Export PDF</a></li>
                             </ul>
                         </div>
@@ -49,6 +50,27 @@
                 </div>  
             </div> 
             {% endcomment %}
+
+            <form method="get" id="filterForm" class="mb-3 d-flex align-items-center flex-wrap" style="gap: 10px;">
+
+                            <select name="name" class="form-control select2-items" style="width: 180px;">
+                                <option value="">All Categories</option>
+                                {% for cat in filter_data.category_name %}
+                                    <option value="{{ cat.id }}" {% if request.GET.name == cat.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ cat.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+
+
+                            <input type="date" name="created_from" class="form-control" placeholder="Created From" value="{{ filter_created_from }}" style="width: 180px;">
+                            <input type="date" name="created_to" class="form-control" placeholder="Created To" value="{{ filter_created_to }}" style="width: 180px;"> 
+
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <a href="{% url 'backend:category_list' %}" class="btn btn-danger">Reset</a>
+
+            </form>
 
             <div class="listing-box">
                 <div class="table table-border-bottom">
@@ -146,10 +168,20 @@
 </section>
 {% endblock %}
 
+
 {% block extra_js %}
-<script>
-  $(document).ready(function() {
-    $('.select2-single').select2();
-  });
-</script>
+    <script>
+        $(document).ready(function() {
+            $('.select2-items').select2();
+        });
+
+        document.getElementById('filterForm').addEventListener('submit', function (e) {
+            const inputs = this.querySelectorAll('input, select');
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].value) {
+                    inputs[i].disabled = true;
+                }
+            }
+        });
+    </script>
 {% endblock %}

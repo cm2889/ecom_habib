@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Upload{% endblock %}
+{% block title %}Upload Category{% endblock %}
 
 {% block content %}
     <section class="customer-list-section">
@@ -9,11 +8,11 @@
             <div class="content">
                 <div class="title-box">
                     <div class="page-title">
-                        <h3>Product Excel</h3>
+                        <h3>Category Excel</h3>
                     </div>
                     <div class="breadcrumbs">
                         <ul class="breadcrumbs-list">
-                            <li><a href="{% url 'backend:product_list' %}">Product List</a></li>
+                            <li><a href="{% url 'backend:product_list' %}">Category List</a></li>
                             <li><a href="{% url 'backend:add_product' %}">Upload</a></li>
                         </ul>
                     </div>
@@ -88,12 +87,12 @@
                                     </div>
                                 {% endif %}
 
-                                {% if log.details.duplicate_sku %}
+                                {% if log.details.already_exists %}
                                     <div class="alert alert-warning" style="margin-top: 15px;">
-                                        <strong>Duplicate SKUs:</strong>
+                                        <strong>Already Exists:</strong>
                                         <ul>
-                                            {% for item in log.details.duplicate_sku %}
-                                                <li>Row {{ item.row }} - SKU: {{ item.sku }} ({{ item.action }})</li>
+                                            {% for item in log.details.already_exists %}
+                                                <li>Row {{ item.row }} - Name: {{ item.name }}</li>
                                             {% endfor %}
                                         </ul>
                                     </div>

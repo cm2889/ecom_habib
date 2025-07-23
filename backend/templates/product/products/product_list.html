@@ -18,6 +18,7 @@
                 </div>
                 <div class="top-button">
                     <div class="button-box">
+                        
                         <div class="dropdown">
                             <button class=" dropdown-toggle" type="button" id="actionDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
                                 Actions
@@ -37,48 +38,49 @@
 
             <div class="listing-box">
                 <div class="table table-border-bottom">
+
                     <form method="get" id="filterForm" class="mb-3 d-flex align-items-center flex-wrap" style="gap: 10px;">
-                        <select name="product" class="form-control select2-items" style="width: 180px;">
-                            <option value="">All Product</option>
-                            {% for data in filter_products %}
-                                <option value="{{ data.id }}" {% if filter_product_id == data.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ data.product_name }} ({{ data.product_sku }})
-                                </option>
-                            {% endfor %}
-                        </select>
+                            <select name="product" class="form-control select2-items" style="width: 180px;">
+                                <option value="">All Product</option>
+                                {% for data in filter_products %}
+                                    <option value="{{ data.id }}" {% if filter_product_id == data.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ data.product_name }} ({{ data.product_sku }})
+                                    </option>
+                                {% endfor %}
+                            </select>
 
-                        <select name="category" class="form-control select2-items" style="width: 180px;">
-                            <option value="">All Category</option>
-                            {% for data in filter_categories %}
-                                <option value="{{ data.id }}" {% if filter_category == data.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ data.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                            <select name="category" class="form-control select2-items" style="width: 180px;">
+                                <option value="">All Category</option>
+                                {% for data in filter_categories %}
+                                    <option value="{{ data.id }}" {% if filter_category == data.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ data.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
 
-                        <select name="sub_category" class="form-control select2-items" style="width: 180px;">
-                            <option value="">All Sub Category</option>
-                            {% for data in filter_sub_categories %}
-                                <option value="{{ data.id }}" {% if filter_sub_category == data.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ data.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                            <select name="sub_category" class="form-control select2-items" style="width: 180px;">
+                                <option value="">All Sub Category</option>
+                                {% for data in filter_sub_categories %}
+                                    <option value="{{ data.id }}" {% if filter_sub_category == data.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ data.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
 
-                        <select name="child_category" class="form-control select2-items" style="width: 180px;">
-                            <option value="">All Child Category</option>
-                            {% for data in filter_child_categories %}
-                                <option value="{{ data.id }}" {% if filter_child_category == data.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ data.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                            <select name="child_category" class="form-control select2-items" style="width: 180px;">
+                                <option value="">All Child Category</option>
+                                {% for data in filter_child_categories %}
+                                    <option value="{{ data.id }}" {% if filter_child_category == data.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ data.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
 
-                        <input type="date" name="created_from" class="form-control" placeholder="Created From" value="{{ filter_created_from }}" style="width: 180px;">
-                        <input type="date" name="created_to" class="form-control" placeholder="Created To" value="{{ filter_created_to }}" style="width: 180px;"> 
+                            <input type="date" name="created_from" class="form-control" placeholder="Created From" value="{{ filter_created_from }}" style="width: 180px;">
+                            <input type="date" name="created_to" class="form-control" placeholder="Created To" value="{{ filter_created_to }}" style="width: 180px;"> 
 
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                        <a href="{% url 'backend:product_list' %}" class="btn btn-danger">Reset</a>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <a href="{% url 'backend:product_list' %}" class="btn btn-danger">Reset</a>
                     </form>
 
                     {% if messages %}

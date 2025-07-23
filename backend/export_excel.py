@@ -2,7 +2,7 @@ from openpyxl import Workbook
 from django.http import HttpResponse 
 
 
-def export_data_to_excel(filename, heaers, rows):
+def export_data_to_excel(filename, headers, rows):
     """
      Exports data to an Excel file.
      :param filename: Name of the file to be created.
@@ -11,12 +11,11 @@ def export_data_to_excel(filename, heaers, rows):
      :return: HttpResponse with the Excel file.
      
     """
-
     workbook    = Workbook()
     worksheet   = workbook.active 
 
     worksheet.title = filename or "Data Export" 
-    worksheet.append(heaers) 
+    worksheet.append(headers) 
 
     for row in rows:
         try:
@@ -27,4 +26,5 @@ def export_data_to_excel(filename, heaers, rows):
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') 
     response['Content-Disposition'] = f'attachment; filename="{filename}.xlsx"'
     workbook.save(response)
+
     return response 

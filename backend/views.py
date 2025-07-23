@@ -495,7 +495,7 @@ class MainCategoryListView(ListView):
         created_to           = self.request.GET.get('created_to') 
     
         if main_category_id:
-            filters['id'] = main_category_id
+            filters['id'] = int(main_category_id)
         if created_from:
             filters['created_at__date__gte'] = created_from
         if created_to:
@@ -505,7 +505,7 @@ class MainCategoryListView(ListView):
     
     def get(self, request, *args, **kwargs):
         if self.request.GET.get('export') == 'excel':
-            queryset    = self.get_queryset()
+            queryset    = self.get_queryset()            
             headers     = ['ID', 'Name', 'Description', 'Created at', 'Status' ]
 
             rows = [] 
@@ -518,7 +518,7 @@ class MainCategoryListView(ListView):
                     'Active' if row.is_active else 'Inactive'
                 ])
             filename = 'maincategory'
-            return export_data_to_excel(filename=filename, heaers=headers, rows=rows)
+            return export_data_to_excel(filename=filename, headers=headers, rows=rows)
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -529,11 +529,18 @@ class MainCategoryListView(ListView):
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
 
+        category_name = ProductMainCategory.objects.filter(is_active=True).order_by('name').distinct()
+
+
         context.update({
             'product_main_categories': paginated_data,
             'page_num': page_num,
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
+
+            'filter_data' : {
+                'category_name'  : category_name, 
+            }
         })
 
         get_params = self.request.GET.copy()
@@ -543,6 +550,112 @@ class MainCategoryListView(ListView):
 
         return context
     
+
+
+@login_required
+def upload_category_excel(request):
+
+    if not checkUserPermission(request, 'can_add', 'backend/category/'):
+        messages.error(request, "You do not have permission to upload this main category.")
+        return render(request, '403.html')
+
+    log = {
+        'inserted': 0,
+        'updated': 0,
+        'skipped': 0,
+        'failed': 0,
+        'details': {
+            'missing_required_fields': [],
+            'invalid_foreign_keys': [],
+            'already_exists': [],
+            'other_errors': [],
+        }
+    }
+
+    if request.method == "POST":
+        main_cat_excel_sheet = request.FILES.get('excel-sheet')
+
+        if main_cat_excel_sheet:
+            file_name = main_cat_excel_sheet.name
+            file_extension = os.path.splitext(file_name)[1].lower()
+
+            try:
+                if file_extension == '.csv':
+                    df = pd.read_csv(main_cat_excel_sheet)
+                elif file_extension in ['.xls', '.xlsx']:
+                    df = pd.read_excel(main_cat_excel_sheet)
+                else:
+                    messages.error(request, "Unsupported file format. Please upload a .csv or .xlsx file.")
+                    return redirect('backend:category_list')
+
+                required_fields = ['name', 'created_by']
+
+                for index, row in df.iterrows():
+                    row_num = index + 2
+                    missing_fields = []
+                    fk_issues = []
+
+                    for field in required_fields:
+                        if pd.isna(row.get(field)) or str(row.get(field)).strip() == '':
+                            missing_fields.append(field)
+
+                    if missing_fields:
+                        log['details']['missing_required_fields'].append({'row': row_num, 'columns': missing_fields})
+                        log['skipped'] += 1
+                        continue
+
+                    try:
+                        created_by, _ = get_foreign_key_instance(User, row.get('created_by'), 'Created By', fk_issues, row_num, required=True)
+
+                        if fk_issues:
+                            log['details']['invalid_foreign_keys'].append({'row': row_num, 'issues': fk_issues})
+                            log['failed'] += 1
+                            continue
+
+                        name = str(row.get('name')).strip()
+                        description = str(row.get('description')).strip() if pd.notna(row.get('description')) else ''
+                        ordering = int(row.get('ordering')) if pd.notna(row.get('ordering')) else 0
+                        is_active = bool(row.get('is_active')) if pd.notna(row.get('is_active')) else True
+
+                        if ProductMainCategory.objects.filter(name__iexact=name).exists():
+                            log['details']['already_exists'].append({'row': row_num, 'name': name})
+                            log['skipped'] += 1
+                            continue
+
+                        ProductMainCategory.objects.create(
+                            name=name,
+                            description=description,
+                            ordering=ordering,
+                            is_active=is_active,
+                            created_by=created_by,
+                            updated_by=created_by,
+                            updated_at=timezone.now()
+                        )
+
+                        log['inserted'] += 1
+
+                    except Exception as e:
+                        log['details']['other_errors'].append(f"Row {row_num}: Error - {str(e)}")
+                        log['skipped'] += 1
+                        continue
+
+            except Exception as e:
+                log['details']['other_errors'].append(f"File-level Error: {str(e)}")
+                messages.error(request, f"Import failed: {str(e)}")
+
+    if log['inserted'] > 0:
+        messages.success(request, f"Successfully inserted {log['inserted']} categories.")
+    if log['skipped'] > 0:
+        messages.warning(request, f"{log['skipped']} rows were skipped.")
+    if log['failed'] > 0:
+        messages.error(request, f"{log['failed']} rows failed due to FK issues.")
+    if log['details']['already_exists']:
+        messages.info(request, f"{len(log['details']['already_exists'])} categories already exist and were skipped.")
+    if log['details']['other_errors']:
+        messages.error(request, f"Unexpected errors occurred. Please check the log.")
+
+    return render(request, 'product/maincategories/upload_excel.html', {'log': log})
+
 
 
 
@@ -626,7 +739,44 @@ class SubCategoryListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ProductSubCategory.objects.filter(is_active=True).order_by('-id')
+        filters = {'is_active': True}
+        main_category_id       = self.request.GET.get('main_category')
+        sub_category_id        = self.request.GET.get('sub_category') 
+        created_from           = self.request.GET.get('created_from') 
+        created_to             = self.request.GET.get('created_to')  
+
+        if main_category_id:
+            filters['main_category_id']      = main_category_id
+        
+        if sub_category_id:
+            filters['id']      = sub_category_id 
+        
+        if created_from:
+            filters['created_at__date__gte']  = created_from 
+
+        if created_to:
+            filters['created_at__date__lte']  = created_to 
+
+        return ProductSubCategory.objects.filter(**filters).order_by('-id')
+
+    def get(self, request, *args, **kwargs):
+        if self.request.GET.get('export') == 'excel':
+            queryset = self.get_queryset()
+            headers = ['ID', 'Name', 'Description', 'Main Category', 'Created at', 'Status']
+
+            rows = []
+            for row in queryset:
+                rows.append([
+                    row.id,
+                    row.name,
+                    row.description,
+                    row.main_category.name if row.main_category else '',
+                    row.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                    'Active' if row.is_active else 'Inactive'
+                ])
+            filename = 'subcategory'
+            return export_data_to_excel(filename=filename, headers=headers, rows=rows)
+        return super().get(request, *args, **kwargs) 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -636,13 +786,138 @@ class SubCategoryListView(ListView):
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
 
+        category_name     = ProductMainCategory.objects.filter(is_active=True).order_by('name').distinct() 
+        sub_catetory_name = ProductSubCategory.objects.filter(is_active=True).order_by('name').distinct() 
+
         context.update({
             'product_sub_categories': paginated_data,
             'page_num': page_num,
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
+
+            'filter_data' : {
+                'category_name' : category_name, 
+                'sub_category_name' : sub_catetory_name, 
+            }
         })
+
+        get_params = self.request.GET.copy()
+        if 'page' in get_params:
+            get_params.pop('page')
+        context['query_params'] = get_params.urlencode()
+
         return context
+
+
+@login_required
+def upload_sub_category_excel(request):
+    if not checkUserPermission(request, 'can_add', 'backend/sub-category/'):
+        messages.error(request, "You do not have permission to upload this product sub category.")
+        return render(request, '403.html')
+
+    log = {
+        'inserted': 0,
+        'skipped': 0,
+        'failed': 0,
+        'details': {
+            'missing_required_fields': [],
+            'invalid_foreign_keys': [],
+            'already_exists': [],
+            'other_errors': [],
+        }
+    }
+
+    if request.method == "POST":
+        sub_cat_excel_sheet = request.FILES.get('excel-sheet')
+
+        if sub_cat_excel_sheet:
+            file_name = sub_cat_excel_sheet.name
+            file_extension = os.path.splitext(file_name)[1].lower()
+
+            try:
+                if file_extension == '.csv':
+                    df = pd.read_csv(sub_cat_excel_sheet)
+                elif file_extension in ['.xls', '.xlsx']:
+                    df = pd.read_excel(sub_cat_excel_sheet)
+                else:
+                    messages.error(request, "Unsupported file format. Please upload a .csv or .xlsx file.")
+                    return redirect('backend:sub_category_list')
+
+                required_fields = ['name', 'main_category', 'created_by']
+
+                for index, row in df.iterrows():
+                    row_num = index + 2
+                    missing_fields = []
+                    fk_issues = []
+
+                    for field in required_fields:
+                        if pd.isna(row.get(field)) or str(row.get(field)).strip() == '':
+                            missing_fields.append(field)
+
+                    if missing_fields:
+                        log['details']['missing_required_fields'].append({'row': row_num, 'columns': missing_fields})
+                        log['skipped'] += 1
+                        continue
+
+                    try:
+                        # Get foreign keys
+                        main_category, _ = get_foreign_key_instance(ProductMainCategory, row.get('main_category'), 'Main Category', fk_issues, row_num, required=True)
+                        created_by, _ = get_foreign_key_instance(User, row.get('created_by'), 'Created By', fk_issues, row_num, required=True)
+
+                        if fk_issues:
+                            log['details']['invalid_foreign_keys'].append({'row': row_num, 'issues': fk_issues})
+                            log['failed'] += 1
+                            continue
+
+                        name = str(row.get('name')).strip()
+
+                        # Check duplicate (same name under same main_category)
+                        exists = ProductSubCategory.objects.filter(name__iexact=name, main_category=main_category).exists()
+                        if exists:
+                            log['details']['already_exists'].append({'row': row_num, 'name': name})
+                            log['skipped'] += 1
+                            continue
+
+                        description = str(row.get('description')).strip() if pd.notna(row.get('description')) else ''
+                        ordering = int(row.get('ordering')) if pd.notna(row.get('ordering')) else 0
+                        is_active = bool(row.get('is_active')) if pd.notna(row.get('is_active')) else True
+
+                        # Create subcategory
+                        ProductSubCategory.objects.create(
+                            name=name,
+                            main_category=main_category,
+                            description=description,
+                            ordering=ordering,
+                            is_active=is_active,
+                            created_by=created_by,
+                            updated_by=created_by,
+                            updated_at=timezone.now()
+                        )
+
+                        log['inserted'] += 1
+
+                    except Exception as e:
+                        log['details']['other_errors'].append(f"Row {row_num}: Error - {str(e)}")
+                        log['skipped'] += 1
+                        continue
+
+            except Exception as e:
+                log['details']['other_errors'].append(f"File-level Error: {str(e)}")
+                messages.error(request, f"Import failed: {str(e)}")
+
+    # Show messages
+    if log['inserted'] > 0:
+        messages.success(request, f"Inserted {log['inserted']} subcategories.")
+    if log['skipped'] > 0:
+        messages.warning(request, f"Skipped {log['skipped']} rows.")
+    if log['failed'] > 0:
+        messages.error(request, f" {log['failed']} failed due to foreign key issues.")
+    if log['details']['other_errors']:
+        messages.error(request, f"Unexpected errors occurred. Check logs.")
+
+    return render(request, 'product/subcategories/upload_excel.html', {'log': log})
+
+
     
 
 @login_required
@@ -661,10 +936,10 @@ def sub_category_details_view(request, pk):
 
 @method_decorator(login_required, name='dispatch')
 class SubCategoryCreateView(CreateView):
-    model = ProductSubCategory
-    form_class = ProductSubCategoryForm
+    model         = ProductSubCategory
+    form_class    = ProductSubCategoryForm
     template_name = 'product/subcategories/add_category.html'
-    success_url = reverse_lazy('backend:sub_category_list')
+    success_url   = reverse_lazy('backend:sub_category_list')
 
     def dispatch(self, request, *args, **kwargs):
         if not checkUserPermission(request, "can_add", "backend/sub-category/"):
@@ -680,10 +955,10 @@ class SubCategoryCreateView(CreateView):
 
 @method_decorator(login_required, name='dispatch')
 class SubCategoryUpdateView(UpdateView):
-    model = ProductSubCategory
-    form_class = ProductSubCategoryForm
+    model         = ProductSubCategory
+    form_class    = ProductSubCategoryForm
     template_name = 'product/subcategories/cat_update.html'
-    success_url = reverse_lazy('backend:sub_category_list')
+    success_url   = reverse_lazy('backend:sub_category_list')
 
     def dispatch(self, request, *args, **kwargs):
         if not checkUserPermission(request, "can_update", "backend/sub-category/"):
@@ -724,7 +999,41 @@ class ChildCategoryListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ProductChildCategory.objects.filter(is_active=True).order_by('-id')
+        filters = {'is_active': True}
+        sub_category_id    = self.request.GET.get('sub_category')
+        child_category_id  = self.request.GET.get('child_category') 
+        created_from       = self.request.GET.get('creaded_from')
+        created_to         = self.request.GET.get('created_to') 
+
+        if sub_category_id:
+            filters['sub_category_id'] = sub_category_id 
+        if child_category_id:
+            filters['id'] = child_category_id
+        if created_from:
+            filters['created_at__date__gte'] = created_from
+        if created_to:
+            filters['created_at__date__lte'] = created_to 
+
+        return ProductChildCategory.objects.filter(**filters).order_by('-id')
+    
+    def get(self, request, *args, **kwargs):
+        if self.request.GET.get('export') == 'excel':
+            queryset = self.get_queryset()
+            headers = ['ID', 'Name', 'Sub Category', 'Description', 'Created at', 'Status']
+
+            rows = []
+            for row in queryset:
+                rows.append([
+                    row.id,
+                    row.name,
+                    row.sub_category.name if row.sub_category else '',
+                    row.description,
+                    row.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                    'Active' if row.is_active else 'Inactive'
+                ])
+            filename = 'childcategory'
+            return export_data_to_excel(filename=filename, headers=headers, rows=rows)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -734,13 +1043,142 @@ class ChildCategoryListView(ListView):
 
         paginated_data, paginator_list, last_page_number = paginate_data(self.request, page_num, full_queryset)
 
+        category_name       = ProductMainCategory.objects.filter(is_active=True).order_by('name').distinct() 
+        sub_catetory_name   = ProductSubCategory.objects.filter(is_active=True).order_by('name').distinct() 
+        child_category_name = ProductChildCategory.objects.filter(is_active=True).order_by('name').distinct() 
+
         context.update({
             'product_child_categories': paginated_data,
             'page_num': page_num,
             'paginator_list': paginator_list,
             'last_page_number': last_page_number,
+            'filter_data' : {
+                'category_name' : category_name, 
+                'sub_category_name' : sub_catetory_name, 
+                'child_category_name' : child_category_name,
+            }
         })
+
+        get_params = self.request.GET.copy()
+        if 'page' in get_params:
+            get_params.pop('page')
+        context['query_params'] = get_params.urlencode()
+
+
+
         return context
+
+
+
+@login_required
+def upload_child_category_excel(request):
+    if not checkUserPermission(request, 'can_add', 'backend/child-category/'):
+        messages.error(request, "You do not have permission to upload this product child category.")
+        return render(request, '403.html')
+
+    log = {
+        'inserted': 0,
+        'skipped': 0,
+        'failed': 0,
+        'details': {
+            'missing_required_fields': [],
+            'invalid_foreign_keys': [],
+            'already_exists': [],
+            'other_errors': [],
+        }
+    }
+
+    if request.method == "POST":
+        child_cat_excel_sheet = request.FILES.get('excel-sheet')
+
+        if child_cat_excel_sheet:
+            file_name = child_cat_excel_sheet.name
+            file_extension = os.path.splitext(file_name)[1].lower()
+
+            try:
+                if file_extension == '.csv':
+                    df = pd.read_csv(child_cat_excel_sheet)
+                elif file_extension in ['.xls', '.xlsx']:
+                    df = pd.read_excel(child_cat_excel_sheet)
+                else:
+                    messages.error(request, "Unsupported file format. Please upload a .csv or .xlsx file.")
+                    return redirect('backend:child_category_list')
+
+                required_fields = ['name', 'sub_category', 'created_by']
+
+                for index, row in df.iterrows():
+                    row_num = index + 2
+                    missing_fields = []
+                    fk_issues = []
+
+                    # Check required fields
+                    for field in required_fields:
+                        if pd.isna(row.get(field)) or str(row.get(field)).strip() == '':
+                            missing_fields.append(field)
+
+                    if missing_fields:
+                        log['details']['missing_required_fields'].append({'row': row_num, 'columns': missing_fields})
+                        log['skipped'] += 1
+                        continue
+
+                    try:
+                        # Get foreign key instances
+                        sub_category, _ = get_foreign_key_instance(ProductSubCategory, row.get('sub_category'), 'Sub Category', fk_issues, row_num, required=True)
+                        created_by, _   = get_foreign_key_instance(User, row.get('created_by'), 'Created By', fk_issues, row_num, required=True)
+
+                        if fk_issues:
+                            log['details']['invalid_foreign_keys'].append({'row': row_num, 'issues': fk_issues})
+                            log['failed'] += 1
+                            continue
+
+                        name = str(row.get('name')).strip()
+
+                        # Check for duplicate
+                        if ProductChildCategory.objects.filter(name__iexact=name, sub_category=sub_category).exists():
+                            log['details']['already_exists'].append({'row': row_num, 'name': name})
+                            log['skipped'] += 1
+                            continue
+
+                        # Optional fields
+                        description = str(row.get('description')).strip() if pd.notna(row.get('description')) else ''
+                        ordering = int(row.get('ordering')) if pd.notna(row.get('ordering')) else 0
+                        is_active = bool(row.get('is_active')) if pd.notna(row.get('is_active')) else True
+
+                        # Create and save new child category
+                        child_category = ProductChildCategory(
+                            name=name,
+                            sub_category=sub_category,
+                            created_by=created_by,
+                            updated_by=created_by,
+                            description=description,
+                            ordering=ordering,
+                            is_active=is_active,
+                            updated_at=timezone.now()
+                        )
+                        child_category.save()
+                        log['inserted'] += 1
+
+                    except Exception as e:
+                        log['details']['other_errors'].append({'row': row_num, 'error': str(e)})
+                        log['failed'] += 1
+                        continue
+
+            except Exception as e:
+                messages.error(request, f"Import failed: {str(e)}")
+                log['details']['other_errors'].append({'file_error': str(e)})
+
+    # Final status messages
+    if log['inserted'] > 0:
+        messages.success(request, f"Inserted {log['inserted']} child categories.")
+    if log['skipped'] > 0:
+        messages.warning(request, f"Skipped {log['skipped']} rows.")
+    if log['failed'] > 0:
+        messages.error(request, f" {log['failed']} rows failed due to FK or data errors.")
+    if log['details']['other_errors']:
+        messages.error(request, "Some unexpected errors occurred.")
+
+    return render(request, 'product/childcategories/upload_excel.html', {'log': log})
+
 
 
 @login_required
