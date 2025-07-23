@@ -1,6 +1,6 @@
 :root,
 [data-bs-theme=light] {
-
+    --border-color:#a5bdd5;
 }
 
 [data-bs-theme=dark] {
@@ -190,7 +190,7 @@ main.main {
     padding: 30px;
 }
 .page-title h3 {
-    font-size: 28px;
+    font-size: 18px;
     font-family: 'MontserratSemiBold';
     margin-bottom: 5px;
 }
@@ -950,4 +950,46 @@ hr {
 }
 .table img.avatar-img {
     max-width: 35px;
+}
+.page-title {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+.form-box {
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px 30px;
+}
+.form-bordered {
+    border-radius: 12px;
+}
+.form-bordered {
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px 30px;
+}
+.form-box input {
+    height: 40px;
+    padding-left: 19px;
+    margin-bottom: 20px;
+}
+.form-box [type="file"] {
+    height: 40px;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    font-size: 13px;
+    border-radius: 24px;
+}
+.form-box label {
+    margin-bottom: 8px;
+}
+.button-box {
+    margin-top: 20px;
+    text-align: center;
+}
+.button-box button{
+    width: 170px;
+    height: 42px;
 }

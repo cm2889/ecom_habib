@@ -210,6 +210,8 @@ footer.footer {
 .list-item a h4 {
     font-size: 18px;
     font-weight: 400;
+    padding: 0;
+    margin: 0;
 }
 
 .category-list-content {
@@ -232,13 +234,15 @@ footer.footer {
     margin-bottom: 40px;
 }
 
+.content-shop-now,
+.content-day-deal,
 .category-list-content {
     overflow: hidden;
     margin-bottom: 40px;
 }
 
 .footer-info-row {
-    max-width: 700px;
+    max-width: 720px;
     width: 100%;
 }
 
@@ -283,11 +287,16 @@ footer.footer {
 
 .deal-item-list .deal-item {
     width: calc(25% - 15px);
-    padding-right: 20px;
+    margin-right: 20px;
+    text-align: center;
+    position: relative;
+    background-color: #F1F2FA;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .deal-item-list .deal-item:last-child {
-    padding-right: 0px;
+    margin-right: 0px;
 }
 
 .shop-now-ino-box {
@@ -320,4 +329,94 @@ footer.footer {
 
 .footer .contact-us-info a {
     text-decoration: none;
+}
+
+.category-section .swiper-button-prev,
+.category-section .swiper-button-next {
+    display: none;
+}
+
+.subcolor {
+    color: #4354A3;
+}
+
+.day-deal-box .title-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day-deal-box .title-box p,
+.day-deal-box .title-box h3 {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.time-left-info {
+    display: flex;
+    align-items: center;
+}
+
+.over-lay-box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+}
+
+.over-lay-box a {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.deal-item h4 {
+    font-weight: normal;
+}
+
+.discount-deal {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.discount-deal span {
+    display: inline-block;
+    background-color: #F80000;
+    color: white;
+    border-radius: 8px;
+    padding: 2px 5px;
+    font-size: 16px;
+}
+
+.list-item {
+    background-color: #F1F2FA;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.list-item a p {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+}
+
+.shop-now-box p {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    max-width: 445px;
+}
+
+.shop-now-box a {
+    text-decoration: none;
+}
+
+.articles-item-list,
+.videos-item-list {
+    display: flex;
+    justify-content: space-between;
+}
+.articles-item {
+    width: calc(33.33% - 20px);
 }

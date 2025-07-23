@@ -2,6 +2,7 @@
 @media screen and (min-width: 991px) {
     .container-box {
         margin: 0 50px;
+        width: calc(100% - 100px);
     }
     .mobile {
         display: none;
@@ -13,6 +14,7 @@
 @media screen and (min-width: 1440px) {
     .container-box {
         margin: 0 100px;
+        width: calc(100% - 200px);
     }
     body{
         font-size: 18px;
@@ -21,6 +23,7 @@
 @media screen and (max-width: 991px) {
     .container-box {
         margin: 0 20px;
+        width: calc(100% - 40px);
     }
     .mobile {
         display: none;
