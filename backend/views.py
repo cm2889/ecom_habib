@@ -1,3 +1,4 @@
+import os 
 import pandas as pd 
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -1084,6 +1085,7 @@ class ProductListView(ListView):
         return context
     
 
+
 def upload_product_excel(request):
     if not checkUserPermission(request, 'can_add', 'backend/product/'):
         messages.error(request, "You do not have permission to upload excel sheet")
@@ -1107,8 +1109,18 @@ def upload_product_excel(request):
         product_excel_sheet = request.FILES.get('excel-sheet')
 
         if product_excel_sheet:
-            try:
+            file_name  = product_excel_sheet.name 
+            file_ext = os.path.splitext(file_name)[1].lower()
+
+            if file_ext == '.csv':
+                df   = pd.read_csv(product_excel_sheet)
+            elif file_ext in ['.xls', '.xlsx']:
                 df = pd.read_excel(product_excel_sheet)
+            else:
+                messages.error(request, "Unsupported file format. Please upload a .csv or .xlsx file.")
+                return redirect('backend:upload_product_excel') 
+             
+            try:
                 required_fields = ['product_name', 'product_sku', 'brand', 'main_category', 'created_by']
 
                 for index, row in df.iterrows():
@@ -1135,7 +1147,7 @@ def upload_product_excel(request):
                     try:
                         """ 
                         Check for foreign key instances and collect issues 
-                        
+
                         """
                         brand, _           = get_foreign_key_instance(ProductBrand, row.get('brand'), 'Brand', fk_issues, row_num, required=True)
                         main_cat, _        = get_foreign_key_instance(ProductMainCategory, row.get('main_category'), 'Main Category', fk_issues, row_num, required=True)
