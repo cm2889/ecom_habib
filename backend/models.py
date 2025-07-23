@@ -118,6 +118,34 @@ class FrontendSettings(models.Model):
         return self.site_title if self.site_title else "Frontend Settings"
 
 
+class FrontendHeaderFooter(models.Model):
+    title = models.CharField(max_length=255, default="My Website")
+    image = models.ImageField(upload_to='settings/header/', blank=True, null=True)
+    path = models.CharField(max_length=255, default="")
+    type = models.CharField(max_length=50, choices=(('header', 'Header'), ('footer', 'Footer')), default='header')
+
+    class Meta:
+        db_table = 'frontend_header_footer'
+        verbose_name_plural = 'Frontend Header & Footer'
+
+    def __str__(self):
+        return self.title if self.title else ""
+    
+
+class FrontendDesignSettings(models.Model):
+    font_choices = (('arial', 'Arial'), ('verdana', 'Verdana'), ('times', 'Times New Roman'))
+
+    header = models.ForeignKey(FrontendHeaderFooter, on_delete=models.CASCADE, related_name='header_design', blank=True, null=True)
+    footer = models.ForeignKey(FrontendHeaderFooter, on_delete=models.CASCADE, related_name='footer_design', blank=True, null=True)
+    primary_color = models.CharField(max_length=20, default="#000000")
+    secondary_color = models.CharField(max_length=20, default="#FFFFFF")
+    font_family = models.CharField(max_length=50, choices=font_choices, default='arial')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='design_settings_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='design_settings_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+
+
 class EmailConfiguration(models.Model):
     email_host      = models.CharField(max_length=255)
     email_port      = models.IntegerField()

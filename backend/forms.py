@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from .models import AdminUser, FrontendSettings, EmailConfiguration, SMSConfiguration
 
 from .models import (
-   ProductBrand,  ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
+   ProductBrand, ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList,
+   ProductList, ProductAttribute, FrontendDesignSettings
 )
 
 
@@ -35,6 +36,20 @@ class FrontendSettingsForm(forms.ModelForm):
     class Meta:
         model = FrontendSettings
         exclude = ['created_by', 'updated_by', 'created_at', 'updated_at', 'is_active']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field.widget, forms.FileInput):
+                field.widget.attrs.update({'class': 'custom-file-input'})
+            else:
+                field.widget.attrs.update({'class': 'form-control'})
+
+
+class FrontendDesignSettingsForm(forms.ModelForm):
+    class Meta:
+        model = FrontendDesignSettings
+        exclude = ['created_by', 'updated_by', 'created_at', 'updated_at']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

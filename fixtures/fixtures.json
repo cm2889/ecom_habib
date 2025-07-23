@@ -560,7 +560,7 @@
         "fields": {
             "module_name": "Settings",
             "menu_name": "Website Setting",
-            "menu_url": "/backend/website-setting/",
+            "menu_url": "/backend/setting/website/",
             "menu_icon": "fa fa-globe icon",
             "parent_id": 6,
             "is_main_menu": false,
@@ -572,6 +572,22 @@
     {
         "model": "backend.backendmenu",
         "pk": 39,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Design Setting",
+            "menu_url": "/backend/setting/design/",
+            "menu_icon": "fa fa-paint-brush icon",
+            "parent_id": 6,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "is_active": true
+        }
+    },
+    
+    {
+        "model": "backend.backendmenu",
+        "pk": 40,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Email Configuration",
@@ -586,7 +602,7 @@
     },
     {
         "model": "backend.backendmenu",
-        "pk": 40,
+        "pk": 41,
         "fields": {
             "module_name": "Settings",
             "menu_name": "SMS Configuration",
@@ -601,7 +617,7 @@
     },
     {
         "model": "backend.backendmenu",
-        "pk": 41,
+        "pk": 42,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Payment Settings",
@@ -616,7 +632,7 @@
     },
     {
         "model": "backend.backendmenu",
-        "pk": 42,
+        "pk": 43,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Email Templates",
@@ -631,7 +647,7 @@
     },
     {
         "model": "backend.backendmenu",
-        "pk": 43,
+        "pk": 44,
         "fields": {
             "module_name": "Settings",
             "menu_name": "SMS Templates",
@@ -646,7 +662,7 @@
     },
     {
         "model": "backend.backendmenu",
-        "pk": 44,
+        "pk": 45,
         "fields": {
             "module_name": "Settings",
             "menu_name": "SEO",
@@ -661,28 +677,13 @@
     },
     {
         "model": "backend.backendmenu",
-        "pk": 45,
+        "pk": 46,
         "fields": {
             "module_name": "Settings",
             "menu_name": "Website SEO",
             "menu_url": "/backend/website-seo/",
             "menu_icon": "fa fa-globe icon",
-            "parent_id": 44,
-            "is_main_menu": false,
-            "is_sub_menu": false,
-            "is_sub_child_menu": true,
-            "is_active": true
-        }
-    },
-    {
-        "model": "backend.backendmenu",
-        "pk": 46,
-        "fields": {
-            "module_name": "Settings",
-            "menu_name": "Page wise SEO",
-            "menu_url": "/backend/page-wise-seo/",
-            "menu_icon": "fa fa-file-text icon",
-            "parent_id": 44,
+            "parent_id": 45,
             "is_main_menu": false,
             "is_sub_menu": false,
             "is_sub_child_menu": true,
@@ -692,6 +693,21 @@
     {
         "model": "backend.backendmenu",
         "pk": 47,
+        "fields": {
+            "module_name": "Settings",
+            "menu_name": "Page wise SEO",
+            "menu_url": "/backend/page-wise-seo/",
+            "menu_icon": "fa fa-file-text icon",
+            "parent_id": 45,
+            "is_main_menu": false,
+            "is_sub_menu": false,
+            "is_sub_child_menu": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "backend.backendmenu",
+        "pk": 48,
         "fields": {
             "module_name": "Users",
             "menu_name": "User Permission",

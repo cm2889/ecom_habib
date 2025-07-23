@@ -1,7 +1,7 @@
 from backend.models import ProductList 
 from django.template.loader import render_to_string 
 from django.http import HttpResponse 
-from weasyprint import HTML  
+# from weasyprint import HTML  
 
 
 def generate_pdf_from_template(request):

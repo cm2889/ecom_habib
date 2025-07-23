@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Design Settings{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row align-items-center my-4">
+            <div class="col">
+                <h2 class="h3 mb-0 page-title">Website Design Settings</h2>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="{{ form.header.id_for_label }}">Header</label>
+                            {{ form.header }}
+                            {{ form.header.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.primary_color.id_for_label }}">Primary Color</label>
+                            {{ form.primary_color }}
+                            {{ form.primary_color.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.font_family.id_for_label }}">Font Family</label>
+                            {{ form.font_family }}
+                            {{ form.font_family.errors }}
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="{{ form.footer.id_for_label }}">Footer</label>
+                            {{ form.footer }}
+                            {{ form.footer.errors }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.secondary_color.id_for_label }}">Secondary Color</label>
+                            {{ form.secondary_color }}
+                            {{ form.secondary_color.errors }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

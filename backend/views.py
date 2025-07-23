@@ -20,12 +20,13 @@ from backend.common_func import checkUserPermission
 from backend.decorators import admin_required
 from backend.models import (
     LoginLog, AdminUser, BackendMenu, UserMenuPermission, FrontendSettings, EmailConfiguration, SMSLog, SMSConfiguration, ProductBrand,
-    ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute
+    ProductMainCategory, ProductSubCategory, ProductChildCategory, AttributeList, AttributeValueList, ProductList, ProductAttribute,
+    FrontendDesignSettings,
 )
 from backend.forms import (
     CustomUserLoginForm, UserCreateForm, FrontendSettingsForm, EmailConfigurationForm, SMSConfigurationForm, ProductBrandForm,
     ProductMainCategoryForm, ProductSubCategoryForm, ProductChildCategoryForm, AttributeListForm, AttributeValueListForm,
-    ProductListForm, ProductAttributeForm
+    ProductListForm, ProductAttributeForm, FrontendDesignSettingsForm
 )
 
 from backend.export_excel import export_data_to_excel 
@@ -1862,7 +1863,7 @@ def setting_dashboard(request):
 
 @admin_required
 def website_setting(request):
-    if not checkUserPermission(request, "can_view", "/backend/website-setting/"):
+    if not checkUserPermission(request, "can_view", "/backend/setting/website/"):
         return render(request, "403.html")
 
     instance = FrontendSettings.objects.first()
@@ -1882,6 +1883,30 @@ def website_setting(request):
         form = FrontendSettingsForm(instance=instance)
 
     return render(request, 'setting/website_setting.html', {'form': form})
+
+
+@admin_required
+def design_setting(request):
+    if not checkUserPermission(request, "can_view", "/backend/setting/design/"):
+        return render(request, "403.html")
+
+    instance = FrontendDesignSettings.objects.first()
+
+    if request.method == 'POST':
+        form = FrontendDesignSettingsForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            settings = form.save(commit=False)
+            if not instance:
+                settings.created_by = request.user
+            else:
+                settings.updated_by = request.user
+                settings.updated_at = datetime.now()
+            settings.save()
+            return redirect('backend:design_setting')  # Adjust redirect as needed
+    else:
+        form = FrontendDesignSettingsForm(instance=instance)
+
+    return render(request, 'setting/design_setting.html', {'form': form})
 
 
 class EmailConfigurationCreateUpdateView(CreateView):

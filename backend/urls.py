@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 from . import export_function
-from . import pdf_generator_func 
+from . import pdf_generator_func
 
-app_name = 'backend' 
+app_name = 'backend'
 
 urlpatterns = [
     path('', views.backend_dashboard, name='backend_dashboard'),
@@ -22,9 +22,10 @@ urlpatterns = [
 
     # Setting
     path('settings/', views.setting_dashboard, name='setting_dashboard'),
-    path('website-setting/', views.website_setting, name='website_setting'),
-    path('email-configuration/', views.EmailConfigurationCreateUpdateView.as_view(), name='email_configuration'),
-    path('sms-configuration/', views.SMSConfigurationCreateUpdateView.as_view(), name='sms_configuration'),
+    path('setting/website/', views.website_setting, name='website_setting'),
+    path('setting/design/', views.design_setting, name='design_setting'),
+    path('setting/email/', views.EmailConfigurationCreateUpdateView.as_view(), name='email_configuration'),
+    path('setting/sms/', views.SMSConfigurationCreateUpdateView.as_view(), name='sms_configuration'),
 
     # path('cities/', views.cities, name='cities'),
     # path('company-setting/', views.company_setting, name='company_setting'),
