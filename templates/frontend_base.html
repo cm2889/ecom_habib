@@ -1,0 +1,16 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% url 'frontend:theme_css' %}">
+</head>
+<body>
+    {% include "headers/"|add:design.header|add:".html" %}
+
+    {% block content %}{% endblock %}
+
+    {% include "footers/"|add:design.footer|add:".html" %}
+</body>
+</html>

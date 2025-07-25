@@ -116,27 +116,15 @@ class FrontendSettings(models.Model):
 
     def __str__(self):
         return self.site_title if self.site_title else "Frontend Settings"
-
-
-class FrontendHeaderFooter(models.Model):
-    title = models.CharField(max_length=255, default="My Website")
-    image = models.ImageField(upload_to='settings/header/', blank=True, null=True)
-    path = models.CharField(max_length=255, default="")
-    type = models.CharField(max_length=50, choices=(('header', 'Header'), ('footer', 'Footer')), default='header')
-
-    class Meta:
-        db_table = 'frontend_header_footer'
-        verbose_name_plural = 'Frontend Header & Footer'
-
-    def __str__(self):
-        return self.title if self.title else ""
     
 
 class FrontendDesignSettings(models.Model):
-    font_choices = (('arial', 'Arial'), ('verdana', 'Verdana'), ('times', 'Times New Roman'))
+    header_choices = (('header1', 'Header 1'), ('header2', 'Header 2'), ('header3', 'Header 3'))
+    footer_choices = (('footer1', 'Footer 1'), ('footer2', 'Footer 2'), ('footer3', 'Footer 3'))
+    font_choices = (('Arial', 'Arial'), ('Verdana', 'Verdana'), ('Times New Roman', 'Times New Roman'))
 
-    header = models.ForeignKey(FrontendHeaderFooter, on_delete=models.CASCADE, related_name='header_design', blank=True, null=True)
-    footer = models.ForeignKey(FrontendHeaderFooter, on_delete=models.CASCADE, related_name='footer_design', blank=True, null=True)
+    header = models.CharField(max_length=10, choices=header_choices, default='header1')
+    footer = models.CharField(max_length=10, choices=footer_choices, default='footer1')
     primary_color = models.CharField(max_length=20, default="#000000")
     secondary_color = models.CharField(max_length=20, default="#FFFFFF")
     font_family = models.CharField(max_length=50, choices=font_choices, default='arial')
@@ -144,6 +132,14 @@ class FrontendDesignSettings(models.Model):
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='design_settings_updated_by', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+
+    class Meta:
+        db_table = 'frontend_design_settings'
+        verbose_name_plural = 'Frontend Design Settings'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.header} - {self.footer} - {self.font_family}"
 
 
 class EmailConfiguration(models.Model):

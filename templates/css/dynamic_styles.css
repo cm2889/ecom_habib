@@ -1,0 +1,25 @@
+{% if design %}
+:root {
+    --primary-color: {{ design.primary_color }};
+    --secondary-color: {{ design.secondary_color }};
+    --font-family: '{{ design.font_family }}';
+}
+
+body {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-family: var(--font-family), sans-serif;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+header, footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 20px;
+}
+{% endif %}

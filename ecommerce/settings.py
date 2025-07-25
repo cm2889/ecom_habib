@@ -47,6 +47,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'backend.context_processors.menu_items',
+                'frontend.context_processors.frontend_design_settings',
             ],
         },
     },
@@ -89,6 +90,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+APPEND_SLASH = True
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'

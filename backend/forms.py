@@ -50,14 +50,20 @@ class FrontendDesignSettingsForm(forms.ModelForm):
     class Meta:
         model = FrontendDesignSettings
         exclude = ['created_by', 'updated_by', 'created_at', 'updated_at']
+        widgets = {
+            'primary_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+            'secondary_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            if isinstance(field.widget, forms.FileInput):
-                field.widget.attrs.update({'class': 'custom-file-input'})
-            else:
-                field.widget.attrs.update({'class': 'form-control'})
+            # Avoid overriding color picker styling
+            if field_name not in ['primary_color', 'secondary_color']:
+                if isinstance(field.widget, forms.FileInput):
+                    field.widget.attrs.update({'class': 'custom-file-input'})
+                else:
+                    field.widget.attrs.update({'class': 'form-control'})
 
 
 class EmailConfigurationForm(forms.ModelForm):
