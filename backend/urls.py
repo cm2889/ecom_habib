@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from . import export_function
+from . import pdf_generator_func 
 
 app_name = 'backend' 
 
@@ -43,6 +44,7 @@ urlpatterns = [
     path('add-category/', views.CategoryCreateView.as_view(), name='add_category'),
     path('category-update/<int:pk>/', views.CategoryUpdateView.as_view(), name='category_update'),
     path('category-delete/<int:pk>/', views.category_delete_view, name='product_main_category_delete'),
+    path('upload-category-excel/', views.upload_category_excel, name='upload_category_excel'), 
 
     # Product sub category URLs
     path('sub-category/', views.SubCategoryListView.as_view(), name='sub_category_list'),
@@ -50,6 +52,7 @@ urlpatterns = [
     path('add-sub-category/', views.SubCategoryCreateView.as_view(), name='add_sub_category'),
     path('sub-category-update/<int:pk>/', views.SubCategoryUpdateView.as_view(), name='sub_category_update'),
     path('sub-category-delete/<int:pk>/', views.sub_category_delete_view, name='sub_category_delete'),
+    path('upload-sub-category-excel/', views.upload_sub_category_excel, name='upload_sub_category_excel'),
 
     # # Product child category URLs
     path('child-category/', views.ChildCategoryListView.as_view(), name='child_category_list'),
@@ -57,6 +60,7 @@ urlpatterns = [
     path('add-child-category/', views.ChildCategoryCreateView.as_view(), name='add_child_category'),
     path('child-category-update/<int:pk>/', views.ChildCategoryUpdateView.as_view(), name='child_category_update'),
     path('child-category-delete/<int:pk>/', views.child_category_delete_view, name='child_category_delete'),
+    path('upload-child-category-excel/', views.upload_child_category_excel, name='upload_child_category_excel'), 
 
     # Attribute list URLs
     path('attributes/', views.AttributeListView.as_view(), name='attribute_list'),
@@ -79,6 +83,8 @@ urlpatterns = [
     path('product-update/<int:pk>/', views.ProductUpdateView.as_view(), name='product_update'),
     path('product-delete/<int:pk>/', views.product_delete_view, name='product_delete'),
     path('download-product-excel/', export_function.export_products_to_excel, name='export_products_to_excel'),
+    path('upload-product-excel/', views.upload_product_excel, name='upload_product_excel'),
+    path('download-product-pdf/', pdf_generator_func.generate_pdf_from_template, name='export_products_to_pdf'), 
 
     # Product attribute URLs
     path('product-attribute-list/', views.ProductAttibuteListView.as_view(), name='product_attribute_list'),

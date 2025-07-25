@@ -102,4 +102,5 @@ celerybeat-schedule.*
 
 .DS_Store
  fixtures/ 
- 
+/test
+*.xlsx 
