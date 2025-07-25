@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme=light>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,142 +11,13 @@
         {% block page_css %}{% endblock %}
     </head>
     <body>
-        <header>
-            <nav class="nav-top">
-                <div class="container-box">
-                    <div class="top-text">
-                        <div class="top-text-left">
-                            <div class="logo">
-                                <img src="/static/frontend/images/icons/q-store.svg" alt="" srcset="">
-                            </div>
-                        </div>
-                        <div class="top-text-right">
-                            <div class="user-menu">
-                                <ul>
-                                    <li><a href="#"><img src="/static/frontend/images/icons/search.svg" alt=""></a></li>
-                                    <li>
-                                        <a href="#"><img src="/static/frontend/images/icons/accout.svg" alt="" ></a>
-                                        <div class="dropdown-user-menu">
-                                            <ul>
-                                                <li><a href="#">Profile</a></li>
-                                                <li><a href="#">Logout</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="#"><img src="/static/frontend/images/icons/wish-list.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="/static/frontend/images/icons/add-to-cart.svg" alt=""></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <nav class="nav">
-                <div class="container-box">
-                    <div class="nav-menu">
-                        <div class="humbarger mobile" id="humbarger">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="main-menu">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Products</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">About</a></li>
-                            </ul>
-                        </div>
-                        <div class="location-box">
-                            <a href="#"><img src="/static/frontend/images/icons/location.svg" alt="" > Dhaka, Bangladesh</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-    {% block content %}
-        
-    {% endblock %}
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-box">
-                <div class="news-letter">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <div class="form-news">
-                            <h5>Feedback</h5>
-                            <div class="news-letter-box">
-                                <div class="footer-subtitle-box">
-                                    <p>Seeking personalized support? Request a call from our team</p>
-                                </div>
-                                <div class="input-field">
-                                    <p>Your name</p>
-                                    <input type="text" name="name" >
-                                </div>
-                                <div class="input-field">
-                                    <p>Phone number</p>
-                                    <input type="text" name="phone" placeholder="">
-                                </div>
-                                <div class="input-field">
-                                    <button class="button button-primary" type="submit">Subscribe</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="footer-info-row">
-                    <div class="footer-info">
-                        <div class="footer-menu">
-                            <h5>Info</h5>
-                            <ul>
-                                <li><a href="#">Company</a></li>
-                                <li><a href="#">Products</a></li>
-                                <li><a href="#">Engineering</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Productions</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-menu">
-                            <h5>About us</h5>
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Products</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">About</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-menu">
-                            <div class="footer-q-store news-letter">
-                                <div class="logo">
-                                    <img src="/static/frontend/images/icons/q-footer-logo.svg" alt="" srcset="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-info contact-us-info">
-                        <div class="footer-menu">
-                            <h5>Contact us</h5>
-                            <p><a href="tel:+19999999999">+1 (999) 999-99-99</a></p> 
-                            <p><a href="mailto:hello@logoipsum.com">hello@logoipsum.com</a></p> 
-                            <p>London</p>
-                        </div>
-                    </div>
-                    <div class="footer-info">
-                        <div class="footer-menu">
-                            <h5>Subscription</h5>
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <div class="subscription-box">
-                                    <input type="text" name="subscription" placeholder="E-mail">
-                                    <button type="submit"><img src="/static/frontend/images/icons/subscribe-arrow.svg" alt="" ></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+        {% include "header/header.html" %}
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    
+        {% include "footer/footer.html" %}
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
