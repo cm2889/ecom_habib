@@ -12,11 +12,11 @@ class AdminUser(models.Model):
         ('female', 'Female'),
         ('other', 'Other'),
     )
-    user          = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin')
-    phone         = models.CharField(max_length=20, blank=True, null=True)
-    gender        = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin')
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
     profile_image = models.ImageField(upload_to='admin_profile_images/', blank=True, null=True)
-    created_at    = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'admin_user'
@@ -36,12 +36,12 @@ class AdminUser(models.Model):
 
 
 class LoginLog(models.Model):
-    user           = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
-    username       = models.CharField(max_length=100, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
+    username = models.CharField(max_length=100, blank=True, null=True)
     wrong_password = models.CharField(max_length=100, blank=True, null=True)
-    login_ip       = models.CharField(max_length=100, blank=True, null=True)
-    login_status   = models.BooleanField(default=False)
-    created_at     = models.DateTimeField(auto_now_add=True)
+    login_ip = models.CharField(max_length=100, blank=True, null=True)
+    login_status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "login_logs"
@@ -51,15 +51,15 @@ class LoginLog(models.Model):
 
 
 class BackendMenu(models.Model):
-    module_name  = models.CharField(max_length=100, db_index=True)
-    menu_name    = models.CharField(max_length=100, unique=True, db_index=True)
-    menu_url     = models.CharField(max_length=250, unique=True)
-    menu_icon    = models.CharField(max_length=250, blank=True, null=True)
-    parent_id    = models.IntegerField()
+    module_name = models.CharField(max_length=100, db_index=True)
+    menu_name = models.CharField(max_length=100, unique=True, db_index=True)
+    menu_url = models.CharField(max_length=250, unique=True)
+    menu_icon = models.CharField(max_length=250, blank=True, null=True)
+    parent_id = models.IntegerField()
     is_main_menu = models.BooleanField(default=False)
-    is_sub_menu  = models.BooleanField(default=False)
+    is_sub_menu = models.BooleanField(default=False)
     is_sub_child_menu = models.BooleanField(default=False)
-    is_active    = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = "backend_menu"
@@ -69,10 +69,10 @@ class BackendMenu(models.Model):
 
 
 class UserMenuPermission(models.Model):
-    user       = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_permission")
-    menu       = models.ForeignKey(BackendMenu, on_delete=models.CASCADE, related_name="user_permission")
-    can_view   = models.BooleanField(default=False)
-    can_add    = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_permission")
+    menu = models.ForeignKey(BackendMenu, on_delete=models.CASCADE, related_name="user_permission")
+    can_view = models.BooleanField(default=False)
+    can_add = models.BooleanField(default=False)
     can_update = models.BooleanField(default=False)
     can_delete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -80,8 +80,8 @@ class UserMenuPermission(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_by_user_permission")
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_by_user_permission", blank=True, null=True)
     deleted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="deleted_by_user_permission", blank=True, null=True)
-    is_active  = models.BooleanField(default=True)
-    deleted    = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = "user_permission"
@@ -92,22 +92,22 @@ class UserMenuPermission(models.Model):
 
 # Frontend Settings
 class FrontendSettings(models.Model):
-    site_title    = models.CharField(max_length=255, default="My Website")
-    logo          = models.ImageField(upload_to='settings/logo/', blank=True, null=True)
-    favicon       = models.ImageField(upload_to='settings/favicon/', blank=True, null=True)
+    site_title = models.CharField(max_length=255, default="My Website")
+    logo = models.ImageField(upload_to='settings/logo/', blank=True, null=True)
+    favicon = models.ImageField(upload_to='settings/favicon/', blank=True, null=True)
 
     contact_email = models.EmailField(blank=True, null=True)
     contact_phone = models.CharField(max_length=20, blank=True, null=True)
-    address       = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
 
-    facebook_url  = models.URLField(blank=True, null=True)
+    facebook_url = models.URLField(blank=True, null=True)
     instagram_url = models.URLField(blank=True, null=True)
 
-    created_by    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='frontend_settings_created_by')
-    updated_by    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='frontend_settings_updated_by', blank=True, null=True)
-    created_at    = models.DateTimeField(auto_now_add=True)
-    updated_at    = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active     = models.BooleanField(default=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='frontend_settings_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='frontend_settings_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'frontend_settings'
@@ -143,18 +143,18 @@ class FrontendDesignSettings(models.Model):
 
 
 class EmailConfiguration(models.Model):
-    email_host      = models.CharField(max_length=255)
-    email_port      = models.IntegerField()
+    email_host = models.CharField(max_length=255)
+    email_port = models.IntegerField()
     email_host_user = models.EmailField()
     email_host_password = models.CharField(max_length=255)
-    use_tls        = models.BooleanField(default=True)
-    use_ssl        = models.BooleanField(default=False)
+    use_tls = models.BooleanField(default=True)
+    use_ssl = models.BooleanField(default=False)
     email_from_name = models.CharField(max_length=255, default="")
-    created_by     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_config_created_by')
-    updated_by     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_config_updated_by', blank=True, null=True)
-    created_at     = models.DateTimeField(auto_now_add=True)
-    updated_at     = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active      = models.BooleanField(default=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_config_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_config_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'email_configuration'
@@ -169,17 +169,17 @@ class SMSConfiguration(models.Model):
 
     sms_provider = models.CharField(max_length=50, choices=sms_provider_choices, default='ssl', db_index=True)
     sms_configuration_type = models.CharField(max_length=100, choices=sms_configuration_type_choices, default='api_token', db_index=True)
-    api_url      = models.URLField(max_length=255, blank=True, null=True)
-    sms_id       = models.CharField(max_length=100, blank=True, null=True)
-    api_token    = models.TextField(blank=True, null=True)
-    username     = models.CharField(max_length=255, blank=True, null=True)
-    password     = models.CharField(max_length=255, blank=True, null=True)
-    created_at   = models.DateTimeField(auto_now_add=True)
-    updated_at   = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    created_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_created_by_user")
-    updated_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_updated_by_user", blank=True, null=True)
-    deleted_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_deleted_by_user", blank=True, null=True)
-    status       = models.BooleanField(default=False)
+    api_url = models.URLField(max_length=255, blank=True, null=True)
+    sms_id = models.CharField(max_length=100, blank=True, null=True)
+    api_token = models.TextField(blank=True, null=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
+    password = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_created_by_user")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_updated_by_user", blank=True, null=True)
+    deleted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sms_config_deleted_by_user", blank=True, null=True)
+    status = models.BooleanField(default=False)
 
     class Meta:
         db_table = "sms_configurations"
@@ -190,12 +190,12 @@ class SMSConfiguration(models.Model):
 
 class SMSLog(models.Model):
     mobile_number = models.CharField(max_length=15, db_index=True)
-    message_text  = models.TextField(blank=True, null=True)
-    status        = models.CharField(max_length=15, blank=True, null=True)
-    ip_address    = models.CharField(max_length=50, blank=True, null=True)
+    message_text = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=15, blank=True, null=True)
+    ip_address = models.CharField(max_length=50, blank=True, null=True)
     sms_configuration = models.ForeignKey(SMSConfiguration, on_delete=models.CASCADE, blank=True, null=True)
-    created_at    = models.DateTimeField(auto_now_add=True)
-    created_by    = models.ForeignKey(
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name="sms_sent_created_by_user",
         blank=True, null=True
@@ -212,16 +212,16 @@ class SMSLog(models.Model):
 
 # Inventory
 class ProductBrand(models.Model):
-    name        = models.CharField(max_length=100, unique=True)
-    slug        = models.SlugField(max_length=150, unique=True, blank=True)
-    image       = models.ImageField(upload_to='inventory/brand_images/', blank=True, null=True)
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=150, unique=True, blank=True)
+    image = models.ImageField(upload_to='inventory/brand_images/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    ordering    = models.IntegerField(default=0)
-    created_by  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_created_by')
-    updated_by  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_updated_by', blank=True, null=True)
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active   = models.BooleanField(default=True)
+    ordering = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brand_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'product_brand'
@@ -244,16 +244,16 @@ class ProductBrand(models.Model):
 
 
 class ProductMainCategory(models.Model):
-    name        = models.CharField(max_length=150, unique=True)
-    slug        = models.SlugField(max_length=150, unique=True, blank=True)
-    image       = models.ImageField(upload_to='ecommerce/category_images/', blank=True, null=True)
+    name = models.CharField(max_length=150, unique=True)
+    slug = models.SlugField(max_length=150, unique=True, blank=True)
+    image = models.ImageField(upload_to='ecommerce/category_images/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    ordering    = models.IntegerField(default=0)
-    created_by  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_created_by')
-    updated_by  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_updated_by', blank=True, null=True)
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active   = models.BooleanField(default=True)
+    ordering = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category_updated_by', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'product_category'
@@ -276,17 +276,17 @@ class ProductMainCategory(models.Model):
 
 
 class ProductSubCategory(models.Model):
-    main_category  = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
-    name           = models.CharField(max_length=150)
-    slug           = models.SlugField(max_length=150, unique=True)
-    image          = models.ImageField(upload_to='ecommerce/sub_category_images/', blank=True, null=True)
-    description    = models.TextField(blank=True, null=True)
-    ordering       = models.IntegerField(default=0)
-    created_by     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_created_by')
-    created_at     = models.DateTimeField(auto_now_add=True)
-    updated_by     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_updated_by', blank=True, null=True)
-    updated_at     = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active      = models.BooleanField(default=True)
+    main_category = models.ForeignKey(ProductMainCategory, on_delete=models.CASCADE)
+    name = models.CharField(max_length=150)
+    slug = models.SlugField(max_length=150, unique=True)
+    image = models.ImageField(upload_to='ecommerce/sub_category_images/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    ordering = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_category_updated_by', blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'product_sub_category'
@@ -310,16 +310,16 @@ class ProductSubCategory(models.Model):
 
 class ProductChildCategory(models.Model):
     sub_category = models.ForeignKey(ProductSubCategory, on_delete=models.CASCADE)
-    name         = models.CharField(max_length=150)
-    slug         = models.SlugField(max_length=150, unique=True)
-    image        = models.ImageField(upload_to='ecommerce/child_category_images/', blank=True, null=True)
-    description  = models.TextField(blank=True, null=True)
-    ordering     = models.IntegerField(default=0)
-    created_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_created_by')
-    created_at   = models.DateTimeField(auto_now_add=True)
-    updated_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_updated_by', blank=True, null=True)
-    updated_at   = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active    = models.BooleanField(default=True)
+    name = models.CharField(max_length=150)
+    slug = models.SlugField(max_length=150, unique=True)
+    image = models.ImageField(upload_to='ecommerce/child_category_images/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    ordering = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_category_updated_by', blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -342,13 +342,13 @@ class ProductChildCategory(models.Model):
 
 
 class AttributeList(models.Model):
-    name       = models.CharField(max_length=50, unique=True)
-    ordering   = models.IntegerField(default=0)
+    name = models.CharField(max_length=50, unique=True)
+    ordering = models.IntegerField(default=0)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_created_by')
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attribute_updated_by', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active  = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'attribute_list'
@@ -360,14 +360,14 @@ class AttributeList(models.Model):
 
 
 class AttributeValueList(models.Model):
-    attribute  = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
-    value      = models.CharField(max_length=50, unique=True)
-    ordering   = models.IntegerField(default=0)
+    attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
+    value = models.CharField(max_length=50, unique=True)
+    ordering = models.IntegerField(default=0)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='value_created_by')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='value_updated_by', blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    is_active  = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'value_list'
@@ -442,14 +442,14 @@ class ProductList(models.Model):
 
 
 class ProductAttribute(models.Model):
-    product    = models.ForeignKey(ProductList, on_delete=models.CASCADE)
-    attribute  = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
-    value      = models.ForeignKey(AttributeValueList, on_delete=models.CASCADE)
+    product = models.ForeignKey(ProductList, on_delete=models.CASCADE)
+    attribute = models.ForeignKey(AttributeList, on_delete=models.CASCADE)
+    value = models.ForeignKey(AttributeValueList, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_created_by')
     updated_at = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_attribute_updated_by', blank=True, null=True)
-    is_active  = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'product_attribute'

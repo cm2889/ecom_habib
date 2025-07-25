@@ -1,0 +1,181 @@
+{% extends 'layout.html' %}
+
+{% block title %} Home | Ecommerce {% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+{% endblock %}
+
+{% block content %}
+    <section class="product-details-section">
+        <div class="container-box">
+            <div class="product-title">
+                <h2>luxurious sofa</h2>
+            </div>
+            <div class="product-tabs">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="general_info-tab" data-bs-toggle="tab" data-bs-target="#general_info"
+                            type="button" role="tab" aria-controls="general_info" aria-selected="true">
+                            General info
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
+                            type="button" role="tab" aria-controls="reviews" aria-selected="false">
+                            Reviews
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <!-- Tab content -->
+            <div class="tab-content pt-3" id="myTabContent">
+                <div class="tab-pane general_info fade show active" id="general_info" role="tabpanel" aria-labelledby="general_info-tab">
+                    <div class="product-content">
+                        <div class="product-images">
+                            <div class="product-image-box">
+                                <div class="image-viewer"> 
+                                    {% comment %} <img id="view-product" src="/static/frontend/images/products/luxari-sofa.png" alt="">  {% endcomment %}
+                                </div>
+                                <div class="image-gallery">
+                                    <ul>
+                                        <li><img src="/static/frontend/images/products/luxari-sofa.png" alt="">
+                                        <li><img src="/static/frontend/images/products/orange-office-chair.png" alt="">
+                                        <li><img src="/static/frontend/images/products/luxari-sofa.png" alt="">
+                                        <li><img src="/static/frontend/images/products/orange-office-chair.png" alt="">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-text-info">
+                            <div class="group-text price-box">
+                                <div class="price">
+                                    <h5>$999 <del>$999</del></h5>
+                                </div>
+                                <div class="review">
+                                    <ul>
+                                        <li><img src="/static/frontend/images/icons/star.svg" alt=""></li>
+                                        <li><img src="/static/frontend/images/icons/star.svg" alt=""></li>
+                                        <li><img src="/static/frontend/images/icons/star.svg" alt=""></li>
+                                        <li><img src="/static/frontend/images/icons/star.svg" alt=""></li>
+                                    </ul>
+                                    <p>12 reviews</p>
+                                </div>
+                            </div>
+                            <div class="group-text">
+                                <div class="subtitle">
+                                    <h5>Description</h5>
+                                </div>
+                                <div class="describe-box">
+                                    <p>Boba etiam ut bulla tea est potus dilectus singulari compositione saporum et ade textuum, quae in Taiwan annis 1980 orta sunt. Boba refert ad pilas masticas dade tapiocas in fundo potus inventas, quae typice lacte tea nigro sapiuntur. Boba  da sdad for with which rrr phaenomenon...
+                                    <a class="see-more" href="#">See More</a> </p>
+                                </div>
+                            </div>
+                            <div class="group-text">
+                                <div class="subtitle">
+                                    <h5>Color</h5>
+                                </div>
+                                <div class="color-box">
+                                    <p>Boba etiam ut bulla tea est potus dilectus singulari compositione saporum et ade textuum, quae in Taiwan annis 1980 orta sunt. Boba refert ad pilas masticas dade tapiocas in fundo potus inventas, quae typice lacte tea nigro sapiuntur. Boba  da sdad for with which rrr phaenomenon...
+                                    <a class="see-more" href="#">See More</a> </p>
+                                </div>
+                            </div>
+                            <div class="group-text">
+                                <div class="addtocart-box">
+                                    <div class="counter-box">
+                                        <input type="number" name="qty" id="qty" value="1" min="1" max="100">
+                                    </div>
+                                    <div class="counter-box counter-box-addtocart">
+                                        <button type="button" class="button button-primary  addtocart"> <img src="/static/frontend/images/icons/product-add.svg" alt=""> Add to Cart</button>
+                                    </div>
+                                    <div class="wishlist-box">
+                                        <button type="button" class="button button-secondary favorite"> <img src="/static/frontend/images/icons/wish-list.svg" alt=""> Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane reviews-info fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <p>This is the Profile tab content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Latest Articles-->
+    <section class="day-deal-section latest-articles-section">
+        <div class="container-box">
+            <div class="content-day-deal">
+                <div class="day-deal-box">
+                    <div class="title-box">
+                        <div class="title-box-info">
+                            <h3>Latest  <span class="subcolor">Articles </span></h3>
+                            <p>Lorem ipsum dolor sit amet consectetur. Ac id.</p>
+                        </div>
+                        <div class="time-left-info">
+                            <p><a href="#">View all</a></p>
+                        </div>
+                    </div>
+                    <div class="articles-info">
+                        <div class="articles-item-list">
+                            <div class="articles-item">
+                                <a href="#" class="card__link" alt="Storage" title="Storage">
+                                    <img class="" src="/static/frontend/images/video.png" alt="Storage">
+                                </a>
+                                <div class="articles-text">
+                                    <h4>Lorem ipsum dolor </h4>
+                                    <p>April 24, 2022 - 5 min read<p>
+                                    <p>Nunc non posuere consectetur, justo erat semper enim, non hendrerit dui odio id enim.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="articles-item">
+                                <a href="#" class="card__link" alt="Storage" title="Storage">
+                                    <img class="" src="/static/frontend/images/video.png" alt="Storage">
+                                </a>
+                                <div class="articles-text">
+                                    <h4>Lorem ipsum dolor </h4>
+                                    <p>April 24, 2022 - 5 min read<p>
+                                    <p>Nunc non posuere consectetur, justo erat semper enim, non hendrerit dui odio id enim.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="articles-item">
+                                <a href="#" class="card__link" alt="Storage" title="Storage">
+                                    <img class="" src="/static/frontend/images/video.png" alt="Storage">
+                                </a>
+                                <div class="articles-text">
+                                    <h4>Lorem ipsum dolor </h4>
+                                    <p>April 24, 2022 - 5 min read<p>
+                                    <p>Nunc non posuere consectetur, justo erat semper enim, non hendrerit dui odio id enim.</p>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        
+{% endblock %}
+
+{% block page_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.image-gallery img').forEach(img => {
+            img.addEventListener('click', function () {
+                console.log('monir')
+                const newSrc = this.getAttribute('src');
+                const viewer = document.getElementById('view-product');
+                if (viewer) {
+                    viewer.setAttribute('src', newSrc);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

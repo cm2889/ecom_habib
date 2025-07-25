@@ -1548,19 +1548,19 @@ def upload_product_excel(request):
         product_excel_sheet = request.FILES.get('excel-sheet')
 
         if product_excel_sheet:
-            file_name  = product_excel_sheet.name 
+            file_name = product_excel_sheet.name
             file_ext = os.path.splitext(file_name)[1].lower()
 
             if file_ext == '.csv':
-                df   = pd.read_csv(product_excel_sheet)
+                df = pd.read_csv(product_excel_sheet)
             elif file_ext in ['.xls', '.xlsx']:
                 df = pd.read_excel(product_excel_sheet)
             else:
                 messages.error(request, "Unsupported file format. Please upload a .csv or .xlsx file.")
-                return redirect('backend:upload_product_excel') 
+                return redirect('backend:upload_product_excel')
              
             try:
-                required_fields = ['product_name', 'product_sku', 'brand', 'main_category', 'created_by']
+                required_fields = ['product_name', 'product_sku', 'brand', 'main_category']
 
                 for index, row in df.iterrows():
                     row_num = index + 2
@@ -1584,20 +1584,14 @@ def upload_product_excel(request):
                         continue
 
                     try:
-                        """ 
-                        Check for foreign key instances and collect issues 
+                        """
+                        Check for foreign key instances and collect issues
 
                         """
-                        brand, _           = get_foreign_key_instance(ProductBrand, row.get('brand'), 'Brand', fk_issues, row_num, required=True)
-                        main_cat, _        = get_foreign_key_instance(ProductMainCategory, row.get('main_category'), 'Main Category', fk_issues, row_num, required=True)
-                        sub_cat, _         = get_foreign_key_instance(ProductSubCategory, row.get('sub_category'), 'Sub Category', fk_issues, row_num)
-                        child_cat, _       = get_foreign_key_instance(ProductChildCategory, row.get('child_category'), 'Child Category', fk_issues, row_num)
-                        created_by_user, _ = get_foreign_key_instance(User, row.get('created_by'), 'Created By User', fk_issues, row_num, required=True)
-
-                        if not created_by_user:
-                            log['details']['missing_created_by'].append({'row': row_num, 'reason': f"User with ID '{row.get('created_by')}' not found."})
-                            log['skipped'] += 1
-                            continue
+                        brand, _ = get_foreign_key_instance(ProductBrand, row.get('brand'), 'Brand', fk_issues, row_num, required=True)
+                        main_cat, _ = get_foreign_key_instance(ProductMainCategory, row.get('main_category'), 'Main Category', fk_issues, row_num, required=True)
+                        sub_cat, _ = get_foreign_key_instance(ProductSubCategory, row.get('sub_category'), 'Sub Category', fk_issues, row_num)
+                        child_cat, _ = get_foreign_key_instance(ProductChildCategory, row.get('child_category'), 'Child Category', fk_issues, row_num)
 
                         if fk_issues:
                             log['details']['invalid_foreign_keys'].append({'row': row_num, 'issues': fk_issues})
@@ -1629,8 +1623,8 @@ def upload_product_excel(request):
                             'is_new_product': bool(row.get('is_new_product')),
                             'is_featured_product': bool(row.get('is_featured_product')),
                             'is_combo_product': bool(row.get('is_combo_product')),
-                            'created_by': created_by_user,
-                            'updated_by': created_by_user,
+                            'created_by_id': request.user.id,
+                            'updated_by_id': request.user.id,
                             'updated_at': timezone.now(),
                             'is_active': bool(row.get('is_active')) if pd.notna(row.get('is_active')) else True,
                             'deleted': bool(row.get('deleted')) if pd.notna(row.get('deleted')) else False,
@@ -1663,11 +1657,9 @@ def upload_product_excel(request):
     if log['failed'] > 0:
         messages.error(request, f"{log['failed']} products failed to process.")
     if log['details']['other_errors']:
-        messages.error(request, f"Unexpected errors occurred. Please review the logs.")
+        messages.error(request, "Unexpected errors occurred. Please review the logs.")
 
     return render(request, 'product/products/upload_excel.html', {'log': log})
-
-
 
 
 @login_required

@@ -1,4 +1,3 @@
-import datetime
 from django.http import HttpResponse
 from openpyxl import Workbook
 from backend.models import ProductList
@@ -60,7 +59,7 @@ def export_products_to_excel(request):
 
     # Prepare HTTP response
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    filename = f"Products List.xlsx"
+    filename = "Products List.xlsx"
     response['Content-Disposition'] = f'attachment; filename={filename}'
     wb.save(response)
 
